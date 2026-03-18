@@ -14,7 +14,7 @@ const experiences = [
     role: "Senior UX/UI Designer",
     company: "101 Healthcare",
     location: "ON, Canada",
-    duration: "06/2025 – Present",
+    duration: "06/2025 – 02/2026",
     description:
       "Leading end-to-end product design for B2B SaaS tools, owning the design system and mentoring junior designers.",
     current: true,
