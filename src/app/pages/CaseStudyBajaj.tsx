@@ -7,6 +7,11 @@ import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
 import orgBrief from "figma:asset/9c3cfbb556086998c1ac741ac060e1e886aa28c1.png";
 import doctorChatImg from "figma:asset/db7671b44f40199062ba2a6353e14e24d3af54fc.png";
+import bajajCover from "@/assets/bajaj-health-cover.webp";
+import bajajVideoConsult from "@/assets/bajaj-video-consult.webp";
+import bajajSpinWheel from "@/assets/bajaj-spin-wheel.webp";
+import bajajPrelogin from "@/assets/bajaj-prelogin.webp";
+import bajajDoctorChat from "@/assets/bajaj-doctor-chat.webp";
 
 const ACCENT = "#E8699A";
 const BEHANCE_URL = "https://www.behance.net/gallery/172611911/Industry-Project-Feature-Implementation-and-Redesign";
@@ -167,17 +172,13 @@ export default function CaseStudyBajaj() {
           transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-6xl mx-auto"
         >
-          <div className={`rounded-2xl md:rounded-3xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+          <div className="rounded-2xl md:rounded-3xl overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1715505535741-e20f2ea6c573?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGF1cm9yYSUyMGJvcmVhbGlzJTIwc3BhY2UlMjBjb2xvcmZ1bHxlbnwxfHx8fDE3NzM1MzUyOTl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Bajaj Finserv Health — placeholder cover"
-              className="w-full block object-cover"
-              style={{ maxHeight: "420px" }}
+              src={bajajCover}
+              alt="Bajaj Finserv Health — app screens showcasing e-consultations and doctor chat"
+              className="w-full block"
             />
           </div>
-          <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-            Bajaj Finserv Health — placeholder cover image
-          </p>
         </motion.div>
       </section>
 
@@ -314,18 +315,13 @@ export default function CaseStudyBajaj() {
                 </Card>
               </div>
 
-              {/* Feature 01 placeholder image */}
               <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
                 <img
-                  src="https://images.unsplash.com/photo-1623548746572-ed16812b7066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWxlbWVkaWNpbmUlMjB2aWRlbyUyMGRvY3RvciUyMGNvbnN1bHRhdGlvbiUyMG1vYmlsZSUyMGFwcHxlbnwxfHx8fDE3NzM4NDI3NTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Instant Video Consultation — placeholder screens"
-                  className="w-full block object-cover"
-                  style={{ maxHeight: "380px" }}
+                  src={bajajVideoConsult}
+                  alt="Instant Video Consultation — home, specialist selection, consultation details, finding doctor"
+                  className="w-full block"
                 />
               </div>
-              <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-                Instant Video Consultation — initiating, in-call, and post-call summary screens
-              </p>
             </div>
 
             <div className={`w-full h-px ${isDark ? "bg-white/6" : "bg-gray-100"}`} />
@@ -367,18 +363,13 @@ export default function CaseStudyBajaj() {
                 </Card>
               </div>
 
-              {/* Feature 02 placeholder image */}
               <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
                 <img
-                  src="https://images.unsplash.com/photo-1733810758677-73ae78c47de3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnYW1pZmljYXRpb24lMjBzcGluJTIwd2hlZWwlMjByZXdhcmQlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzczODQyNzU2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Spin the Wheel — placeholder screens"
-                  className="w-full block object-cover"
-                  style={{ maxHeight: "380px" }}
+                  src={bajajSpinWheel}
+                  alt="Spin the Wheel — wheel, winner reveal, form, and thank you screens"
+                  className="w-full block"
                 />
               </div>
-              <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-                Spin the Wheel — reward mechanic, win reveal, and plan activation flow
-              </p>
             </div>
 
           </div>
@@ -430,18 +421,13 @@ export default function CaseStudyBajaj() {
                 </Card>
               </div>
 
-              {/* Redesign 01 placeholder image */}
               <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
                 <img
-                  src="https://images.unsplash.com/photo-1627719172031-ab42dc849bc3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBvbmJvYXJkaW5nJTIwc2NyZWVucyUyMHdlbGNvbWUlMjBmbG93fGVufDF8fHx8MTc3Mzg0Mjc1Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Pre-login Journey redesign — placeholder screens"
-                  className="w-full block object-cover"
-                  style={{ maxHeight: "380px" }}
+                  src={bajajPrelogin}
+                  alt="Pre-login Journey redesign — feature-led onboarding carousel screens"
+                  className="w-full block"
                 />
               </div>
-              <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-                Pre-login Journey redesign — feature-led carousel replacing generic illustrations
-              </p>
             </div>
 
             <div className={`w-full h-px ${isDark ? "bg-white/6" : "bg-gray-100"}`} />
@@ -490,14 +476,11 @@ export default function CaseStudyBajaj() {
           {/* Doctor Chat screens */}
           <div className={`rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
             <img
-              src={doctorChatImg}
-              alt="Doctor Chat redesign — pre-consultation, in-consultation, and post-consultation states"
+              src={bajajDoctorChat}
+              alt="Doctor Chat redesign — chat states and video call screens"
               className="w-full block"
             />
           </div>
-          <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-            Doctor Chat redesign — three states: pre-consultation, active consultation, and post-consultation with follow-up CTA
-          </p>
         </FadeSection>
 
         <div className={divider} />

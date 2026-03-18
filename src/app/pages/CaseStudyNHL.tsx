@@ -137,9 +137,6 @@ export default function CaseStudyNHL() {
               className="w-full h-full object-cover"
             />
           </div>
-          <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-            NHL TechShow 2022 App — Final Design
-          </p>
         </motion.div>
       </section>
 
@@ -459,14 +456,12 @@ function ScreensCarousel({ body }: { body: string }) {
   const [prev, setPrev]                 = useState<number | null>(null);
   const [direction, setDirection]       = useState<"next" | "prev">("next");
   const [isAnimating, setIsAnimating]   = useState(false);
-  const [newImgLoaded, setNewImgLoaded] = useState(true);
   const [lockedHeight, setLockedHeight] = useState<number | null>(null);
-  // Track which slide indices have already been loaded at least once
-  const loadedIndices = useRef<Set<number>>(new Set([0]));
 
   const containerRef  = useRef<HTMLDivElement>(null);
   const incomingRef   = useRef<HTMLImageElement>(null);
   const outgoingRef   = useRef<HTMLImageElement>(null);
+  const touchStartX   = useRef<number | null>(null);
 
   const total   = CAROUSEL_SLIDES.length;
   const ANIM_MS = 400;
@@ -515,8 +510,6 @@ function ScreensCarousel({ body }: { body: string }) {
     }
     setDirection(dir);
     setPrev(current);
-    // Only show loader if this slide hasn't been loaded before
-    setNewImgLoaded(loadedIndices.current.has(next));
     setCurrent(next);
     setIsAnimating(true);
 
@@ -527,13 +520,30 @@ function ScreensCarousel({ body }: { body: string }) {
     }, ANIM_MS + 60);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    touchStartX.current = null;
+    if (Math.abs(diff) > 50) {
+      navigate(diff > 0 ? "next" : "prev");
+    }
+  };
+
   const slide     = CAROUSEL_SLIDES[current];
   const prevSlide = prev !== null ? CAROUSEL_SLIDES[prev] : null;
 
   return (
     <div className="space-y-5">
       {/* Dark stage */}
-      <div className="rounded-2xl md:rounded-3xl overflow-hidden bg-[#0d0f14] px-6 md:px-12 pt-10 pb-10 flex flex-col items-center relative select-none">
+      <div
+        className="rounded-2xl md:rounded-3xl overflow-hidden bg-[#0d0f14] px-6 md:px-12 pt-10 pb-10 flex flex-col items-center relative select-none touch-pan-y"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
 
         {/* Chips */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -572,24 +582,9 @@ function ScreensCarousel({ body }: { body: string }) {
               position:   prevSlide ? "absolute" : "relative",
               top:        prevSlide ? 0 : undefined,
               left:       prevSlide ? 0 : undefined,
-              opacity:    newImgLoaded ? 1 : 0,
-              transition: "opacity 0.25s ease",
-            }}
-            onLoad={() => {
-              loadedIndices.current.add(current);
-              setNewImgLoaded(true);
             }}
           />
 
-          {/* Spinner while incoming image fetches */}
-          {!newImgLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div
-                className="w-9 h-9 rounded-full border-2 border-white/15 border-t-[#E8699A]"
-                style={{ animation: "spin 0.75s linear infinite" }}
-              />
-            </div>
-          )}
         </div>
 
         {/* Prev arrow */}
@@ -641,7 +636,7 @@ function ScreensCarousel({ body }: { body: string }) {
       {/* Caption */}
       <p
         className={`text-center text-xs ${body}`}
-        style={{ fontFamily: "Poppins, sans-serif", transition: "opacity 0.3s ease", opacity: newImgLoaded ? 1 : 0 }}
+        style={{ fontFamily: "Poppins, sans-serif" }}
       >
         {slide.caption}
       </p>

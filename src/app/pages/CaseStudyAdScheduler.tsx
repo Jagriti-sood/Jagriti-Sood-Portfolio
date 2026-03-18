@@ -3,6 +3,7 @@ import React from "react";
 import { motion, useInView } from "motion/react";
 import { ExternalLink } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import sourceDigitalCover from "@/assets/source-digital-cover.webp";
 import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
 
@@ -273,19 +274,15 @@ export default function CaseStudyAdScheduler() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          <div className={`rounded-2xl md:rounded-3xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+          <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
             <img
-              src="https://images.unsplash.com/photo-1534841090574-cba2d662b62e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZWVwJTIwc3BhY2UlMjBzdGFycyUyMG1pbGt5JTIwd2F5JTIwZGFyayUyMGJsdWV8ZW58MXx8fHwxNzczNTM1Mjk5fDA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Campaigns — placeholder cover"
-              className="w-full block object-cover"
-              style={{ maxHeight: "420px" }}
+              src={sourceDigitalCover}
+              alt="Campaigns — Source Digital Ad Scheduler"
+              className="w-full h-full object-cover"
             />
           </div>
-          <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-            Campaigns — placeholder cover image
-          </p>
         </motion.div>
       </section>
 

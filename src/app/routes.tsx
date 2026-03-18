@@ -6,6 +6,7 @@ import CaseStudyNHL from "./pages/CaseStudyNHL";
 import CaseStudyMaple from "./pages/CaseStudyMaple";
 import CaseStudyAdScheduler from "./pages/CaseStudyAdScheduler";
 import CaseStudyBajaj from "./pages/CaseStudyBajaj";
+import NotFound from "./pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
       { path: "work/maplecode", Component: CaseStudyMaple },
       { path: "work/ad-scheduler", Component: CaseStudyAdScheduler },
       { path: "work/bajaj-health", Component: CaseStudyBajaj },
+      { path: "*", Component: NotFound },
     ],
   },
 ]);

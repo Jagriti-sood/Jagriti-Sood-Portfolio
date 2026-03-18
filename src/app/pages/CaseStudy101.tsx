@@ -218,7 +218,6 @@ export default function CaseStudy101() {
               className="w-full h-full object-cover"
             />
           </div>
-          <ImageCaption text="Final website - designed in Figma, built in Webflow, iterated on for months post-launch" isDark={isDark} />
         </motion.div>
       </section>
 

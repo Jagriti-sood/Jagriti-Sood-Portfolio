@@ -8,7 +8,7 @@ function figmaAssetPlugin() {
     name: 'figma-asset',
     resolveId(source: string) {
       if (source.startsWith('figma:asset/')) {
-        const filename = source.replace('figma:asset/', '')
+        const filename = source.replace('figma:asset/', '').replace(/\.png$/, '.webp')
         return path.resolve(__dirname, 'src/assets', filename)
       }
     },

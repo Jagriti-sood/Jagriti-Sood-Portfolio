@@ -4,6 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
 import { Lock } from "lucide-react";
+import mapleCodeCover from "@/assets/maplecode-cover.webp";
 
 function FadeSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null);
@@ -40,17 +41,17 @@ function ArtifactCard({
           style={{ filter: "blur(10px)" }}
         />
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center gap-2"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2.5"
           style={{
-            background: isDark ? "rgba(10,10,15,0.55)" : "rgba(255,255,255,0.55)",
-            backdropFilter: "blur(2px)",
+            background: isDark ? "rgba(10,10,15,0.82)" : "rgba(0,0,0,0.6)",
+            backdropFilter: "blur(6px)",
           }}
         >
-          <div className="w-9 h-9 rounded-full bg-[#E8699A]/12 border border-[#E8699A]/20 flex items-center justify-center">
-            <Lock size={15} className="text-[#E8699A]" />
+          <div className="w-10 h-10 rounded-full bg-[#E8699A]/15 border border-[#E8699A]/30 flex items-center justify-center">
+            <Lock size={16} className="text-[#E8699A]" />
           </div>
           <span
-            className={`text-[10px] font-bold tracking-widest uppercase ${isDark ? "text-white/40" : "text-gray-400"}`}
+            className="text-[10px] font-bold tracking-widest uppercase text-white/60"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Confidential
@@ -58,7 +59,7 @@ function ArtifactCard({
         </div>
       </div>
       <p
-        className={`text-[11px] text-center ${isDark ? "text-white/22" : "text-gray-300"}`}
+        className={`text-[11px] text-center ${isDark ? "text-white/60" : "text-gray-600"}`}
         style={{ fontFamily: "Poppins, sans-serif" }}
       >
         {label}
@@ -168,19 +169,15 @@ export default function CaseStudyMaple() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.75, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-5xl mx-auto px-6 mt-0 mb-2"
+        className="max-w-6xl mx-auto px-6 mt-0 mb-10"
       >
-        <div className={`rounded-2xl md:rounded-3xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+        <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
           <img
-            src="https://images.unsplash.com/photo-1762281531971-09e2743bdb99?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdhbGF4eSUyMG5lYnVsYSUyMHB1cnBsZSUyMGNvc21pY3xlbnwxfHx8fDE3NzM1MzUyOTh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="MapleCode Innovations — placeholder cover"
-            className="w-full block object-cover"
-            style={{ maxHeight: "420px" }}
+            src={mapleCodeCover}
+            alt="MapleCode Innovations — cover"
+            className="w-full h-full object-cover"
           />
         </div>
-        <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}>
-          MapleCode Innovations — placeholder cover image
-        </p>
       </motion.div>
 
       {/* ── BODY ── */}
@@ -204,7 +201,7 @@ export default function CaseStudyMaple() {
                 NDA Protected
               </span>
               <p
-                className={`text-sm leading-relaxed ${isDark ? "text-white/45" : "text-gray-400"}`}
+                className={`text-sm leading-relaxed ${isDark ? "text-white/70" : "text-gray-600"}`}
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
                 All projects at MapleCode are covered by a non-disclosure agreement. I'm not able to share screens, deliverables, or project specifics publicly — but I'm happy to walk through the work privately.
@@ -240,21 +237,21 @@ export default function CaseStudyMaple() {
             className={`text-xs font-bold tracking-widest uppercase mb-5 ${isDark ? "text-white/28" : "text-gray-300"}`}
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            A Glimpse of the Work
+            Areas of Contribution
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <ArtifactCard
-              src="https://images.unsplash.com/photo-1763705857736-2b4f16a33758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmFuZCUyMGlkZW50aXR5JTIwbG9nbyUyMHR5cG9ncmFwaHklMjBkZXNpZ24lMjBzeXN0ZW18ZW58MXx8fHwxNzczNTI4MjUxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+              src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80"
               label="Brand & web design"
               isDark={isDark}
             />
             <ArtifactCard
-              src="https://images.unsplash.com/photo-1689509973848-b258e42f394d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxVSSUyMGRhc2hib2FyZCUyMGRlc2lnbiUyMHN5c3RlbSUyMGNvbXBvbmVudHMlMjBkYXJrfGVufDF8fHx8MTc3MzUyODI1MHww&ixlib=rb-4.1.0&q=80&w=1080"
+              src="https://images.unsplash.com/photo-1581291518633-83b4eef1d2fa?auto=format&fit=crop&w=800&q=80"
               label="UX / UI design"
               isDark={isDark}
             />
             <ArtifactCard
-              src="https://images.unsplash.com/photo-1752061905355-91061fe8c87a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwaW50ZXJmYWNlJTIwd2lyZWZyYW1lJTIwcHJvdG90eXBlJTIwc2NyZWVuc3xlbnwxfHx8fDE3NzM1MjgyNTR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+              src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=800&q=80"
               label="Social & marketing assets"
               isDark={isDark}
             />
@@ -262,7 +259,7 @@ export default function CaseStudyMaple() {
 
           {/* CTA */}
           <a
-            href="mailto:jagriti@example.com"
+            href="mailto:jagritisood30@gmail.com"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-80"
             style={{ background: "linear-gradient(135deg, #E8699A, #C2547C)", fontFamily: "Poppins, sans-serif" }}
           >
