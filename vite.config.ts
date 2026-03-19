@@ -16,11 +16,14 @@ function figmaAssetPlugin() {
 }
 
 export default defineConfig({
+  base: '/Jagriti-Sood-Portfolio/',  // 🔥🔥 MOST IMPORTANT
+
   plugins: [
     figmaAssetPlugin(),
     react(),
     tailwindcss(),
   ],
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
