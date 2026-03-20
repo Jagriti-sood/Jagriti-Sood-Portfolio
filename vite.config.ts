@@ -16,7 +16,7 @@ function figmaAssetPlugin() {
 }
 
 export default defineConfig({
-  base: '/Jagriti-Sood-Portfolio/',  // 🔥🔥 MOST IMPORTANT
+  base: '/',  // 🔥🔥 MOST IMPORTANT
 
   plugins: [
     figmaAssetPlugin(),
