@@ -148,6 +148,8 @@ export function Hero({ isDark }: HeroProps) {
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
+                    paddingLeft: "0.08em",
+                    marginLeft: "-0.08em",
                   }
                 : {
                     fontStyle: "italic",
@@ -164,7 +166,7 @@ export function Hero({ isDark }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.18, ease: EASE }}
-          className={`max-w-lg mx-auto text-base md:text-lg leading-relaxed mb-10 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] ${
+          className={`max-w-lg md:max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-10 ${
             isDark ? "text-white/52" : "text-gray-500"
           }`}
         >
