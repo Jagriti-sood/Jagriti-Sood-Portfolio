@@ -204,7 +204,9 @@ export function About({ isDark }: AboutProps) {
                 Let's Work Together
               </button>
               <a
-                href="#"
+                href="https://drive.google.com/file/d/1-H4f0bjV999U0hn-z_-sb7cGnwY52sju/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold border transition-all ${
                   isDark
                     ? "border-white/12 text-white/70 hover:text-white hover:border-white/25"

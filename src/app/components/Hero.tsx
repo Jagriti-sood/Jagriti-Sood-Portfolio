@@ -54,30 +54,22 @@ export function Hero({ isDark }: HeroProps) {
         className="absolute inset-0 pointer-events-none select-none"
         aria-hidden="true"
       >
-        {/* Subtle grid — fades out toward the centre so content stays clear */}
+        {/* Subtle grid — fades from all edges, centre stays clear */}
         <div
           className="absolute inset-0"
           style={{
             backgroundImage: isDark
-              ? `linear-gradient(rgba(232,105,154,0.22) 1px, transparent 1px),
-                 linear-gradient(90deg, rgba(232,105,154,0.22) 1px, transparent 1px)`
-              : `linear-gradient(rgba(232,105,154,0.18) 1px, transparent 1px),
-                 linear-gradient(90deg, rgba(232,105,154,0.18) 1px, transparent 1px)`,
+              ? `linear-gradient(rgba(232,105,154,0.18) 1px, transparent 1px),
+                 linear-gradient(90deg, rgba(232,105,154,0.18) 1px, transparent 1px)`
+              : `linear-gradient(rgba(232,105,154,0.13) 1px, transparent 1px),
+                 linear-gradient(90deg, rgba(232,105,154,0.13) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
-            maskImage: "radial-gradient(ellipse 75% 65% at 50% 46%, transparent 38%, black 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 75% 65% at 50% 46%, transparent 38%, black 100%)",
-          }}
-        />
-        {/* Grid dot intersections — same mask */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: isDark
-              ? `radial-gradient(circle, rgba(232,105,154,0.5) 1px, transparent 1px)`
-              : `radial-gradient(circle, rgba(232,105,154,0.35) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-            maskImage: "radial-gradient(ellipse 75% 65% at 50% 46%, transparent 38%, black 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 75% 65% at 50% 46%, transparent 38%, black 100%)",
+            maskImage: `linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
+                        radial-gradient(ellipse 88% 82% at 50% 52%, transparent 28%, black 52%, transparent 90%)`,
+            WebkitMaskImage: `linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
+                              radial-gradient(ellipse 88% 82% at 50% 52%, transparent 28%, black 52%, transparent 90%)`,
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
           }}
         />
       </div>

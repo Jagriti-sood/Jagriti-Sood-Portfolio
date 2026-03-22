@@ -240,7 +240,7 @@ export default function CaseStudyNHL() {
             />
           </div>
           <p className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-            On-site research at NHL TechShow — observing navigation behaviour in the venue
+            Synthesising interview findings and fan pain points across three distinct audience segments
           </p>
         </FadeSection>
 
