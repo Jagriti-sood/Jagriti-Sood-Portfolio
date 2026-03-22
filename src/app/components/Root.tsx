@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import { PageLoader } from "./PageLoader";
 import { ThemeProvider, useTheme } from "../context/ThemeContext";
 import { useFavicon } from "../hooks/useFavicon";
 
@@ -14,6 +15,7 @@ function Layout() {
         isDark ? "bg-[#0a0a0f]" : "bg-white"
       }`}
     >
+      <PageLoader />
       <Navbar isDark={isDark} onToggleTheme={toggleTheme} />
       <main>
         <Outlet />

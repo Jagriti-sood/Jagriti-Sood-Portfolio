@@ -161,7 +161,7 @@ export function Experience({ isDark }: ExperienceProps) {
                     }`}
                     style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
                   >
-                    {exp.current ? "Present" : exp.year}
+                    {exp.current ? "2026" : exp.year}
                   </span>
                 </div>
 
@@ -362,7 +362,7 @@ export function Experience({ isDark }: ExperienceProps) {
                     }`}
                     style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
                   >
-                    {exp.current ? "Present · " : ""}{exp.duration}
+                    {exp.duration}
                   </span>
                 </div>
 
