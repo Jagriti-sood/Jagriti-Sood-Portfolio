@@ -84,11 +84,11 @@ export function Hero({ isDark }: HeroProps) {
           transition={{ duration: 0.5, ease: EASE }}
           className="flex items-center justify-center gap-2.5 mb-8"
         >
-          {/* Gradient-border wrapper */}
+          {/* Border wrapper */}
           <div
             className="inline-flex rounded-full p-[1px]"
             style={{
-              background: "linear-gradient(135deg, rgba(232,105,154,0.55) 0%, rgba(194,84,124,0.2) 60%, transparent 100%)",
+              background: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
             }}
           >
             <div
@@ -98,19 +98,19 @@ export function Hero({ isDark }: HeroProps) {
               {/* Left — status */}
               <span
                 className="inline-flex items-center gap-2 pl-3.5 pr-3 py-1.5"
-                style={{ borderRight: isDark ? "1px solid rgba(232,105,154,0.18)" : "1px solid rgba(232,105,154,0.2)" }}
+                style={{ borderRight: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.07)" }}
               >
                 <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
                   <span
                     className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                    style={{ backgroundColor: "#E8699A" }}
+                    style={{ backgroundColor: "#22c55e" }}
                   />
                   <span
                     className="relative inline-flex rounded-full h-1.5 w-1.5"
-                    style={{ backgroundColor: "#E8699A" }}
+                    style={{ backgroundColor: "#22c55e" }}
                   />
                 </span>
-                <span className="text-xs font-semibold" style={{ color: "#E8699A" }}>
+                <span className="text-xs font-semibold" style={{ color: isDark ? "rgba(255,255,255,0.75)" : "rgba(0,0,0,0.6)" }}>
                   Available now
                 </span>
               </span>
@@ -170,7 +170,7 @@ export function Hero({ isDark }: HeroProps) {
             isDark ? "text-white/52" : "text-gray-500"
           }`}
         >
-          I'm <span style={{ color: "#E8699A" }}>Jagriti</span> — a UX Designer turning complex problems into clear, human-centred products across healthcare, ad-tech, and B2B.
+          I'm Jagriti — a UX Designer turning complex problems into clear, human-centred products across healthcare, ad-tech, and B2B.
         </motion.p>
 
         {/* CTA buttons */}
