@@ -12,7 +12,7 @@ function Layout() {
   return (
     <div
       className={`min-h-screen transition-colors duration-300 ${
-        isDark ? "bg-[#0a0a0f]" : "bg-white"
+        isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"
       }`}
     >
       <PageLoader />

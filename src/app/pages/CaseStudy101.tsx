@@ -9,15 +9,17 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
 
+const ACCENT = "#8b6b4f";
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function SectionLabel({ text, color = "#E8699A" }: { text: string; color?: string }) {
+function SectionLabel({ text, color = ACCENT }: { text: string; color?: string }) {
   return (
     <div className="flex items-center gap-3 mb-4">
       <div className="w-5 h-px" style={{ background: color }} />
       <span
-        className="text-xs font-bold tracking-[0.2em] uppercase"
-        style={{ fontFamily: "Poppins, sans-serif", color }}
+        className="text-[11px] font-medium tracking-[0.18em] uppercase"
+        style={{ fontFamily: "Inter, sans-serif", color }}
       >
         {text}
       </span>
@@ -28,8 +30,8 @@ function SectionLabel({ text, color = "#E8699A" }: { text: string; color?: strin
 function SectionHeading({ children, isDark }: { children: React.ReactNode; isDark: boolean }) {
   return (
     <h2
-      className={`text-3xl md:text-4xl font-bold leading-snug mb-5 ${isDark ? "text-white" : "text-gray-900"}`}
-      style={{ fontFamily: "Playfair Display, serif" }}
+      className={`text-[1.9rem] md:text-[2.5rem] font-semibold leading-[1.12] tracking-[-0.03em] mb-5 ${isDark ? "text-white" : "text-[#171717]"}`}
+      style={{ fontFamily: "Inter, sans-serif" }}
     >
       {children}
     </h2>
@@ -56,7 +58,7 @@ function Card({ isDark, children, className = "" }: { isDark: boolean; children:
   return (
     <div
       className={`p-5 rounded-2xl border ${
-        isDark ? "border-white/8 bg-white/[0.03]" : "border-gray-100 bg-gray-50/60"
+        isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/55"
       } ${className}`}
     >
       {children}
@@ -64,11 +66,11 @@ function Card({ isDark, children, className = "" }: { isDark: boolean; children:
   );
 }
 
-function CardLabel({ text, color = "#E8699A" }: { text: string; color?: string }) {
+function CardLabel({ text, color = ACCENT }: { text: string; color?: string }) {
   return (
     <p
-      className="text-xs font-bold tracking-widest uppercase mb-3"
-      style={{ fontFamily: "Poppins, sans-serif", color }}
+      className="text-[11px] font-medium tracking-[0.18em] uppercase mb-3"
+      style={{ fontFamily: "Inter, sans-serif", color }}
     >
       {text}
     </p>
@@ -77,10 +79,10 @@ function CardLabel({ text, color = "#E8699A" }: { text: string; color?: string }
 
 function BulletList({ items, isDark }: { items: string[]; isDark: boolean }) {
   return (
-    <ul className="space-y-2" style={{ fontFamily: "Poppins, sans-serif" }}>
+    <ul className="space-y-2" style={{ fontFamily: "Inter, sans-serif" }}>
       {items.map((item, i) => (
-        <li key={i} className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
+        <li key={i} className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+          <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[6px] ${isDark ? "bg-white/45" : "bg-[#171717]/40"}`} />
           {item}
         </li>
       ))}
@@ -91,8 +93,8 @@ function BulletList({ items, isDark }: { items: string[]; isDark: boolean }) {
 function ImageCaption({ text, isDark }: { text: string; isDark: boolean }) {
   return (
     <p
-      className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-gray-300"}`}
-      style={{ fontFamily: "Poppins, sans-serif" }}
+      className={`text-center text-xs mt-3 ${isDark ? "text-white/22" : "text-[#171717]/26"}`}
+      style={{ fontFamily: "Inter, sans-serif" }}
     >
       {text}
     </p>
@@ -105,10 +107,15 @@ const nextProject = projects[2]; // MapleCode
 
 export default function CaseStudy101() {
   const { isDark } = useTheme();
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  const paperTexture = isDark
+    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
+    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
-  const body = isDark ? "text-white/52" : "text-gray-500";
-  const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-gray-100"}`;
+  const body = isDark ? "text-white/52" : "text-[#171717]/62";
+  const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-black/8"}`;
 
   const meta = [
     { label: "My Role", value: "Solo UX/UI Designer" },
@@ -118,18 +125,20 @@ export default function CaseStudy101() {
   ];
 
   const outcomes = [
-    { value: "3×", label: "Increase in consultation requests post-launch", color: "#E8699A" },
-    { value: "64%", label: "Increase in service page engagement", color: "#C2547C" },
-    { value: "42%", label: "Reduction in homepage bounce rate", color: "#F4A0C0" },
-    { value: "2m 48s", label: "Average session duration increased", color: "#E8699A" },
+    { value: "3×", label: "Increase in consultation requests post-launch", color: "#8b6b4f" },
+    { value: "64%", label: "Increase in service page engagement", color: "#6f563f" },
+    { value: "42%", label: "Reduction in homepage bounce rate", color: "#b3987d" },
+    { value: "2m 48s", label: "Average session duration increased", color: "#8b6b4f" },
   ];
 
   return (
-    <div className={`min-h-screen ${isDark ? "bg-[#0a0a0f]" : "bg-white"}`}>
+    <div className={`relative min-h-screen overflow-hidden ${isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"}`}>
+      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: paperTexture }} />
+      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${isDark ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]" : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"}`} />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="pt-28 md:pt-36 pb-0 px-6">
-        <div className="max-w-5xl mx-auto">
+      <section className="relative z-10 pt-32 md:pt-36 pb-0 px-6">
+        <div className="max-w-[860px] mx-auto">
 
           {/* Chips */}
           <motion.div
@@ -142,9 +151,9 @@ export default function CaseStudy101() {
               <span
                 key={tag}
                 className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                  isDark ? "border-white/10 text-white/40" : "border-gray-200 text-gray-400"
+                  isDark ? "border-white/10 text-white/40" : "border-black/10 text-[#171717]/42"
                 }`}
-                style={{ fontFamily: "Poppins, sans-serif" }}
+                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 {tag}
               </span>
@@ -156,8 +165,8 @@ export default function CaseStudy101() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className={`text-4xl sm:text-5xl md:text-[56px] font-bold leading-tight mb-5 ${isDark ? "text-white" : "text-gray-900"}`}
-            style={{ fontFamily: "Playfair Display, serif" }}
+            className={`text-[2.4rem] sm:text-[3rem] md:text-[3.8rem] font-semibold leading-[0.98] tracking-[-0.045em] mb-5 ${isDark ? "text-white" : "text-[#171717]"}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             Designing a Trusted Digital<br />Front Door for Senior Home Care
           </motion.h1>
@@ -167,8 +176,8 @@ export default function CaseStudy101() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.18 }}
-            className={`max-w-2xl text-base leading-relaxed mb-10 ${body}`}
-            style={{ fontFamily: "Poppins, sans-serif" }}
+            className={`max-w-[38rem] text-base leading-[1.7] mb-10 ${body}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             A registered home care agency in Ontario with exceptional caregivers and no digital
             presence. I designed and shipped their first website, then stayed on for months of
@@ -182,20 +191,20 @@ export default function CaseStudy101() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.22 }}
             className={`grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 rounded-2xl border overflow-hidden mb-10 ${
-              isDark ? "border-white/8 divide-white/8" : "border-gray-100 divide-gray-100"
+              isDark ? "border-white/8 divide-white/8" : "border-black/8 divide-black/8"
             }`}
           >
             {meta.map((m) => (
-              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-gray-50/60"}`}>
+              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-white/45"}`}>
                 <p
-                  className={`text-xs font-bold tracking-widest uppercase mb-1 ${isDark ? "text-white/28" : "text-gray-300"}`}
-                  style={{ fontFamily: "Poppins, sans-serif" }}
+                  className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/28" : "text-[#171717]/34"}`}
+                  style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {m.label}
                 </p>
                 <p
-                  className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-gray-700"}`}
-                  style={{ fontFamily: "Poppins, sans-serif" }}
+                  className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-[#171717]/78"}`}
+                  style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {m.value}
                 </p>
@@ -209,7 +218,7 @@ export default function CaseStudy101() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-6xl mx-auto"
+          className="max-w-[1080px] mx-auto"
         >
           <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
             <ImageWithFallback
@@ -222,7 +231,7 @@ export default function CaseStudy101() {
       </section>
 
       {/* ── BODY ─────────────────────────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-6 mt-10 md:mt-14 space-y-10 md:space-y-12 pb-16">
+      <div className="relative z-10 max-w-[860px] mx-auto px-6 mt-10 md:mt-14 space-y-10 md:space-y-12 pb-24">
 
         {/* CONTEXT */}
         <FadeSection>
@@ -230,12 +239,12 @@ export default function CaseStudy101() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
             <div className="lg:col-span-3">
               <SectionHeading isDark={isDark}>No website. Exceptional care. Nobody knew they existed.</SectionHeading>
-              <p className={`text-base leading-relaxed mb-4 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+              <p className={`text-base leading-[1.65] mb-4 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                 101 Healthcare had been operating on referrals alone for years - no website, no
                 searchable presence, no way for a family to find them outside word of mouth. The
                 work was genuinely good. The business was invisible.
               </p>
-              <p className={`text-base leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+              <p className={`text-base leading-[1.65] ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                 I joined as the sole designer to build everything from scratch. What started
                 as a design project became a nine-month engagement, initial research and
                 design, close collaboration through the build, a full launch, and then
@@ -245,13 +254,13 @@ export default function CaseStudy101() {
             <div className="lg:col-span-2">
               <Card isDark={isDark}>
                 <CardLabel text="My Scope" />
-                <p className={`text-sm leading-relaxed mb-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] mb-3 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   I led the end-to-end UX design of the website from concept to launch.
                 </p>
-                <p className={`text-sm font-semibold mb-2 ${isDark ? "text-white/65" : "text-gray-600"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm font-semibold mb-2 ${isDark ? "text-white/65" : "text-[#171717]/56"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Responsibilities included:
                 </p>
-                <p className={`text-sm leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   -Research and information architecture<br />
                   -User flow and conversion strategy<br />
                   -Wireframes and high-fidelity UI<br />
@@ -277,10 +286,10 @@ export default function CaseStudy101() {
                 <div
                   key={i}
                   className={`p-4 rounded-xl border text-center ${
-                    isDark ? "border-white/8 bg-white/[0.02]" : "border-gray-100 bg-gray-50/40"
+                    isDark ? "border-white/8 bg-white/[0.02]" : "border-black/8 bg-white/45"
                   }`}
                 >
-                  <p className={`text-xs leading-snug ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <p className={`text-xs leading-snug ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                     {member}
                   </p>
                 </div>
@@ -295,10 +304,10 @@ export default function CaseStudy101() {
         <FadeSection>
           <SectionLabel text="Research & Discovery" />
           <SectionHeading isDark={isDark}>I didn't open Figma until I understood the families.</SectionHeading>
-          <p className={`text-base leading-relaxed mb-5 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+          <p className={`text-base leading-[1.65] mb-5 max-w-2xl ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
             Before designing, I focused on understanding how families search for home care services and what information they need to trust a provider.
           </p>
-          <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+          <p className={`text-base leading-[1.65] mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
             The research focused on care decision behavior, trust signals, and service clarity, which are critical in healthcare service websites.
           </p>
 
@@ -314,28 +323,28 @@ export default function CaseStudy101() {
             </div>
             {/* findings card — matches height via flex */}
             <Card isDark={isDark} className="flex flex-col justify-between">
-              <div className="space-y-3" style={{ fontFamily: "Poppins, sans-serif" }}>
+              <div className="space-y-3" style={{ fontFamily: "Inter, sans-serif" }}>
                 <CardLabel text="What Research Uncovered" />
-                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
+                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[6px] ${isDark ? "bg-white/45" : "bg-[#171717]/40"}`} />
                   Families often search online while under stress or urgency
                 </div>
-                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
+                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[6px] ${isDark ? "bg-white/45" : "bg-[#171717]/40"}`} />
                   Trust is built through clear service explanations and human messaging
                 </div>
-                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
+                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[6px] ${isDark ? "bg-white/45" : "bg-[#171717]/40"}`} />
                   Many healthcare websites overwhelm users with clinical language
                 </div>
-                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
+                <div className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[6px] ${isDark ? "bg-white/45" : "bg-[#171717]/40"}`} />
                   <div className="text-sm">
                     Families primarily want to answer three questions quickly:
                     <div className="ml-4 mt-2 space-y-1.5 text-sm">
-                      <div className="text-sm"><span style={{ color: "#E8699A" }}>1.</span> What services do you provide?</div>
-                      <div className="text-sm"><span style={{ color: "#E8699A" }}>2.</span> Can you help my loved one?</div>
-                      <div className="text-sm"><span style={{ color: "#E8699A" }}>3.</span> How do I get started?</div>
+                      <div className="text-sm"><span style={{ color: ACCENT }}>1.</span> What services do you provide?</div>
+                      <div className="text-sm"><span style={{ color: ACCENT }}>2.</span> Can you help my loved one?</div>
+                      <div className="text-sm"><span style={{ color: ACCENT }}>3.</span> How do I get started?</div>
                     </div>
                   </div>
                 </div>
@@ -361,15 +370,15 @@ export default function CaseStudy101() {
             ].map((ins, i) => (
               <div
                 key={i}
-                className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-gray-100 bg-gray-50/70"}`}
+                className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-black/8 bg-white/55"}`}
               >
-                <p className="text-[10px] font-bold tracking-widest uppercase mb-2 text-[#E8699A]" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-2" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>
                   Insight {i + 1}
                 </p>
-                <p className={`text-sm font-semibold mb-1.5 ${isDark ? "text-white/80" : "text-gray-800"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm font-semibold mb-1.5 ${isDark ? "text-white/80" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {ins.title}
                 </p>
-                <p className={`text-sm leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {ins.body}
                 </p>
               </div>
@@ -383,7 +392,7 @@ export default function CaseStudy101() {
         <FadeSection>
           <SectionLabel text="IA & Design" />
           <SectionHeading isDark={isDark}>Structure first. Pixels second.</SectionHeading>
-          <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+          <p className={`text-base leading-[1.65] mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
             I structured the website around three primary user goals: understanding services, building trust in the caregivers, and requesting a consultation.
             Instead of a complex healthcare structure, the site focused on clear storytelling and progressive disclosure, helping families move from awareness to contact without confusion.
           </p>
@@ -393,7 +402,7 @@ export default function CaseStudy101() {
             <Card isDark={isDark} className="flex flex-col justify-between">
               <div>
                 <CardLabel text="Design System Built From Scratch" />
-                <p className={`text-sm leading-relaxed mb-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] mb-3 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Because the company had no existing brand system, I created a lightweight design system including:
                 </p>
                 <BulletList isDark={isDark} items={[
@@ -403,17 +412,17 @@ export default function CaseStudy101() {
                   "Reusable CTA patterns",
                   "Consistent spacing and layout grid",
                 ]} />
-                <p className={`text-sm leading-relaxed mt-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] mt-3 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   The goal was to ensure clarity, warmth, and accessibility, which are critical for healthcare audiences.
                 </p>
               </div>
               <div
-                className={`mt-5 pt-4 border-t ${isDark ? "border-white/6" : "border-gray-100"}`}
+                className={`mt-5 pt-4 border-t ${isDark ? "border-white/6" : "border-black/8"}`}
               >
-                <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${isDark ? "text-white/25" : "text-gray-300"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-[10px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/25" : "text-[#171717]/28"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Early decision I reversed
                 </p>
-                <p className={`text-sm leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Initially, the homepage highlighted all services equally, but early testing showed users felt overwhelmed by too many options. I simplified the structure to focus on the core value proposition, three key services, and a clear consultation CTA, improving clarity and reducing decision fatigue.
                 </p>
               </div>
@@ -437,7 +446,7 @@ export default function CaseStudy101() {
         <FadeSection>
           <SectionLabel text="Working With the Developer" />
           <SectionHeading isDark={isDark}>I didn't hand off and disappear.</SectionHeading>
-          <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+          <p className={`text-base leading-[1.65] mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
             I stayed embedded through the entire build. Weekly design-dev syncs, annotated Figma frames for every component, a shared Notion board for bug tracking and same-day availability whenever the developer had a question.
           </p>
 
@@ -446,7 +455,7 @@ export default function CaseStudy101() {
             <Card isDark={isDark} className="flex flex-col justify-between">
               <div>
                 <CardLabel text="What I Caught in QA" />
-                <p className={`text-sm leading-relaxed mb-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] mb-3 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   During QA I identified several issues before launch:
                 </p>
                 <BulletList isDark={isDark} items={[
@@ -456,12 +465,12 @@ export default function CaseStudy101() {
                   "Accessibility issues with color contrast",
                   "CTA visibility problems on smaller screens",
                 ]} />
-                <p className={`text-sm leading-relaxed mt-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-sm leading-[1.65] mt-3 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Fixing these ensured the site launched with a clean, reliable user experience.
                 </p>
               </div>
-              <div className={`mt-5 pt-4 border-t ${isDark ? "border-white/6" : "border-gray-100"}`}>
-                <p className={`text-xs italic leading-relaxed ${isDark ? "text-white/35" : "text-gray-400"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+              <div className={`mt-5 pt-4 border-t ${isDark ? "border-white/6" : "border-black/8"}`}>
+                <p className={`text-xs italic leading-[1.65] ${isDark ? "text-white/35" : "text-[#171717]/38"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   "Most designers disappear after handoff. Jagriti was in staging every week.
                   The quality of what we shipped reflected that." - Webflow developer
                 </p>
@@ -488,7 +497,7 @@ export default function CaseStudy101() {
         <FadeSection>
           <SectionLabel text="Post-Launch Iteration" />
           <SectionHeading isDark={isDark}>The launch was the beginning, not the end.</SectionHeading>
-          <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+          <p className={`text-base leading-[1.65] mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
             After launch, I monitored user behavior using analytics and user feedback to identify areas where visitors struggled or dropped off.
             The goal was to improve service discovery and consultation conversions.
           </p>
@@ -497,7 +506,7 @@ export default function CaseStudy101() {
             {[
               {
                 label: "ITERATION 1",
-                color: "#E8699A",
+                color: ACCENT,
                 before: "Users were spending time reading service sections but scroll depth dropped before reaching the consultation form.",
                 after: "I introduced:",
                 afterItems: [
@@ -509,7 +518,7 @@ export default function CaseStudy101() {
               },
               {
                 label: "ITERATION 2",
-                color: "#C2547C",
+                color: "#6f563f",
                 before: "Visitors were exploring the homepage but not fully understanding the difference between service types.",
                 after: "I added:",
                 afterItems: [
@@ -522,30 +531,30 @@ export default function CaseStudy101() {
             ].map((item, i) => (
               <div
                 key={i}
-                className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-gray-100 bg-gray-50/60"}`}
+                className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-black/8 bg-white/55"}`}
               >
                 <CardLabel text={item.label} color={item.color} />
-                <p className={`text-[11px] font-bold tracking-widest uppercase mb-1 ${isDark ? "text-white/25" : "text-gray-300"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/25" : "text-[#171717]/28"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   What the data showed
                 </p>
-                <p className={`text-[13px] leading-relaxed mb-4 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-[13px] leading-[1.65] mb-4 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {item.before}
                 </p>
-                <p className={`text-[11px] font-bold tracking-widest uppercase mb-1`} style={{ fontFamily: "Poppins, sans-serif", color: item.color }}>
+                <p className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-1`} style={{ fontFamily: "Inter, sans-serif", color: item.color }}>
                   What I changed
                 </p>
-                <p className={`text-[13px] leading-relaxed mb-2 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-[13px] leading-[1.65] mb-2 ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {item.after}
                 </p>
-                <ul className="space-y-1.5 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <ul className="space-y-1.5 mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
                   {item.afterItems.map((bulletItem, idx) => (
-                    <li key={idx} className={`flex gap-2 items-start text-[13px] ${isDark ? "text-white/55" : "text-gray-500"}`}>
-                      <span className="w-1 h-1 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
+                    <li key={idx} className={`flex gap-2 items-start text-[13px] ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[6px] ${isDark ? "bg-white/45" : "bg-[#171717]/38"}`} />
                       {bulletItem}
                     </li>
                   ))}
                 </ul>
-                <p className={`text-[13px] leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-[13px] leading-[1.65] ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {item.afterNote}
                 </p>
               </div>
@@ -564,15 +573,15 @@ export default function CaseStudy101() {
             {outcomes.map((o) => (
               <div
                 key={o.label}
-                className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-gray-100 bg-gray-50/60"}`}
+                className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-black/8 bg-white/55"}`}
               >
                 <p
-                  className="text-4xl font-bold mb-2"
-                  style={{ fontFamily: "Poppins, sans-serif", color: o.color }}
+                  className="text-4xl font-semibold mb-2"
+                  style={{ fontFamily: "Inter, sans-serif", color: o.color }}
                 >
                   {o.value}
                 </p>
-                <p className={`text-[11px] leading-snug ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+                <p className={`text-[11px] leading-snug ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {o.label}
                 </p>
               </div>
@@ -580,17 +589,17 @@ export default function CaseStudy101() {
           </div>
 
           <div
-            className={`p-6 rounded-2xl border-l-[3px] border-[#E8699A] ${isDark ? "bg-white/[0.025]" : "bg-rose-50/40"}`}
+            className={`p-6 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-black/8 bg-white/55"}`}
           >
-            <p className={`text-sm leading-relaxed mb-3 ${isDark ? "text-white/70" : "text-gray-600"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+            <p className={`text-sm leading-[1.65] mb-3 ${isDark ? "text-white/70" : "text-[#171717]/62"}`} style={{ fontFamily: "Inter, sans-serif" }}>
               Post-launch usability test with 6 new participants: 100% task completion on "find the right care and start an enquiry."
             </p>
             <p
-              className={`text-sm italic ${isDark ? "text-white/40" : "text-gray-400"}`}
-              style={{ fontFamily: "Poppins, sans-serif" }}
+              className={`text-sm italic ${isDark ? "text-white/40" : "text-[#171717]/38"}`}
+              style={{ fontFamily: "Inter, sans-serif" }}
             >
               "I've looked at five of these sites today. This is the only one that didn't make me feel like a number."
-              <span className={`block text-[11px] mt-1 not-italic ${isDark ? "text-white/25" : "text-gray-300"}`}>
+              <span className={`block text-[11px] mt-1 not-italic ${isDark ? "text-white/25" : "text-[#171717]/28"}`}>
                 - Post-launch usability test participant
               </span>
             </p>
@@ -628,7 +637,7 @@ export default function CaseStudy101() {
             {/* What I learned */}
             <Card isDark={isDark}>
               <CardLabel text="What I learned" />
-              <p className={`text-sm leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
+              <p className={`text-sm leading-[1.65] ${body}`} style={{ fontFamily: "Inter, sans-serif" }}>
                 Designing for healthcare requires balancing clarity, empathy, and trust.
                 When users are making decisions about loved ones, the experience must feel supportive and human, not transactional.
               </p>
@@ -638,10 +647,10 @@ export default function CaseStudy101() {
 
         {/* NEXT PROJECT */}
         <FadeSection>
-          <div className={`pt-4 border-t ${isDark ? "border-white/8" : "border-gray-100"}`}>
+          <div className="pt-4">
             <p
-              className={`text-[10px] font-bold tracking-widest uppercase mb-6 ${isDark ? "text-white/28" : "text-gray-300"}`}
-              style={{ fontFamily: "Poppins, sans-serif" }}
+              className={`text-[10px] font-medium tracking-[0.18em] uppercase mb-6 ${isDark ? "text-white/28" : "text-[#171717]/28"}`}
+              style={{ fontFamily: "Inter, sans-serif" }}
             >
               Next Project
             </p>

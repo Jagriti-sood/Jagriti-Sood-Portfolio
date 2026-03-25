@@ -2,7 +2,7 @@ import imgNHL from "figma:asset/322867aa2bd51e13f19317633a5f0373aab4f93b.png";
 import img101Healthcare from "figma:asset/aa8f4c31f60399f1e417f9b76dbab0d035506671.png";
 import imgAdScheduler from "figma:asset/d6a778e753650b852ad71f897e1f721f0fa1fb6a.png";
 import imgBajaj from "figma:asset/7229c5eeb01d91cda83f69a4a72af2d17576d520.png";
-import imgMapleCode from "figma:asset/f75c8b1068f11d74617891ed4061bdb34b070714.png";
+import imgMapleCode from "@/assets/maplecode-cover.webp";
 
 export type Project = {
   id: number;

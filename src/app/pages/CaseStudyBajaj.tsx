@@ -13,7 +13,7 @@ import bajajSpinWheel from "@/assets/bajaj-spin-wheel.webp";
 import bajajPrelogin from "@/assets/bajaj-prelogin.webp";
 import bajajDoctorChat from "@/assets/bajaj-doctor-chat.webp";
 
-const ACCENT = "#E8699A";
+const ACCENT = "#8b6b4f";
 const BEHANCE_URL = "https://www.behance.net/gallery/172611911/Industry-Project-Feature-Implementation-and-Redesign";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -38,7 +38,7 @@ function SectionLabel({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       <div className="w-5 h-px" style={{ background: ACCENT }} />
-      <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: ACCENT }}>
+      <span className="text-[11px] font-medium tracking-[0.18em] uppercase" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>
         {text}
       </span>
     </div>
@@ -48,8 +48,8 @@ function SectionLabel({ text }: { text: string }) {
 function SectionHeading({ children, isDark }: { children: React.ReactNode; isDark: boolean }) {
   return (
     <h2
-      className={`text-3xl md:text-4xl font-bold leading-snug mb-6 ${isDark ? "text-white" : "text-gray-900"}`}
-      style={{ fontFamily: "Playfair Display, serif" }}
+      className={`text-[1.9rem] md:text-[2.5rem] font-semibold leading-[1.12] tracking-[-0.03em] mb-6 ${isDark ? "text-white" : "text-[#171717]"}`}
+      style={{ fontFamily: "Inter, sans-serif" }}
     >
       {children}
     </h2>
@@ -58,22 +58,22 @@ function SectionHeading({ children, isDark }: { children: React.ReactNode; isDar
 
 function Card({ isDark, children, className = "" }: { isDark: boolean; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-gray-100 bg-gray-50/70"} ${className}`}>
+    <div className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/55"} ${className}`}>
       {children}
     </div>
   );
 }
 
-function CardLabel({ text, color = "#E8699A" }: { text: string; color?: string }) {
+function CardLabel({ text, color = ACCENT }: { text: string; color?: string }) {
   return (
-    <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color }}>
+    <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-3" style={{ color, fontFamily: "Inter, sans-serif" }}>
       {text}
     </p>
   );
 }
 
 function Bullet({ items, isDark }: { items: string[]; isDark: boolean }) {
-  const body = isDark ? "text-white/55" : "text-gray-500";
+  const body = isDark ? "text-white/55" : "text-[#171717]/62";
   return (
     <ul className="space-y-2.5">
       {items.map((item, i) => (
@@ -94,18 +94,25 @@ const nextProject = projects[0]; // Loop back to NHL
 
 export default function CaseStudyBajaj() {
   const { isDark } = useTheme();
+  const paperTexture = isDark
+    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
+    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
-  const body = isDark ? "text-white/55" : "text-gray-500";
-  const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-gray-100"}`;
+  const body = isDark ? "text-white/55" : "text-[#171717]/62";
+  const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-black/8"}`;
 
   return (
-    <div className={`min-h-screen ${isDark ? "bg-[#0a0a0f]" : "bg-white"}`}>
+    <div className={`relative min-h-screen overflow-hidden ${isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"}`}>
+      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: paperTexture }} />
+      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${isDark ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]" : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"}`} />
 
       {/* ── HERO ── */}
-      <section className="pt-28 md:pt-36 pb-0 px-6">
-        <div className="max-w-5xl mx-auto">
+      <section className="relative z-10 pt-32 md:pt-36 pb-0 px-6">
+        <div className="max-w-[860px] mx-auto">
 
           <motion.div
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
@@ -113,7 +120,7 @@ export default function CaseStudyBajaj() {
             className="flex flex-wrap gap-2 mb-6"
           >
             {["Healthcare", "Mobile App (iOS & Android)", "Feature Design", "Interaction Design"].map((tag) => (
-              <span key={tag} className={`px-3 py-1 rounded-full text-xs font-medium border ${isDark ? "border-white/10 text-white/45" : "border-gray-200 text-gray-400"}`}>
+              <span key={tag} className={`px-3 py-1 rounded-full text-xs font-medium border ${isDark ? "border-white/10 text-white/45" : "border-black/10 text-[#171717]/42"}`}>
                 {tag}
               </span>
             ))}
@@ -122,17 +129,12 @@ export default function CaseStudyBajaj() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-5 ${isDark ? "text-white" : "text-gray-900"}`}
-            style={{ fontFamily: "Playfair Display, serif", lineHeight: "1.2" }}
+            className={`text-[2.4rem] sm:text-[3rem] md:text-[3.8rem] font-semibold leading-[0.98] tracking-[-0.045em] mb-5 ${isDark ? "text-white" : "text-[#171717]"}`}
+            style={{ fontFamily: "Inter, sans-serif", lineHeight: "1.08", letterSpacing: "-0.04em" }}
           >
             Bajaj Finserv Health
             <br />
-            <span className="text-2xl sm:text-3xl md:text-4xl block pb-1" style={{
-              background: "linear-gradient(125deg, #E8699A, #C2547C)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}>
+            <span className={`text-[1.5rem] sm:text-[2rem] md:text-[2.4rem] block pb-1 ${isDark ? "text-white/78" : "text-[#171717]/72"} font-editorial italic tracking-[-0.01em]`}>
               Feature Design & Redesign
             </span>
           </motion.h1>
@@ -140,8 +142,8 @@ export default function CaseStudyBajaj() {
           <motion.p
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.18 }}
-            className={`max-w-2xl text-base mb-10 ${body}`}
-            style={{ lineHeight: "1.8" }}
+            className={`max-w-[38rem] text-base mb-10 ${body}`}
+            style={{ lineHeight: "1.7", fontFamily: "Inter, sans-serif" }}
           >
             One of India's most ambitious digital health platforms — backed by Bajaj Finserv, connecting patients with doctors, health plans, diagnostics, and pharmacy in a single app. I was brought in to design two new features and redesign two core flows for an app already serving hundreds of thousands of users.
           </motion.p>
@@ -150,7 +152,7 @@ export default function CaseStudyBajaj() {
           <motion.div
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.24 }}
-            className={`grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 rounded-2xl border overflow-hidden mb-10 ${isDark ? "border-white/8 divide-white/8" : "border-gray-100 divide-gray-100"}`}
+            className={`grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 rounded-2xl border overflow-hidden mb-10 ${isDark ? "border-white/8 divide-white/8" : "border-black/8 divide-black/8"}`}
           >
             {[
               { label: "My Role", value: "UX / UI Designer" },
@@ -158,9 +160,9 @@ export default function CaseStudyBajaj() {
               { label: "Platform", value: "iOS & Android" },
               { label: "App Scale", value: "88k+ Doctors · 500k+ Downloads" },
             ].map((m) => (
-              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-gray-50/60"}`}>
-                <p className={`text-xs font-bold tracking-widest uppercase mb-1 ${isDark ? "text-white/28" : "text-gray-300"}`}>{m.label}</p>
-                <p className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-gray-700"}`}>{m.value}</p>
+              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-white/45"}`}>
+                <p className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/28" : "text-[#171717]/34"}`}>{m.label}</p>
+                <p className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-[#171717]/78"}`}>{m.value}</p>
               </div>
             ))}
           </motion.div>
@@ -170,7 +172,7 @@ export default function CaseStudyBajaj() {
         <motion.div
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-6xl mx-auto"
+          className="max-w-[1080px] mx-auto"
         >
           <div className="rounded-2xl md:rounded-3xl overflow-hidden">
             <img
@@ -183,7 +185,7 @@ export default function CaseStudyBajaj() {
       </section>
 
       {/* ── BODY ── */}
-      <div className="max-w-5xl mx-auto px-6 mt-10 md:mt-14 space-y-10 md:space-y-12 pb-16">
+      <div className="relative z-10 max-w-[860px] mx-auto px-6 mt-10 md:mt-14 space-y-10 md:space-y-12 pb-24">
 
         {/* 01 · ABOUT THE PRODUCT */}
         <FadeSection>
@@ -214,15 +216,15 @@ export default function CaseStudyBajaj() {
           </div>
 
           {/* Stats strip */}
-          <div className={`grid grid-cols-3 divide-x rounded-2xl border overflow-hidden ${isDark ? "border-white/8 divide-white/8" : "border-gray-100 divide-gray-100"}`}>
+          <div className={`grid grid-cols-3 divide-x rounded-2xl border overflow-hidden ${isDark ? "border-white/8 divide-white/8" : "border-black/8 divide-black/8"}`}>
             {[
               { value: "4.4★", label: "App store rating" },
               { value: "88k+", label: "Doctors on platform" },
               { value: "500k+", label: "Downloads at the time" },
             ].map((s) => (
-              <div key={s.label} className={`px-5 py-6 text-center ${isDark ? "bg-white/[0.025]" : "bg-gray-50/60"}`}>
-                <p className="text-2xl font-bold mb-1" style={{ color: ACCENT, fontFamily: "Poppins, sans-serif" }}>{s.value}</p>
-                <p className={`text-xs ${isDark ? "text-white/35" : "text-gray-400"}`}>{s.label}</p>
+              <div key={s.label} className={`px-5 py-6 text-center ${isDark ? "bg-white/[0.025]" : "bg-white/50"}`}>
+                <p className="text-2xl font-bold mb-1" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>{s.value}</p>
+                <p className={`text-xs ${isDark ? "text-white/35" : "text-[#171717]/34"}`}>{s.label}</p>
               </div>
             ))}
           </div>
@@ -242,13 +244,13 @@ export default function CaseStudyBajaj() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { type: "NEW FEATURE", label: "01", title: "Instant Video Consultation", color: ACCENT },
-              { type: "NEW FEATURE", label: "02", title: "Spin the Wheel", color: "#C2547C" },
-              { type: "REDESIGN", label: "01", title: "Pre-login Journey", color: "#F4A0C0" },
+              { type: "NEW FEATURE", label: "02", title: "Spin the Wheel", color: "#6f563f" },
+              { type: "REDESIGN", label: "01", title: "Pre-login Journey", color: "#b3987d" },
               { type: "REDESIGN", label: "02", title: "Doctor Chat", color: ACCENT },
             ].map((d, i) => (
               <div
                 key={i}
-                className={`flex items-center gap-4 p-4 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.02]" : "border-gray-100 bg-gray-50/50"}`}
+                className={`flex items-center gap-4 p-4 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.02]" : "border-black/8 bg-white/50"}`}
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-sm font-bold"
@@ -257,10 +259,10 @@ export default function CaseStudyBajaj() {
                   {d.label}
                 </div>
                 <div>
-                  <p className="text-xs font-bold tracking-widest uppercase mb-0.5" style={{ color: d.color }}>
+                  <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-0.5" style={{ color: d.color, fontFamily: "Inter, sans-serif" }}>
                     {d.type}
                   </p>
-                  <p className={`text-sm font-semibold ${isDark ? "text-white/80" : "text-gray-800"}`}>
+                  <p className={`text-sm font-semibold ${isDark ? "text-white/80" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                     {d.title}
                   </p>
                 </div>
@@ -282,12 +284,12 @@ export default function CaseStudyBajaj() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span
-                  className="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full"
+                  className="inline-block text-[11px] font-medium tracking-[0.18em] uppercase px-3 py-1 rounded-full"
                   style={{ background: `${ACCENT}18`, color: ACCENT }}
                 >
                   Feature 01
                 </span>
-                <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"}`} style={{ fontFamily: "Playfair Display, serif" }}>
+                <h3 className={`text-lg font-semibold tracking-[-0.02em] ${isDark ? "text-white" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Instant Video Consultation
                 </h3>
               </div>
@@ -315,7 +317,7 @@ export default function CaseStudyBajaj() {
                 </Card>
               </div>
 
-              <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+              <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-black/8"}`}>
                 <img
                   src={bajajVideoConsult}
                   alt="Instant Video Consultation — home, specialist selection, consultation details, finding doctor"
@@ -324,36 +326,36 @@ export default function CaseStudyBajaj() {
               </div>
             </div>
 
-            <div className={`w-full h-px ${isDark ? "bg-white/6" : "bg-gray-100"}`} />
+            <div className={`w-full h-px ${isDark ? "bg-white/6" : "bg-black/8"}`} />
 
             {/* ── Feature 02 ── */}
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span
-                  className="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full"
-                  style={{ background: "#C2547C18", color: "#C2547C" }}
+                  className="inline-block text-[11px] font-medium tracking-[0.18em] uppercase px-3 py-1 rounded-full"
+                  style={{ background: "#6f563f18", color: "#6f563f" }}
                 >
                   Feature 02
                 </span>
-                <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"}`} style={{ fontFamily: "Playfair Display, serif" }}>
+                <h3 className={`text-lg font-semibold tracking-[-0.02em] ${isDark ? "text-white" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Spin the Wheel
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card isDark={isDark}>
-                  <CardLabel text="What it is" color="#C2547C" />
+                  <CardLabel text="What it is" color={ACCENT} />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                     A one-time gamification feature that rewards users with free healthcare plans and health products — activated by spinning a wheel inside the app during their first few sessions.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
-                  <CardLabel text="Why it was needed" color="#C2547C" />
+                  <CardLabel text="Why it was needed" color={ACCENT} />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                     Bajaj Finserv Health's insurance and health plans were complex and unfamiliar. Users would open the app, encounter subscription products they didn't understand, and leave. The spin mechanic drove product discovery and gave users a low-friction reason to explore what they'd won.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
-                  <CardLabel text="Key design decisions" color="#C2547C" />
+                  <CardLabel text="Key design decisions" color={ACCENT} />
                   <Bullet isDark={isDark} items={[
                     "One-time mechanic only — no repeating loops that would feel predatory in a healthcare context",
                     "The reward reveal was the beginning of a conversion flow, not the end",
@@ -363,7 +365,7 @@ export default function CaseStudyBajaj() {
                 </Card>
               </div>
 
-              <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+              <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-black/8"}`}>
                 <img
                   src={bajajSpinWheel}
                   alt="Spin the Wheel — wheel, winner reveal, form, and thank you screens"
@@ -389,29 +391,29 @@ export default function CaseStudyBajaj() {
               <div className="flex items-center gap-3 mb-4">
                 <span
                   className="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full"
-                  style={{ background: "#F4A0C018", color: "#C2547C" }}
+                  style={{ background: `${ACCENT}18`, color: ACCENT }}
                 >
                   Redesign 01
                 </span>
-                <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"}`} style={{ fontFamily: "Playfair Display, serif" }}>
+                <h3 className={`text-lg font-semibold tracking-[-0.02em] ${isDark ? "text-white" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Pre-login Journey
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card isDark={isDark}>
-                  <CardLabel text="The problem" color="#C2547C" />
+                  <CardLabel text="The problem" color={ACCENT} />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                     Users reached the pre-login screens having no idea what the app did. Generic stock illustrations didn't tell the product story, and a wall of text that nobody read meant users signed up with zero context, then quickly churned.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
-                  <CardLabel text="The approach" color="#C2547C" />
+                  <CardLabel text="The approach" color={ACCENT} />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                     I rebuilt the pre-login flow around a feature-led carousel showing the app's four core value propositions using real UI screenshots instead of illustrations. By the time a user taps "Sign Up," they should already want what the app offers.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
-                  <CardLabel text="What changed" color="#C2547C" />
+                  <CardLabel text="What changed" color={ACCENT} />
                   <Bullet isDark={isDark} items={[
                     "Replaced generic illustrations with real in-app UI screenshots",
                     "Reduced 6 onboarding screens to 4 focused feature-highlight slides",
@@ -421,7 +423,7 @@ export default function CaseStudyBajaj() {
                 </Card>
               </div>
 
-              <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+              <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-black/8"}`}>
                 <img
                   src={bajajPrelogin}
                   alt="Pre-login Journey redesign — feature-led onboarding carousel screens"
@@ -441,7 +443,7 @@ export default function CaseStudyBajaj() {
                 >
                   Redesign 02
                 </span>
-                <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"}`} style={{ fontFamily: "Playfair Display, serif" }}>
+                <h3 className={`text-lg font-semibold tracking-[-0.02em] ${isDark ? "text-white" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Doctor Chat
                 </h3>
               </div>
@@ -474,7 +476,7 @@ export default function CaseStudyBajaj() {
           </div>
 
           {/* Doctor Chat screens */}
-          <div className={`rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
+          <div className={`rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-black/8"}`}>
             <img
               src={bajajDoctorChat}
               alt="Doctor Chat redesign — chat states and video call screens"
@@ -535,29 +537,29 @@ export default function CaseStudyBajaj() {
           <SectionLabel text="06: Full Designs" />
           <SectionHeading isDark={isDark}>The screens live on Behance.</SectionHeading>
 
-          <div className={`rounded-2xl border-l-2 border-[#E8699A] p-5 mb-6 ${isDark ? "bg-[#E8699A]/5" : "bg-[#E8699A]/4"}`}>
-            <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: ACCENT }}>A note on screens</p>
-            <p className={`text-sm ${isDark ? "text-white/65" : "text-gray-600"}`} style={{ lineHeight: "1.8" }}>
+          <div className={`rounded-2xl border p-5 mb-6 ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/55"}`}>
+            <p className="text-xs font-medium tracking-[0.18em] uppercase mb-2" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>A note on screens</p>
+            <p className={`text-sm ${isDark ? "text-white/65" : "text-[#171717]/62"}`} style={{ lineHeight: "1.8", fontFamily: "Inter, sans-serif" }}>
               This project was designed in <strong>Adobe XD in 2020</strong>. Adobe discontinued XD and the original source files can no longer be opened to extract screens or assets. The complete set of designs — all four deliverables, full screen flows, and interaction annotations — is preserved and documented on my Behance.
             </p>
           </div>
 
           {/* Behance CTA card */}
-          <div className={`relative rounded-2xl overflow-hidden border ${isDark ? "border-white/10" : "border-gray-200"}`}>
+          <div className={`relative rounded-2xl overflow-hidden border ${isDark ? "border-white/10" : "border-black/8"}`}>
             {/* Background texture */}
             <div
               className="absolute inset-0"
               style={{
                 background: isDark
-                  ? "linear-gradient(135deg, #1a0f13 0%, #0a0a0f 60%, #1a0d14 100%)"
-                  : "linear-gradient(135deg, #fdf5f8 0%, #ffffff 60%, #fdf0f5 100%)",
+                  ? "linear-gradient(135deg, #161311 0%, #0f0f0f 60%, #15120f 100%)"
+                  : "linear-gradient(135deg, #fbf7f1 0%, #ffffff 58%, #f1e7da 100%)",
               }}
             />
-            {/* Pink glow */}
+            {/* Warm glow */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: "radial-gradient(ellipse at 20% 50%, rgba(232,105,154,0.12) 0%, transparent 60%)",
+                background: "radial-gradient(ellipse at 20% 50%, rgba(139,107,79,0.10) 0%, transparent 60%)",
               }}
             />
 
@@ -565,26 +567,23 @@ export default function CaseStudyBajaj() {
               {/* Left: copy */}
               <div className="flex-1 text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
-                  <div className="w-5 h-px bg-[#E8699A]" />
-                  <span className="text-xs font-bold tracking-widest uppercase text-[#E8699A]">Behance Case Study</span>
+                  <div className="w-5 h-px" style={{ background: ACCENT }} />
+                  <span className="text-xs font-medium tracking-[0.18em] uppercase" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>Behance Case Study</span>
                 </div>
                 <h3
-                  className={`text-2xl md:text-3xl font-bold mb-3 ${isDark ? "text-white" : "text-gray-900"}`}
-                  style={{ fontFamily: "Playfair Display, serif", lineHeight: "1.3" }}
+                  className={`text-2xl md:text-3xl font-semibold tracking-[-0.03em] mb-3 ${isDark ? "text-white" : "text-[#171717]"}`}
+                  style={{ fontFamily: "Inter, sans-serif", lineHeight: "1.2" }}
                 >
                   View the full case study with all screens
                 </h3>
-                <p className={`text-sm mb-6 ${isDark ? "text-white/55" : "text-gray-500"}`}>
+                <p className={`text-sm mb-6 ${isDark ? "text-white/55" : "text-[#171717]/58"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   All four deliverables are documented end-to-end on Behance — screen flows, interaction notes, before/after comparisons, and the complete design thinking behind each decision.
                 </p>
                 <a
                   href={BEHANCE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:opacity-85 hover:scale-[0.98]"
-                  style={{
-                    background: "linear-gradient(135deg, #E8699A, #C2547C)",
-                  }}
+                  className={`inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:scale-[0.985] ${isDark ? "bg-white text-[#111111]" : "bg-[#171717] text-white"}`}
                 >
                   Open Behance Case Study
                   <ExternalLink size={14} />
@@ -600,12 +599,12 @@ export default function CaseStudyBajaj() {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-gray-200 bg-white/70"}`}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/70"}`}
                   >
-                    <span className="text-lg font-bold" style={{ color: ACCENT, fontFamily: "Poppins, sans-serif" }}>
+                    <span className="text-lg font-semibold" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>
                       {s.value}
                     </span>
-                    <span className={`text-xs font-medium ${isDark ? "text-white/45" : "text-gray-500"}`}>
+                    <span className={`text-xs font-medium ${isDark ? "text-white/45" : "text-[#171717]/52"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                       {s.label}
                     </span>
                   </div>
@@ -644,12 +643,10 @@ export default function CaseStudyBajaj() {
           </div>
         </FadeSection>
 
-        <div className={divider} />
-
         {/* ── NEXT PROJECT ── */}
         <FadeSection>
           <div className="pt-4">
-            <p className={`text-xs font-bold tracking-widest uppercase mb-6 ${isDark ? "text-white/28" : "text-gray-300"}`}>
+            <p className={`text-xs font-medium tracking-[0.18em] uppercase mb-6 ${isDark ? "text-white/28" : "text-[#171717]/28"}`} style={{ fontFamily: "Inter, sans-serif" }}>
               Next Project
             </p>
             <SharedProjectCard project={nextProject} index={0} isDark={isDark} animate={false} />

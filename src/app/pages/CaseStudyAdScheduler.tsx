@@ -7,13 +7,15 @@ import sourceDigitalCover from "@/assets/source-digital-cover.webp";
 import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
 
+const ACCENT = "#8b6b4f";
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function SectionLabel({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-3 mb-5">
-      <div className="w-5 h-px bg-[#E8699A]" />
-      <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#E8699A]">
+      <div className="w-5 h-px" style={{ background: ACCENT }} />
+      <span className="text-[11px] font-medium tracking-[0.18em] uppercase" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>
         {text}
       </span>
     </div>
@@ -23,8 +25,8 @@ function SectionLabel({ text }: { text: string }) {
 function SectionHeading({ children, isDark }: { children: React.ReactNode; isDark: boolean }) {
   return (
     <h2
-      className={`text-3xl md:text-4xl font-bold leading-snug mb-6 ${isDark ? "text-white" : "text-gray-900"}`}
-      style={{ fontFamily: "Playfair Display, serif" }}
+      className={`text-[1.9rem] md:text-[2.5rem] font-semibold leading-[1.12] tracking-[-0.03em] mb-6 ${isDark ? "text-white" : "text-[#171717]"}`}
+      style={{ fontFamily: "Inter, sans-serif" }}
     >
       {children}
     </h2>
@@ -49,15 +51,15 @@ function FadeSection({ children, className = "" }: { children: React.ReactNode; 
 
 function Card({ isDark, children, className = "" }: { isDark: boolean; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-gray-100 bg-gray-50/70"} ${className}`}>
+    <div className={`p-5 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/55"} ${className}`}>
       {children}
     </div>
   );
 }
 
-function CardLabel({ text, color = "#E8699A" }: { text: string; color?: string }) {
+function CardLabel({ text, color = ACCENT }: { text: string; color?: string }) {
   return (
-    <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color }}>
+    <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-3" style={{ color, fontFamily: "Inter, sans-serif" }}>
       {text}
     </p>
   );
@@ -67,8 +69,8 @@ function Bullet({ items, isDark }: { items: string[]; isDark: boolean }) {
   return (
     <ul className="space-y-2.5">
       {items.map((item, i) => (
-        <li key={i} className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[7px]" />
+        <li key={i} className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-[#171717]/62"}`}>
+          <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[7px] ${isDark ? "bg-white/45" : "bg-[#171717]/40"}`} />
           {item}
         </li>
       ))}
@@ -90,9 +92,9 @@ const meta = [
 ];
 
 const outcomes = [
-  { value: "2.5x", label: "Faster campaign scheduling compared to the previous workflow", color: "#E8699A" },
-  { value: "35%", label: "Reduction in time spent on cross-team campaign coordination", color: "#C2547C" },
-  { value: "71%", label: "Of users reported improved visibility across active campaigns", color: "#F4A0C0" },
+  { value: "2.5x", label: "Faster campaign scheduling compared to the previous workflow", color: "#8b6b4f" },
+  { value: "35%", label: "Reduction in time spent on cross-team campaign coordination", color: "#6f563f" },
+  { value: "71%", label: "Of users reported improved visibility across active campaigns", color: "#b3987d" },
 ];
 
 const problemCards = [
@@ -179,18 +181,25 @@ const reflections = [
 
 export default function CaseStudyAdScheduler() {
   const { isDark } = useTheme();
+  const paperTexture = isDark
+    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
+    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
-  const body = isDark ? "text-white/55" : "text-gray-500";
-  const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-gray-100"}`;
+  const body = isDark ? "text-white/55" : "text-[#171717]/62";
+  const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-black/8"}`;
 
   return (
-    <div className={`min-h-screen ${isDark ? "bg-[#0a0a0f]" : "bg-white"}`}>
+    <div className={`relative min-h-screen overflow-hidden ${isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"}`}>
+      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: paperTexture }} />
+      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${isDark ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]" : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"}`} />
 
       {/* ── HERO ────────────────────────────────────────────────────────────── */}
-      <section className="pt-28 md:pt-36 pb-0 px-6">
-        <div className="max-w-5xl mx-auto">
+      <section className="relative z-10 pt-32 md:pt-36 pb-0 px-6">
+        <div className="max-w-[860px] mx-auto">
 
           {/* Chips */}
           <motion.div
@@ -203,7 +212,7 @@ export default function CaseStudyAdScheduler() {
               <span
                 key={tag}
                 className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                  isDark ? "border-white/10 text-white/45" : "border-gray-200 text-gray-400"
+                  isDark ? "border-white/10 text-white/45" : "border-black/10 text-[#171717]/42"
                 }`}
               >
                 {tag}
@@ -216,21 +225,14 @@ export default function CaseStudyAdScheduler() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-5 ${isDark ? "text-white" : "text-gray-900"}`}
-            style={{ fontFamily: "Playfair Display, serif", lineHeight: "1.2" }}
+            className={`text-[2.4rem] sm:text-[3rem] md:text-[3.8rem] font-semibold leading-[0.98] tracking-[-0.045em] mb-5 ${isDark ? "text-white" : "text-[#171717]"}`}
+            style={{ fontFamily: "Inter, sans-serif", lineHeight: "1.08", letterSpacing: "-0.04em" }}
           >
             Campaigns
             <br />
             <span
-              className="block mt-1"
-              style={{
-                background: "linear-gradient(125deg, #E8699A, #C2547C)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                fontSize: "0.7em",
-                lineHeight: 1.3,
-              }}
+              className={`block mt-1 font-editorial italic tracking-[-0.01em] ${isDark ? "text-white/78" : "text-[#171717]/72"}`}
+              style={{ fontSize: "0.7em", lineHeight: 1.3 }}
             >
               Designing a Real-Time Campaign Scheduling Platform
             </span>
@@ -241,8 +243,8 @@ export default function CaseStudyAdScheduler() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.18 }}
-            className={`max-w-2xl text-base mb-10 ${body}`}
-            style={{ lineHeight: "1.8" }}
+            className={`max-w-[38rem] text-base mb-10 ${body}`}
+            style={{ lineHeight: "1.7", fontFamily: "Inter, sans-serif" }}
           >
             A scalable tool that helps teams plan, manage, and optimize live campaigns through a unified, real-time scheduling experience.
           </motion.p>
@@ -253,15 +255,15 @@ export default function CaseStudyAdScheduler() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.22 }}
             className={`grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 rounded-2xl border overflow-hidden mb-10 ${
-              isDark ? "border-white/8 divide-white/8" : "border-gray-100 divide-gray-100"
+              isDark ? "border-white/8 divide-white/8" : "border-black/8 divide-black/8"
             }`}
           >
             {meta.map((m) => (
-              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-gray-50/60"}`}>
-                <p className={`text-xs font-bold tracking-widest uppercase mb-1 ${isDark ? "text-white/28" : "text-gray-300"}`}>
+              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-white/45"}`}>
+                <p className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/28" : "text-[#171717]/34"}`}>
                   {m.label}
                 </p>
-                <p className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-gray-700"}`}>
+                <p className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-[#171717]/78"}`}>
                   {m.value}
                 </p>
               </div>
@@ -274,7 +276,7 @@ export default function CaseStudyAdScheduler() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-6xl mx-auto"
+          className="max-w-[1080px] mx-auto"
         >
           <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
             <img
@@ -287,7 +289,7 @@ export default function CaseStudyAdScheduler() {
       </section>
 
       {/* ── BODY ────────────────────────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-6 mt-10 md:mt-14 space-y-10 md:space-y-12 pb-16">
+      <div className="relative z-10 max-w-[860px] mx-auto px-6 mt-10 md:mt-14 space-y-10 md:space-y-12 pb-24">
 
         {/* 01 · CONTEXT */}
         <FadeSection>
@@ -329,7 +331,7 @@ export default function CaseStudyAdScheduler() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
             {problemCards.map((p, i) => (
               <Card key={i} isDark={isDark}>
-                <p className={`text-sm font-semibold mb-2.5 ${isDark ? "text-white/80" : "text-gray-800"}`}>
+                <p className={`text-sm font-semibold mb-2.5 ${isDark ? "text-white/80" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {p.title}
                 </p>
                 <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
@@ -339,9 +341,9 @@ export default function CaseStudyAdScheduler() {
             ))}
           </div>
 
-          <div className={`p-6 rounded-2xl border-l-2 border-[#E8699A] ${isDark ? "bg-[#E8699A]/5" : "bg-[#E8699A]/4"}`}>
+          <div className={`p-6 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/55"}`}>
             <CardLabel text="How Might We" />
-            <p className={`text-base ${isDark ? "text-white/75" : "text-gray-700"}`} style={{ fontStyle: "italic", lineHeight: "1.8" }}>
+            <p className={`text-base ${isDark ? "text-white/75" : "text-[#171717]/68"}`} style={{ fontStyle: "italic", lineHeight: "1.65" }}>
               "How might we design a real-time campaign scheduling experience that reduces cognitive load while providing clear visibility and control over multiple campaigns?"
             </p>
           </div>
@@ -381,7 +383,7 @@ export default function CaseStudyAdScheduler() {
             {insights.map((ins) => (
               <Card key={ins.n} isDark={isDark}>
                 <CardLabel text={`Insight ${ins.n}`} />
-                <p className={`text-sm font-semibold mb-2 ${isDark ? "text-white/80" : "text-gray-800"}`}>
+                <p className={`text-sm font-semibold mb-2 ${isDark ? "text-white/80" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   {ins.title}
                 </p>
                 <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
@@ -403,7 +405,7 @@ export default function CaseStudyAdScheduler() {
             <Card isDark={isDark}>
               <CardLabel text="Information Architecture" />
               <p className={`text-sm mb-3 ${body}`} style={{ lineHeight: "1.8" }}>
-                The platform was structured around the <span className={`font-semibold ${isDark ? "text-white/70" : "text-gray-700"}`}>campaign as the primary unit of work</span>. Each campaign contained all relevant scheduling details, status indicators, and team assignments in one place — eliminating the need to cross-reference multiple tools.
+                The platform was structured around the <span className={`font-semibold ${isDark ? "text-white/70" : "text-[#171717]/72"}`}>campaign as the primary unit of work</span>. Each campaign contained all relevant scheduling details, status indicators, and team assignments in one place — eliminating the need to cross-reference multiple tools.
               </p>
               <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                 This campaign-first structure directly addressed the core visibility problem, giving users an immediate sense of what was happening across all active work.
@@ -412,7 +414,7 @@ export default function CaseStudyAdScheduler() {
             <Card isDark={isDark}>
               <CardLabel text="Progressive Disclosure" />
               <p className={`text-sm mb-3 ${body}`} style={{ lineHeight: "1.8" }}>
-                The guiding principle: <span className={`font-semibold ${isDark ? "text-white/70" : "text-gray-700"}`}>surface what matters most, reveal detail on demand.</span> The campaign overview was designed to be scannable at speed, with deeper scheduling controls accessible without leaving the current context.
+                The guiding principle: <span className={`font-semibold ${isDark ? "text-white/70" : "text-[#171717]/72"}`}>surface what matters most, reveal detail on demand.</span> The campaign overview was designed to be scannable at speed, with deeper scheduling controls accessible without leaving the current context.
               </p>
               <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                 This approach kept the interface clean for users managing high volumes of campaigns while still making complex editing tasks fast and direct.
@@ -420,9 +422,9 @@ export default function CaseStudyAdScheduler() {
             </Card>
           </div>
 
-          <div className={`p-6 rounded-2xl border-l-2 border-[#E8699A] ${isDark ? "bg-[#E8699A]/5" : "bg-[#E8699A]/4"}`}>
+          <div className={`p-6 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/55"}`}>
             <CardLabel text="Key Design Decision" />
-            <p className={`text-base ${isDark ? "text-white/70" : "text-gray-600"}`} style={{ lineHeight: "1.8" }}>
+            <p className={`text-base ${isDark ? "text-white/70" : "text-[#171717]/62"}`} style={{ lineHeight: "1.65" }}>
               Early explorations used a Gantt chart as the primary scheduling view. After testing with users, it became clear that Gantt views were useful for <em>reviewing</em> timelines but too slow for <em>editing</em> them. The design pivoted to a structured list-based scheduler with an optional timeline view — making daily scheduling fast without sacrificing the visual overview teams needed for planning.
             </p>
           </div>
@@ -442,8 +444,8 @@ export default function CaseStudyAdScheduler() {
             {features.map((f, i) => (
               <Card key={i} isDark={isDark}>
                 <div
-                  className="inline-block text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full mb-4"
-                  style={{ background: "#E8699A18", color: "#E8699A" }}
+                  className="inline-block text-[11px] font-medium tracking-[0.18em] uppercase px-2.5 py-1 rounded-full mb-4"
+                  style={{ background: isDark ? "rgba(255,255,255,0.055)" : "rgba(0,0,0,0.04)", color: isDark ? "rgba(255,255,255,0.62)" : ACCENT, fontFamily: "Inter, sans-serif" }}
                 >
                   {f.label}
                 </div>
@@ -476,16 +478,16 @@ export default function CaseStudyAdScheduler() {
                   { label: "Label", size: "text-xs", weight: "font-bold", sample: "Aa" },
                 ].map((t) => (
                   <div key={t.label} className="flex items-center justify-between">
-                    <span className={`text-xs font-bold tracking-widest uppercase ${isDark ? "text-white/28" : "text-gray-300"}`}>
+                    <span className={`text-xs font-medium tracking-[0.18em] uppercase ${isDark ? "text-white/28" : "text-[#171717]/28"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                       {t.label}
                     </span>
-                    <span className={`${t.size} ${t.weight} ${isDark ? "text-white/80" : "text-gray-800"}`}>
+                    <span className={`${t.size} ${t.weight} ${isDark ? "text-white/80" : "text-[#171717]"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                       {t.sample}
                     </span>
                   </div>
                 ))}
               </div>
-              <p className={`text-xs mt-4 ${isDark ? "text-white/30" : "text-gray-400"}`} style={{ lineHeight: "1.7" }}>
+              <p className={`text-xs mt-4 ${isDark ? "text-white/30" : "text-[#171717]/36"}`} style={{ lineHeight: "1.7", fontFamily: "Inter, sans-serif" }}>
                 Inter was selected for the interface — optimised for legibility at small sizes and dense data environments.
               </p>
             </Card>
@@ -507,10 +509,10 @@ export default function CaseStudyAdScheduler() {
                       style={{ background: c.hex }}
                     />
                     <div>
-                      <p className={`text-xs font-semibold ${isDark ? "text-white/70" : "text-gray-700"}`}>
-                        {c.name} <span className={`font-normal ${isDark ? "text-white/28" : "text-gray-400"}`}>— {c.hex}</span>
+                      <p className={`text-xs font-semibold ${isDark ? "text-white/70" : "text-[#171717]/72"}`} style={{ fontFamily: "Inter, sans-serif" }}>
+                        {c.name} <span className={`font-normal ${isDark ? "text-white/28" : "text-[#171717]/36"}`}>— {c.hex}</span>
                       </p>
-                      <p className={`text-xs ${isDark ? "text-white/30" : "text-gray-400"}`}>
+                      <p className={`text-xs ${isDark ? "text-white/30" : "text-[#171717]/36"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                         {c.role}
                       </p>
                     </div>
@@ -532,7 +534,7 @@ export default function CaseStudyAdScheduler() {
             {outcomes.map((o) => (
               <div
                 key={o.label}
-                className={`p-6 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-gray-100 bg-gray-50/60"}`}
+                className={`p-6 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-black/8 bg-white/55"}`}
               >
                 <p className="text-4xl font-bold mb-2.5" style={{ color: o.color }}>
                   {o.value}
@@ -550,8 +552,8 @@ export default function CaseStudyAdScheduler() {
               <p className={`text-sm mb-4 ${body}`} style={{ lineHeight: "1.8" }}>
                 Usability testing showed that users completed core scheduling tasks 2.5x faster than with their existing workflow. 71% of participants reported that the platform gave them a significantly clearer view of campaign status — reducing the time spent chasing updates from other team members.
               </p>
-              <div className={`pt-4 border-t ${isDark ? "border-white/6" : "border-gray-100"}`}>
-                <p className={`text-sm italic ${isDark ? "text-white/40" : "text-gray-400"}`} style={{ lineHeight: "1.8" }}>
+              <div className={`pt-4 border-t ${isDark ? "border-white/6" : "border-black/8"}`}>
+                <p className={`text-sm italic ${isDark ? "text-white/40" : "text-[#171717]/38"}`} style={{ lineHeight: "1.8" }}>
                   "This is the first time I've felt in control of my campaigns rather than constantly catching up with them." — Campaign Manager
                 </p>
               </div>
@@ -591,21 +593,21 @@ export default function CaseStudyAdScheduler() {
           <SectionHeading isDark={isDark}>The complete case study lives on Behance.</SectionHeading>
 
           {/* Behance CTA card */}
-          <div className={`relative rounded-2xl overflow-hidden border ${isDark ? "border-white/10" : "border-gray-200"}`}>
+          <div className={`relative rounded-2xl overflow-hidden border ${isDark ? "border-white/10" : "border-black/8"}`}>
             {/* Background gradient */}
             <div
               className="absolute inset-0"
               style={{
                 background: isDark
-                  ? "linear-gradient(135deg, #1a0f13 0%, #0a0a0f 60%, #1a0d14 100%)"
-                  : "linear-gradient(135deg, #fdf5f8 0%, #ffffff 60%, #fdf0f5 100%)",
+                  ? "linear-gradient(135deg, #161311 0%, #0f0f0f 60%, #15120f 100%)"
+                  : "linear-gradient(135deg, #fbf7f1 0%, #ffffff 58%, #f1e7da 100%)",
               }}
             />
-            {/* Pink glow */}
+            {/* Warm glow */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: "radial-gradient(ellipse at 20% 50%, rgba(232,105,154,0.12) 0%, transparent 60%)",
+                background: "radial-gradient(ellipse at 20% 50%, rgba(139,107,79,0.10) 0%, transparent 60%)",
               }}
             />
 
@@ -613,26 +615,23 @@ export default function CaseStudyAdScheduler() {
               {/* Left: copy */}
               <div className="flex-1 text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
-                  <div className="w-5 h-px bg-[#E8699A]" />
-                  <span className="text-xs font-bold tracking-widest uppercase text-[#E8699A]">Behance Case Study</span>
+                  <div className="w-5 h-px" style={{ background: ACCENT }} />
+                  <span className="text-xs font-medium tracking-[0.18em] uppercase" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>Behance Case Study</span>
                 </div>
                 <h3
-                  className={`text-2xl md:text-3xl font-bold mb-3 ${isDark ? "text-white" : "text-gray-900"}`}
-                  style={{ fontFamily: "Playfair Display, serif", lineHeight: "1.3" }}
+                  className={`text-2xl md:text-3xl font-semibold tracking-[-0.03em] mb-3 ${isDark ? "text-white" : "text-[#171717]"}`}
+                  style={{ fontFamily: "Inter, sans-serif", lineHeight: "1.2" }}
                 >
                   View the full case study with all screens
                 </h3>
-                <p className={`text-sm mb-6 ${isDark ? "text-white/55" : "text-gray-500"}`}>
+                <p className={`text-sm mb-6 ${isDark ? "text-white/55" : "text-[#171717]/58"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                   Screen flows, interaction details, the full scheduling UI, and the complete design thinking behind every decision are documented end-to-end on Behance.
                 </p>
                 <a
                   href={BEHANCE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:opacity-85 hover:scale-[0.98]"
-                  style={{
-                    background: "linear-gradient(135deg, #E8699A, #C2547C)",
-                  }}
+                  className={`inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:scale-[0.985] ${isDark ? "bg-white text-[#111111]" : "bg-[#171717] text-white"}`}
                 >
                   Open Behance Case Study
                   <ExternalLink size={14} />
@@ -648,12 +647,12 @@ export default function CaseStudyAdScheduler() {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-gray-200 bg-white/70"}`}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${isDark ? "border-white/8 bg-white/[0.03]" : "border-black/8 bg-white/70"}`}
                   >
-                    <span className="text-lg font-bold" style={{ color: "#E8699A" }}>
+                    <span className="text-lg font-semibold" style={{ color: ACCENT, fontFamily: "Inter, sans-serif" }}>
                       {s.value}
                     </span>
-                    <span className={`text-xs font-medium ${isDark ? "text-white/45" : "text-gray-500"}`}>
+                    <span className={`text-xs font-medium ${isDark ? "text-white/45" : "text-[#171717]/52"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                       {s.label}
                     </span>
                   </div>
@@ -663,12 +662,10 @@ export default function CaseStudyAdScheduler() {
           </div>
         </FadeSection>
 
-        <div className={divider} />
-
         {/* ── NEXT PROJECT ──────────────────────────────────────────────────── */}
         <FadeSection>
-          <div className={`pt-4 border-t ${isDark ? "border-white/8" : "border-gray-100"}`}>
-            <p className={`text-xs font-bold tracking-widest uppercase mb-6 ${isDark ? "text-white/28" : "text-gray-300"}`}>
+          <div className="pt-4">
+            <p className={`text-xs font-medium tracking-[0.18em] uppercase mb-6 ${isDark ? "text-white/28" : "text-[#171717]/28"}`} style={{ fontFamily: "Inter, sans-serif" }}>
               Next Project
             </p>
             <SharedProjectCard project={nextProject} index={0} isDark={isDark} animate={false} />

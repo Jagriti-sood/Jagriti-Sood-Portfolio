@@ -6,6 +6,8 @@ import { projects } from "../data/projects";
 import { Lock } from "lucide-react";
 import mapleCodeCover from "@/assets/maplecode-cover.webp";
 
+const ACCENT = "#8b6b4f";
+
 function FadeSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -47,20 +49,20 @@ function ArtifactCard({
             backdropFilter: "blur(6px)",
           }}
         >
-          <div className="w-10 h-10 rounded-full bg-[#E8699A]/15 border border-[#E8699A]/30 flex items-center justify-center">
-            <Lock size={16} className="text-[#E8699A]" />
+          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)" }}>
+            <Lock size={16} className="text-white/82" />
           </div>
           <span
-            className="text-[10px] font-bold tracking-widest uppercase text-white/60"
-            style={{ fontFamily: "Poppins, sans-serif" }}
+            className="text-[10px] font-medium tracking-[0.18em] uppercase text-white/60"
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             Confidential
           </span>
         </div>
       </div>
       <p
-        className={`text-[11px] text-center ${isDark ? "text-white/60" : "text-gray-600"}`}
-        style={{ fontFamily: "Poppins, sans-serif" }}
+        className={`text-[11px] text-center ${isDark ? "text-white/60" : "text-[#171717]/58"}`}
+        style={{ fontFamily: "Inter, sans-serif" }}
       >
         {label}
       </p>
@@ -81,19 +83,24 @@ const nextProject = projects[3];
 
 export default function CaseStudyMaple() {
   const { isDark } = useTheme();
+  const paperTexture = isDark
+    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
+    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
 
-  const body = isDark ? "text-white/52" : "text-gray-500";
+  const body = isDark ? "text-white/52" : "text-[#171717]/62";
 
   return (
-    <div className={`min-h-screen ${isDark ? "bg-[#0a0a0f]" : "bg-white"}`}>
+    <div className={`relative min-h-screen overflow-hidden ${isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"}`}>
+      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: paperTexture }} />
+      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${isDark ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]" : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"}`} />
 
       {/* ── HERO ── */}
-      <section className="pt-28 md:pt-36 pb-0 px-6">
-        <div className="max-w-5xl mx-auto">
+      <section className="relative z-10 pt-32 md:pt-36 pb-0 px-6">
+        <div className="max-w-[860px] mx-auto">
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -104,8 +111,8 @@ export default function CaseStudyMaple() {
             {["B2B Tech", "Brand & Product", "Multi-project"].map((tag) => (
               <span
                 key={tag}
-                className={`px-3 py-1 rounded-full text-xs font-medium border ${isDark ? "border-white/10 text-white/45" : "border-gray-200 text-gray-400"}`}
-                style={{ fontFamily: "Poppins, sans-serif" }}
+                className={`px-3 py-1 rounded-full text-xs font-medium border ${isDark ? "border-white/10 text-white/45" : "border-black/10 text-[#171717]/42"}`}
+                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 {tag}
               </span>
@@ -116,19 +123,12 @@ export default function CaseStudyMaple() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className={`text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-5 ${isDark ? "text-white" : "text-gray-900"}`}
-            style={{ fontFamily: "Playfair Display, serif" }}
+            className={`text-[2.4rem] sm:text-[3rem] md:text-[3.8rem] font-semibold leading-[0.98] tracking-[-0.045em] mb-5 ${isDark ? "text-white" : "text-[#171717]"}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             MapleCode
             <br />
-            <span
-              style={{
-                background: "linear-gradient(125deg, #E8699A, #C2547C)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+            <span className={`${isDark ? "text-white/78" : "text-[#171717]/74"} font-editorial italic tracking-[-0.01em]`}>
               Innovations
             </span>
           </motion.h1>
@@ -137,8 +137,8 @@ export default function CaseStudyMaple() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.18 }}
-            className={`max-w-xl text-base leading-relaxed mb-10 ${body}`}
-            style={{ fontFamily: "Poppins, sans-serif" }}
+            className={`max-w-[38rem] text-base leading-[1.7] mb-10 ${body}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             An ongoing embedded partnership with a Toronto-based B2B software company. I wore many hats across design, marketing, and customer operations — over multiple concurrent and sequential projects.
           </motion.p>
@@ -148,16 +148,16 @@ export default function CaseStudyMaple() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.24 }}
-            className={`grid grid-cols-2 md:grid-cols-3 divide-x divide-y md:divide-y-0 rounded-2xl border overflow-hidden mb-16 ${isDark ? "border-white/8 divide-white/8" : "border-gray-100 divide-gray-100"}`}
+            className={`grid grid-cols-2 md:grid-cols-3 divide-x divide-y md:divide-y-0 rounded-2xl border overflow-hidden mb-16 ${isDark ? "border-white/8 divide-white/8" : "border-black/8 divide-black/8"}`}
           >
             {[
               { label: "Engagement", value: "Embedded Partner" },
               { label: "Duration", value: "2022 – 2023" },
               { label: "Scope", value: "Design · Marketing · Ops" },
             ].map((m) => (
-              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-gray-50/60"}`}>
-                <p className={`text-xs font-bold tracking-widest uppercase mb-1 ${isDark ? "text-white/28" : "text-gray-300"}`} style={{ fontFamily: "Poppins, sans-serif" }}>{m.label}</p>
-                <p className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-gray-700"}`} style={{ fontFamily: "Poppins, sans-serif" }}>{m.value}</p>
+              <div key={m.label} className={`px-5 py-4 ${isDark ? "bg-white/[0.025]" : "bg-white/45"}`}>
+                <p className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/28" : "text-[#171717]/34"}`} style={{ fontFamily: "Inter, sans-serif" }}>{m.label}</p>
+                <p className={`text-sm font-semibold ${isDark ? "text-white/75" : "text-[#171717]/78"}`} style={{ fontFamily: "Inter, sans-serif" }}>{m.value}</p>
               </div>
             ))}
           </motion.div>
@@ -169,7 +169,7 @@ export default function CaseStudyMaple() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.75, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-6xl mx-auto px-6 mt-0 mb-10"
+        className="relative z-10 max-w-[1080px] mx-auto px-6 mt-0 mb-10"
       >
         <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
           <img
@@ -181,28 +181,28 @@ export default function CaseStudyMaple() {
       </motion.div>
 
       {/* ── BODY ── */}
-      <div className="max-w-5xl mx-auto px-6 space-y-8 pb-16">
+      <div className="relative z-10 max-w-[860px] mx-auto px-6 space-y-8 pb-24">
 
         {/* NDA Notice */}
         <FadeSection>
           <div
-            className={`flex items-start gap-4 px-5 py-4 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-gray-100 bg-gray-50/70"}`}
+            className={`flex items-start gap-4 px-5 py-4 rounded-2xl border ${isDark ? "border-white/8 bg-white/[0.025]" : "border-black/8 bg-white/45"}`}
           >
             <div className="flex-shrink-0 mt-0.5">
-              <div className="w-7 h-7 rounded-full bg-[#E8699A]/10 flex items-center justify-center">
-                <Lock size={13} className="text-[#E8699A]" />
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center ${isDark ? "bg-white/8" : "bg-black/[0.05]"}`}>
+                <Lock size={13} className={`${isDark ? "text-white/72" : "text-[#171717]/64"}`} />
               </div>
             </div>
             <div>
               <span
-                className="block text-xs font-bold tracking-widest uppercase text-[#E8699A] mb-1"
-                style={{ fontFamily: "Poppins, sans-serif" }}
+                className={`block text-[11px] font-medium tracking-[0.18em] uppercase mb-1 ${isDark ? "text-white/42" : "text-[#171717]/42"}`}
+                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 NDA Protected
               </span>
               <p
-                className={`text-sm leading-relaxed ${isDark ? "text-white/70" : "text-gray-600"}`}
-                style={{ fontFamily: "Poppins, sans-serif" }}
+                className={`text-sm leading-relaxed ${isDark ? "text-white/66" : "text-[#171717]/62"}`}
+                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 All projects at MapleCode are covered by a non-disclosure agreement. I'm not able to share screens, deliverables, or project specifics publicly — but I'm happy to walk through the work privately.
               </p>
@@ -213,8 +213,8 @@ export default function CaseStudyMaple() {
         {/* What I did */}
         <FadeSection>
           <p
-            className={`text-xs font-bold tracking-widest uppercase mb-5 ${isDark ? "text-white/28" : "text-gray-300"}`}
-            style={{ fontFamily: "Poppins, sans-serif" }}
+            className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-5 ${isDark ? "text-white/34" : "text-[#171717]/36"}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             Scope of Work
           </p>
@@ -222,8 +222,8 @@ export default function CaseStudyMaple() {
             {workAreas.map((w) => (
               <span
                 key={w.label}
-                className={`px-4 py-2 rounded-full text-sm font-medium border ${isDark ? "border-white/10 text-white/60 bg-white/[0.03]" : "border-gray-200 text-gray-600 bg-gray-50"}`}
-                style={{ fontFamily: "Poppins, sans-serif" }}
+                className={`px-4 py-2 rounded-full text-sm font-medium border ${isDark ? "border-white/10 text-white/60 bg-white/[0.03]" : "border-black/8 text-[#171717]/60 bg-white/50"}`}
+                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 {w.label}
               </span>
@@ -234,8 +234,8 @@ export default function CaseStudyMaple() {
         {/* Blurred artifacts */}
         <FadeSection>
           <p
-            className={`text-xs font-bold tracking-widest uppercase mb-5 ${isDark ? "text-white/28" : "text-gray-300"}`}
-            style={{ fontFamily: "Poppins, sans-serif" }}
+            className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-5 ${isDark ? "text-white/34" : "text-[#171717]/36"}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             Areas of Contribution
           </p>
@@ -260,8 +260,8 @@ export default function CaseStudyMaple() {
           {/* CTA */}
           <a
             href="mailto:jagritisood30@gmail.com"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-80"
-            style={{ background: "linear-gradient(135deg, #E8699A, #C2547C)", fontFamily: "Poppins, sans-serif" }}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-opacity hover:opacity-80 ${isDark ? "bg-white text-[#111111]" : "bg-[#171717] text-white"}`}
+            style={{ fontFamily: "Inter, sans-serif" }}
           >
             <Lock size={12} />
             Request a private walkthrough
@@ -270,10 +270,10 @@ export default function CaseStudyMaple() {
 
         {/* ── NEXT PROJECT ── */}
         <FadeSection>
-          <div className={`pt-4 border-t ${isDark ? "border-white/8" : "border-gray-100"}`}>
+          <div className="pt-4">
             <p
-              className={`text-xs font-bold tracking-widest uppercase mb-6 ${isDark ? "text-white/28" : "text-gray-300"}`}
-              style={{ fontFamily: "Poppins, sans-serif" }}
+              className={`text-[11px] font-medium tracking-[0.18em] uppercase mb-6 ${isDark ? "text-white/34" : "text-[#171717]/36"}`}
+              style={{ fontFamily: "Inter, sans-serif" }}
             >
               Next Project
             </p>

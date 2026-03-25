@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
-import { Moon, Sun, Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { ArrowLeft, Menu, Moon, Sun, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 interface NavbarProps {
   isDark: boolean;
@@ -10,298 +10,326 @@ interface NavbarProps {
 
 const navLinks = [
   { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
-  {
-    label: "Resume",
-    href: "https://drive.google.com/file/d/1-H4f0bjV999U0hn-z_-sb7cGnwY52sju/view?usp=sharing",
-    external: true,
-  },
+  { label: "Contact", href: "#contact" },
 ];
 
+const SECTION_SCROLL_OFFSET = 56;
+
 export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
+  const paperTexture = isDark
+    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
+    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isCaseStudy = location.pathname !== "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    const updateScrolled = () => {
+      setIsScrolled(window.scrollY > 12);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolled);
   }, []);
 
   useEffect(() => {
-    const sections = ["hero", "work", "about", "experience", "contact"];
-    const handleScroll = () => {
-      const triggerY = window.innerHeight * 0.35;
-      let current = "hero";
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= triggerY) current = id;
+    if (isCaseStudy) return;
+
+    const sectionIds = navLinks.map((link) => link.href);
+
+    const updateActiveSection = () => {
+      const navHeight = document.querySelector("nav")?.getBoundingClientRect().height ?? 0;
+      const probeY = window.scrollY + navHeight + 48;
+      const viewportBottom = window.scrollY + window.innerHeight;
+      const pageBottom = document.documentElement.scrollHeight;
+
+      let currentSection: string | null = null;
+
+      if (pageBottom - viewportBottom < 140) {
+        setActiveSection(sectionIds[sectionIds.length - 1] ?? null);
+        return;
       }
-      setActiveSection(current);
+
+      for (const sectionId of sectionIds) {
+        const section = document.querySelector(sectionId);
+        if (!section) continue;
+
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        if (probeY >= sectionTop) {
+          currentSection = sectionId;
+        }
+      }
+
+      setActiveSection(currentSection);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, [isCaseStudy]);
 
   const handleNav = (href: string) => {
     setMenuOpen(false);
+
     if (isCaseStudy) {
-      navigate("/");
+      navigate(`/${href}`);
       return;
     }
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+
+    const element = document.querySelector(href);
+    if (element) {
+      const navHeight = document.querySelector("nav")?.getBoundingClientRect().height ?? 0;
+      const top = element.getBoundingClientRect().top + window.scrollY - navHeight - SECTION_SCROLL_OFFSET;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   return (
     <>
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          isScrolled
             ? isDark
-              ? "bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-white/10"
-              : "bg-white/90 backdrop-blur-xl border-b border-black/8"
-            : "bg-transparent"
+              ? "border-b border-white/8 bg-[#111111]/72 backdrop-blur-lg"
+              : "border-b border-black/8 bg-[#f6f0e8]/92 backdrop-blur-xl"
+            : isDark
+              ? "bg-transparent"
+              : "bg-transparent"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 md:h-20 flex items-center justify-between">
-          {/* Logo */}
-          <button
-            onClick={() => {
-              setMenuOpen(false);
-              if (isCaseStudy) {
-                navigate("/");
-              } else {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
-            className="flex items-center gap-2 group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#E8699A] to-[#C2547C] flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xs font-bold">JS</span>
-            </div>
-            <span
-              className={`text-base font-semibold tracking-tight transition-colors ${
-                isDark ? "text-white" : "text-gray-900"
-              }`}
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+        {isScrolled && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen"
+            style={{ backgroundImage: paperTexture }}
+          />
+        )}
+        <div
+          className="relative mx-auto flex w-full max-w-[1240px] items-center justify-between px-8 py-4 md:px-10 lg:px-12"
+        >
+            <div className="flex items-center gap-8">
+            <motion.button
+              layout
+              onClick={() => {
+                setMenuOpen(false);
+                if (isCaseStudy) {
+                  navigate("/");
+                } else {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              transition={{ layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } }}
+              className="text-left"
             >
-              Jagriti Sood
-            </span>
-          </button>
+              <motion.span
+                layout
+                transition={{ layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } }}
+                className={`inline-flex h-10 items-center overflow-hidden ${
+                  isCaseStudy
+                    ? `gap-2 rounded-full px-2.5 ${
+                        isDark
+                          ? "bg-white/[0.06] text-white/78 hover:bg-white/[0.1] hover:text-white"
+                          : "bg-black/[0.04] text-[#171717]/76 hover:bg-black/[0.065] hover:text-[#171717]"
+                      }`
+                    : ""
+                }`}
+              >
+                <motion.span
+                  layout
+                  transition={{ layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } }}
+                  className={`inline-flex shrink-0 items-center justify-center ${
+                    isCaseStudy
+                      ? `h-6 w-6 rounded-full ${
+                          isDark ? "bg-white/[0.08]" : "bg-white/72"
+                        }`
+                      : `font-brand-mark h-10 w-10 rounded-[14px] border text-[1rem] font-bold tracking-[-0.07em] ${
+                          isDark
+                            ? "border-white/10 bg-white/[0.05] text-white/92"
+                            : "border-black/8 bg-white/72 text-[#2b241d]"
+                        }`
+                  }`}
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isCaseStudy ? (
+                      <motion.span
+                        key="back-icon"
+                        initial={{ opacity: 0, scale: 0.82, x: 4 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.82, x: -4 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="inline-flex items-center justify-center"
+                      >
+                        <ArrowLeft size={14} />
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="brand-icon"
+                        initial={{ opacity: 0, scale: 0.88 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.88 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        JS
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </motion.span>
 
-          {/* Desktop Center Nav — only on homepage */}
-          {!isCaseStudy && (
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) =>
-                link.external ? (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      isDark
-                        ? "text-white/60 hover:text-white"
-                        : "text-gray-500 hover:text-gray-900"
-                    }`}
-                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-                  >
-                    {link.label}
-                  </a>
-                ) : (
+                <AnimatePresence initial={false}>
+                  {isCaseStudy && (
+                    <motion.span
+                      key="back-label"
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -8 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                      className="pr-0.5 text-[13px] font-medium"
+                    >
+                      Back to home
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.span>
+            </motion.button>
+
+            <div className="hidden items-center gap-7 md:flex md:absolute md:left-1/2 md:-translate-x-1/2">
+              {!isCaseStudy &&
+                navLinks.map((link) => (
                   <button
                     key={link.href}
                     onClick={() => handleNav(link.href)}
-                    className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      activeSection === link.href.slice(1)
-                        ? "text-[#E8699A]"
+                    className={`text-[13px] transition-colors ${
+                      activeSection === link.href
+                        ? isDark
+                          ? "text-white"
+                          : "text-[#171717]"
                         : isDark
-                        ? "text-white/60 hover:text-white"
-                        : "text-gray-500 hover:text-gray-900"
+                          ? "text-white/58 hover:text-white"
+                          : "text-[#171717]/58 hover:text-[#171717]"
                     }`}
-                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
                   >
-                    <span className="relative z-10">{link.label}</span>
-                    {activeSection === link.href.slice(1) && (
-                      <motion.div
-                        layoutId="activeNav"
-                        className="absolute inset-0 bg-[#E8699A]/10 rounded-full"
-                        style={{ zIndex: 0 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 35,
-                          mass: 0.8,
-                        }}
-                      />
-                    )}
+                    {link.label}
                   </button>
-                )
-              )}
+                ))}
             </div>
-          )}
+          </div>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            {/* On case study pages: show Resume link */}
-            {isCaseStudy && (
-              <a
-                href="https://drive.google.com/file/d/1-H4f0bjV999U0hn-z_-sb7cGnwY52sju/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`hidden md:inline-flex text-sm font-medium transition-colors px-4 py-2 rounded-full ${
-                  isDark
-                    ? "text-white/55 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                }`}
-                style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-              >
-                Resume
-              </a>
-            )}
-
-            {/* Theme Toggle */}
+          <div className="hidden items-center gap-3 md:flex">
             <button
               onClick={onToggleTheme}
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
+              className={`inline-flex h-9 w-9 items-center justify-center rounded-full text-[13px] transition-colors ${
                 isDark
-                  ? "bg-white/10 hover:bg-white/20 text-white"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                  ? "bg-white/8 text-white/78 hover:bg-white/12 hover:text-white"
+                  : "bg-black/[0.045] text-[#171717]/74 hover:bg-black/[0.07] hover:text-[#171717]"
               }`}
               aria-label="Toggle theme"
             >
-              {isDark ? <Sun size={15} /> : <Moon size={15} />}
+              {isDark ? <Sun size={14} /> : <Moon size={14} />}
             </button>
-
-            {/* Let's Talk CTA — always visible on desktop */}
-            <button
-              onClick={() => {
-                if (isCaseStudy) {
-                  navigate("/#contact");
-                } else {
-                  handleNav("#contact");
-                }
-              }}
-              className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8699A] to-[#C2547C] text-white text-sm font-medium hover:opacity-90 transition-all duration-200"
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-            >
-              Let's Talk
-            </button>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
+            <a
+              href="https://drive.google.com/file/d/1-H4f0bjV999U0hn-z_-sb7cGnwY52sju/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center rounded-full px-4 py-2 text-[13px] transition-colors ${
                 isDark
-                  ? "bg-white/10 hover:bg-white/20 text-white"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                  ? "bg-white/92 text-[#111111] hover:bg-white"
+                  : "bg-[#171717] text-white hover:bg-[#2a2a2a]"
               }`}
             >
-              {menuOpen ? <X size={16} /> : <Menu size={16} />}
+              Resume
+            </a>
+          </div>
+
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={onToggleTheme}
+              className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+                isDark
+                  ? "bg-white/7 text-white hover:bg-white/12"
+                  : "bg-black/[0.05] text-[#171717] hover:bg-black/[0.08]"
+              }`}
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
+            <button
+              onClick={() => setMenuOpen((current) => !current)}
+              className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+                isDark
+                  ? "bg-white/7 text-white hover:bg-white/12"
+                  : "bg-black/[0.05] text-[#171717] hover:bg-black/[0.08]"
+              }`}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X size={14} /> : <Menu size={14} />}
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className={`fixed top-16 left-0 right-0 z-40 md:hidden ${
+            className={`fixed inset-x-0 top-[64px] z-40 ${
               isDark
-                ? "bg-[#0a0a0f]/95 backdrop-blur-xl border-b border-white/10"
-                : "bg-white/95 backdrop-blur-xl border-b border-black/10"
+                ? "bg-[#111111]/82 backdrop-blur-lg"
+                : "bg-[#f6f0e8]/96 backdrop-blur-xl"
             }`}
           >
-            <div className="px-6 py-4 flex flex-col gap-2">
-              {isCaseStudy ? (
-                <>
-                  <a
-                    href="https://drive.google.com/file/d/1-H4f0bjV999U0hn-z_-sb7cGnwY52sju/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                      isDark
-                        ? "text-white/80 hover:text-white hover:bg-white/5"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                    }`}
-                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-                  >
-                    Resume
-                  </a>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen"
+              style={{ backgroundImage: paperTexture }}
+            />
+            <div className="mx-auto flex max-w-[780px] flex-col gap-1 px-6 py-4">
+              {!isCaseStudy &&
+                navLinks.map((link) => (
                   <button
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate("/#contact");
-                    }}
-                    className="mt-1 px-5 py-3 rounded-xl bg-gradient-to-r from-[#E8699A] to-[#C2547C] text-white text-sm font-medium text-center"
-                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+                    key={link.href}
+                    onClick={() => handleNav(link.href)}
+                    className={`rounded-[10px] px-3 py-2 text-left text-[14px] ${
+                      activeSection === link.href
+                        ? isDark
+                          ? "bg-white/6 text-white"
+                          : "bg-black/[0.045] text-[#171717]"
+                        : isDark
+                          ? "text-white/78 hover:bg-white/5"
+                          : "text-[#171717]/78 hover:bg-black/[0.04]"
+                    }`}
                   >
-                    Let's Talk
+                    {link.label}
                   </button>
-                </>
-              ) : (
-                navLinks.map((link) =>
-                  link.external ? (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setMenuOpen(false)}
-                      className={`text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                        isDark
-                          ? "text-white/80 hover:text-white hover:bg-white/5"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                      }`}
-                      style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <button
-                      key={link.href}
-                      onClick={() => handleNav(link.href)}
-                      className={`text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                        isDark
-                          ? "text-white/80 hover:text-white hover:bg-white/5"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                      }`}
-                      style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-                    >
-                      {link.label}
-                    </button>
-                  )
-                )
-              )}
-
-              {!isCaseStudy && (
-                <button
-                  onClick={() => handleNav("#contact")}
-                  className="mt-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#E8699A] to-[#C2547C] text-white text-sm font-medium text-center"
-                  style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-                >
-                  Let's Talk
-                </button>
-              )}
+                ))}
+              <a
+                href="https://drive.google.com/file/d/1-H4f0bjV999U0hn-z_-sb7cGnwY52sju/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className={`mt-2 inline-flex items-center justify-center rounded-full px-4 py-2 text-[14px] ${
+                  isDark
+                    ? "bg-white text-[#111111] hover:bg-[#ece3d7]"
+                    : "bg-[#171717] text-white hover:bg-[#2a2a2a]"
+                }`}
+              >
+                Resume
+              </a>
             </div>
           </motion.div>
         )}
