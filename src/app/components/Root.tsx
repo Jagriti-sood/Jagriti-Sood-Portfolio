@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { PageLoader } from "./PageLoader";
 import { ThemeProvider, useTheme } from "../context/ThemeContext";
 import { useFavicon } from "../hooks/useFavicon";
+import { getPageSurfaceClass } from "../lib/surfaces";
 
 function Layout() {
   const { isDark, toggleTheme } = useTheme();
@@ -12,7 +13,7 @@ function Layout() {
   return (
     <div
       className={`min-h-screen transition-colors duration-300 ${
-        isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"
+        getPageSurfaceClass(isDark)
       }`}
     >
       <PageLoader />

@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
+import { getPageSurfaceClass, getPageSurfaceOverlayClass, getPaperTexture } from "../lib/surfaces";
 import orgBrief from "figma:asset/9c3cfbb556086998c1ac741ac060e1e886aa28c1.png";
 import doctorChatImg from "figma:asset/db7671b44f40199062ba2a6353e14e24d3af54fc.png";
 import bajajCover from "@/assets/bajaj-health-cover.webp";
@@ -94,9 +95,6 @@ const nextProject = projects[0]; // Loop back to NHL
 
 export default function CaseStudyBajaj() {
   const { isDark } = useTheme();
-  const paperTexture = isDark
-    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
-    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -106,9 +104,9 @@ export default function CaseStudyBajaj() {
   const divider = `w-full h-px ${isDark ? "bg-white/6" : "bg-black/8"}`;
 
   return (
-    <div className={`relative min-h-screen overflow-hidden ${isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"}`}>
-      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: paperTexture }} />
-      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${isDark ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]" : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"}`} />
+    <div className={`relative min-h-screen overflow-hidden ${getPageSurfaceClass(isDark)}`}>
+      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: getPaperTexture(isDark) }} />
+      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${getPageSurfaceOverlayClass(isDark)}`} />
 
       {/* ── HERO ── */}
       <section className="relative z-10 pt-32 md:pt-36 pb-0 px-6">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { ArrowLeft, Menu, Moon, Sun, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { getPaperTexture } from "../lib/surfaces";
 
 interface NavbarProps {
   isDark: boolean;
@@ -17,9 +18,6 @@ const navLinks = [
 const SECTION_SCROLL_OFFSET = 56;
 
 export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
-  const paperTexture = isDark
-    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
-    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -114,7 +112,7 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen"
-            style={{ backgroundImage: paperTexture }}
+            style={{ backgroundImage: getPaperTexture(isDark) }}
           />
         )}
         <div
@@ -296,7 +294,7 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen"
-              style={{ backgroundImage: paperTexture }}
+              style={{ backgroundImage: getPaperTexture(isDark) }}
             />
             <div className="mx-auto flex max-w-[780px] flex-col gap-1 px-6 py-4">
               {!isCaseStudy &&

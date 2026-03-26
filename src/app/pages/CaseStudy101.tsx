@@ -8,6 +8,7 @@ import { useTheme } from "../context/ThemeContext";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { SharedProjectCard } from "../components/SharedProjectCard";
 import { projects } from "../data/projects";
+import { getPageSurfaceClass, getPageSurfaceOverlayClass, getPaperTexture } from "../lib/surfaces";
 
 const ACCENT = "#8b6b4f";
 
@@ -107,9 +108,6 @@ const nextProject = projects[2]; // MapleCode
 
 export default function CaseStudy101() {
   const { isDark } = useTheme();
-  const paperTexture = isDark
-    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
-    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
@@ -132,9 +130,9 @@ export default function CaseStudy101() {
   ];
 
   return (
-    <div className={`relative min-h-screen overflow-hidden ${isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"}`}>
-      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: paperTexture }} />
-      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${isDark ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]" : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"}`} />
+    <div className={`relative min-h-screen overflow-hidden ${getPageSurfaceClass(isDark)}`}>
+      <div aria-hidden="true" className="-z-10 pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen" style={{ backgroundImage: getPaperTexture(isDark) }} />
+      <div aria-hidden="true" className={`-z-10 pointer-events-none absolute inset-0 ${getPageSurfaceOverlayClass(isDark)}`} />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section className="relative z-10 pt-32 md:pt-36 pb-0 px-6">

@@ -1,3 +1,5 @@
+import { getPageSurfaceClass, getPageSurfaceOverlayClass, getPaperTexture } from "../lib/surfaces";
+
 interface FooterProps {
   isDark: boolean;
 }
@@ -13,28 +15,20 @@ const links = [
 ];
 
 export function Footer({ isDark }: FooterProps) {
-  const paperTexture = isDark
-    ? "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px)"
-    : "repeating-linear-gradient(0deg, rgba(92,67,44,0.028) 0px, rgba(92,67,44,0.028) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(92,67,44,0.02) 0px, rgba(92,67,44,0.02) 1px, transparent 1px, transparent 5px)";
-
   return (
     <footer
       className={`relative overflow-hidden px-8 pb-8 pt-8 md:px-10 md:pt-10 lg:px-12 ${
-        isDark ? "bg-[#111111]" : "bg-[#f6f0e8]"
+        getPageSurfaceClass(isDark)
       }`}
     >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-multiply dark:mix-blend-screen"
-        style={{ backgroundImage: paperTexture }}
+        style={{ backgroundImage: getPaperTexture(isDark) }}
       />
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-0 ${
-          isDark
-            ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%,transparent_78%,rgba(255,255,255,0.015))]"
-            : "bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_18%,transparent_82%,rgba(125,94,65,0.04))]"
-        }`}
+        className={`pointer-events-none absolute inset-0 ${getPageSurfaceOverlayClass(isDark)}`}
       />
       <div className="relative mx-auto max-w-[1240px]">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1.1fr)_minmax(260px,0.9fr)] md:items-start">
