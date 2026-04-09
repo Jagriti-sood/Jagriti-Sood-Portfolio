@@ -139,20 +139,15 @@ export function Hero({ isDark }: HeroProps) {
           <br />
           that{" "}
           <span
-            className="font-playfair"
             style={
               isDark
                 ? {
-                    fontStyle: "italic",
                     background: "linear-gradient(125deg, #E8699A 0%, #C2547C 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
-                    paddingLeft: "0.08em",
-                    marginLeft: "-0.08em",
                   }
                 : {
-                    fontStyle: "italic",
                     color: "#E8699A",
                   }
             }
