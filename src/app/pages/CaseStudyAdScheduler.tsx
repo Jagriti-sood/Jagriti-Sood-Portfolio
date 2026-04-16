@@ -486,7 +486,7 @@ export default function CaseStudyAdScheduler() {
                 ))}
               </div>
               <p className={`text-xs mt-4 ${isDark ? "text-white/30" : "text-gray-400"}`} style={{ lineHeight: "1.7" }}>
-                Inter was selected for the interface — optimised for legibility at small sizes and dense data environments.
+                Poppins was selected for the interface — optimised for legibility at small sizes and dense data environments.
               </p>
             </Card>
 

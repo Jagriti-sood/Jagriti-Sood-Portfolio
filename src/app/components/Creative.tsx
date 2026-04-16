@@ -296,27 +296,15 @@ export function Creative({ isDark }: CreativeProps) {
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.8, delay: 0.3 }}
         className="relative w-full"
-        style={{ paddingTop: "50px", paddingBottom: "50px" }}
+        style={{
+          paddingTop: "50px",
+          paddingBottom: "50px",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.08) 3%, rgba(0,0,0,0.25) 6%, rgba(0,0,0,0.5) 10%, rgba(0,0,0,0.75) 14%, rgba(0,0,0,0.92) 18%, #000 22%, #000 78%, rgba(0,0,0,0.92) 82%, rgba(0,0,0,0.75) 86%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.25) 94%, rgba(0,0,0,0.08) 97%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.08) 3%, rgba(0,0,0,0.25) 6%, rgba(0,0,0,0.5) 10%, rgba(0,0,0,0.75) 14%, rgba(0,0,0,0.92) 18%, #000 22%, #000 78%, rgba(0,0,0,0.92) 82%, rgba(0,0,0,0.75) 86%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.25) 94%, rgba(0,0,0,0.08) 97%, transparent 100%)",
+        }}
       >
-        {/* Left fade */}
-        <div
-          className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none w-12 md:w-24 lg:w-[120px]"
-          style={{
-            background: isDark
-              ? "linear-gradient(to right, #0d0c10 0%, transparent 100%)"
-              : "linear-gradient(to right, #faf9f7 0%, transparent 100%)",
-          }}
-        />
-        {/* Right fade */}
-        <div
-          className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none w-12 md:w-24 lg:w-[120px]"
-          style={{
-            background: isDark
-              ? "linear-gradient(to left, #0d0c10 0%, transparent 100%)"
-              : "linear-gradient(to left, #faf9f7 0%, transparent 100%)",
-          }}
-        />
-
         {/* Scrolling track */}
         <div
           style={{ cursor: "default", overflow: "visible" }}

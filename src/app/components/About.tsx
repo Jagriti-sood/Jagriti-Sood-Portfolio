@@ -26,7 +26,7 @@ export function About({ isDark }: AboutProps) {
   return (
     <section
       id="about"
-      className={`py-24 md:py-32 px-6 md:px-10 ${isDark ? "bg-[#0a0a0f]" : "bg-white"}`}
+      className={`py-24 md:py-32 px-6 md:px-10 overflow-x-clip ${isDark ? "bg-[#0a0a0f]" : "bg-white"}`}
     >
       <div className="max-w-6xl mx-auto">
         <div
@@ -204,7 +204,7 @@ export function About({ isDark }: AboutProps) {
                 Let's Work Together
               </button>
               <a
-                href="https://drive.google.com/file/d/1TIfJWZ9NJuD6S_fvI-5FpHa_rZmZWflg/view?usp=drivesdk"
+                href="https://drive.google.com/file/d/1kth3s1_CtRzvFy-Q2SLWPEhdCr8Eakua/view?usp=drivesdk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold border transition-all ${
