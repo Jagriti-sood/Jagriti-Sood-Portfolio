@@ -180,16 +180,19 @@ function PolaroidCard({ p, isDark }: { p: (typeof polaroids)[0]; isDark: boolean
 
       {/* Polaroid frame */}
       <div
-        className="bg-white"
         style={{
           padding: "9px 9px 38px 9px",
+          background: isDark ? "#e8e5dc" : "#ffffff",
           boxShadow: isDark
-            ? "0 12px 40px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5)"
+            ? "0 12px 40px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.04)"
             : "0 8px 32px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.07)",
         }}
       >
         {/* Photo */}
-        <div className="aspect-square overflow-hidden bg-gray-100" style={{ width: "142px", height: "142px" }}>
+        <div
+          className="aspect-square overflow-hidden"
+          style={{ width: "142px", height: "142px", background: isDark ? "#d8d5cb" : "#f3f4f6" }}
+        >
           <ImageWithFallback
             src={p.src}
             alt={p.caption}
@@ -199,10 +202,11 @@ function PolaroidCard({ p, isDark }: { p: (typeof polaroids)[0]; isDark: boolean
 
         {/* Caption */}
         <p
-          className="text-center text-gray-400 mt-2.5 text-[10px] leading-snug px-1"
+          className="text-center mt-2.5 text-[10px] leading-snug px-1"
           style={{
             fontFamily: "Plus Jakarta Sans, sans-serif",
             fontStyle: "italic",
+            color: isDark ? "#8a8579" : "#9ca3af",
           }}
         >
           {p.caption}
@@ -296,9 +300,8 @@ export function Creative({ isDark }: CreativeProps) {
       >
         {/* Left fade */}
         <div
-          className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
+          className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none w-12 md:w-24 lg:w-[120px]"
           style={{
-            width: "120px",
             background: isDark
               ? "linear-gradient(to right, #0d0c10 0%, transparent 100%)"
               : "linear-gradient(to right, #faf9f7 0%, transparent 100%)",
@@ -306,9 +309,8 @@ export function Creative({ isDark }: CreativeProps) {
         />
         {/* Right fade */}
         <div
-          className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
+          className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none w-12 md:w-24 lg:w-[120px]"
           style={{
-            width: "120px",
             background: isDark
               ? "linear-gradient(to left, #0d0c10 0%, transparent 100%)"
               : "linear-gradient(to left, #faf9f7 0%, transparent 100%)",

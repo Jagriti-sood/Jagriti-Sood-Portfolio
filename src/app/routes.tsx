@@ -1,7 +1,6 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { Root } from "./components/Root";
 import Home from "./pages/Home";
-import CaseStudy101 from "./pages/CaseStudy101";
 import CaseStudyNHL from "./pages/CaseStudyNHL";
 import CaseStudyMaple from "./pages/CaseStudyMaple";
 import CaseStudyAdScheduler from "./pages/CaseStudyAdScheduler";
@@ -14,7 +13,7 @@ export const router = createBrowserRouter([
     Component: Root,
     children: [
       { index: true, Component: Home },
-      { path: "work/101-healthcare", Component: CaseStudy101 },
+      { path: "work/101-healthcare", element: <Navigate to="/work/maplecode" replace /> },
       { path: "work/nhl-techshow", Component: CaseStudyNHL },
       { path: "work/maplecode", Component: CaseStudyMaple },
       { path: "work/ad-scheduler", Component: CaseStudyAdScheduler },

@@ -10,30 +10,18 @@ const experiences = [
   {
     id: 1,
     index: "01",
-    year: "2026",
-    role: "Senior UX/UI Designer",
-    company: "101 Healthcare",
-    location: "ON, Canada",
-    duration: "06/2025 – 03/2026",
-    description:
-      "Leading end-to-end product design for B2B SaaS tools, owning the design system and mentoring junior designers.",
-    current: false,
-  },
-  {
-    id: 2,
-    index: "02",
     year: "2024",
     role: "Senior UX/UI Designer",
     company: "Maple Code Innovations",
     location: "ON, Canada",
-    duration: "04/2024 – 05/2025",
+    duration: "04/2024 – Present",
     description:
-      "Designed patient-facing and clinician interfaces for a digital-health platform serving 80k+ users.",
-    current: false,
+      "Embedded design partner across multiple B2B products — systems, brand, and end-to-end UX for shipping healthcare and SaaS work.",
+    current: true,
   },
   {
-    id: 3,
-    index: "03",
+    id: 2,
+    index: "02",
     year: "2021",
     role: "UX/UI Designer",
     company: "Source Digital",
@@ -44,8 +32,8 @@ const experiences = [
     current: false,
   },
   {
-    id: 4,
-    index: "04",
+    id: 3,
+    index: "03",
     year: "2020",
     role: "UX/UI Designer",
     company: "Bajaj FinServ Health Ltd",
@@ -127,7 +115,7 @@ export function Experience({ isDark }: ExperienceProps) {
         <div className="hidden lg:block">
 
           {/* ① Track grid */}
-          <div className="relative grid grid-cols-4 gap-5">
+          <div className="relative grid grid-cols-3 gap-5">
 
             {/* Dotted line — bisects the dots at top-12 */}
             <motion.div
@@ -161,7 +149,7 @@ export function Experience({ isDark }: ExperienceProps) {
                     }`}
                     style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
                   >
-                    {exp.current ? "2026" : exp.year}
+                    {exp.current ? "Present" : exp.year}
                   </span>
                 </div>
 
@@ -203,7 +191,7 @@ export function Experience({ isDark }: ExperienceProps) {
           </div>
 
           {/* ② Card grid — equal heights naturally via same grid row */}
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-3 gap-5">
             {experiences.map((exp, i) => (
               <motion.div
                 key={exp.id}

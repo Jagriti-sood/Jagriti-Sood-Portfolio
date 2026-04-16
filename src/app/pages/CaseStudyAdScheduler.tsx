@@ -78,7 +78,7 @@ function Bullet({ items, isDark }: { items: string[]; isDark: boolean }) {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const nextProject = projects[4];
+const nextProject = projects[3]; // Bajaj
 
 const BEHANCE_URL = "https://www.behance.net/gallery/233440995/Real-Time-Campaign-Scheduling-Tool-for-Source";
 

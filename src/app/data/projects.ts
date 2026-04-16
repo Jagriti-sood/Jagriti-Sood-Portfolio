@@ -2,7 +2,6 @@ import imgNHL from "figma:asset/322867aa2bd51e13f19317633a5f0373aab4f93b.png";
 import img101Healthcare from "figma:asset/aa8f4c31f60399f1e417f9b76dbab0d035506671.png";
 import imgAdScheduler from "figma:asset/d6a778e753650b852ad71f897e1f721f0fa1fb6a.png";
 import imgBajaj from "figma:asset/7229c5eeb01d91cda83f69a4a72af2d17576d520.png";
-import imgMapleCode from "figma:asset/f75c8b1068f11d74617891ed4061bdb34b070714.png";
 
 export type Project = {
   id: number;
@@ -39,16 +38,16 @@ export const projects: Project[] = [
     id: 1,
     number: "02",
     title: "101 Healthcare - Senior Home Care",
-    industry: "Healthcare · Web Design",
+    industry: "Healthcare · Web Design · MapleCode",
     tags: ["UX Research", "IA & Content Strategy", "UI Design"],
     accent: "#F4A0C0",
     cardBgLight: "#FDFAF4",
     cardBgDark: "#1A160D",
     image: img101Healthcare,
     description:
-      "A senior home care agency in Ontario with no digital presence. I built their first website — and stayed on until consultation bookings tripled.",
+      "A senior home care agency in Ontario with no digital presence. Led at MapleCode — I built their first website and stayed on until consultation bookings tripled.",
     impact: ["3× consultation bookings", "42% drop in bounce rate"],
-    caseStudyUrl: "/work/101-healthcare",
+    caseStudyUrl: "/work/maplecode",
   },
   {
     id: 4,
@@ -79,20 +78,5 @@ export const projects: Project[] = [
       "2 new features, 2 redesigned flows  shipped to 500k+ users across India. Video consultations and gamified plan discovery, rebuilt end-to-end.",
     impact: ["4.4★ on app stores", "Shipped to 500k+ users"],
     caseStudyUrl: "/work/bajaj-health",
-  },
-  {
-    id: 3,
-    number: "05",
-    title: "MapleCode Innovations",
-    industry: "B2B Tech · Brand & Product",
-    tags: ["Design Systems", "Brand Identity", "UX/UI Design"],
-    accent: "#E8699A",
-    cardBgLight: "#FDF5F8",
-    cardBgDark: "#1A0F13",
-    image: imgMapleCode,
-    description:
-      "An ongoing embedded partnership with a Toronto-based B2B software company — design, marketing, and customer ops across multiple concurrent projects.",
-    impact: ["Embedded Partner", "Design · Marketing · Ops"],
-    caseStudyUrl: "/work/maplecode",
   },
 ];
