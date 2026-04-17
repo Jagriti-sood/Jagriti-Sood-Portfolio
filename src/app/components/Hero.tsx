@@ -46,7 +46,7 @@ export function Hero({ isDark }: HeroProps) {
         variants={stagger(0.1, 0.1)}
         initial="hidden"
         animate="show"
-        className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-10 pt-28 md:pt-20 pb-16 flex flex-col items-center text-center"
+        className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-10 pt-20 pb-16 flex flex-col items-center text-center"
       >
 
         {/* Available badge */}
