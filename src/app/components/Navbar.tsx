@@ -102,7 +102,7 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
             />
             <span
               className={`text-base font-semibold tracking-tight transition-colors ${
-                isDark ? "text-white" : "text-gray-900"
+                isDark ? "text-white/75" : "text-gray-600"
               }`}
               style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
             >
