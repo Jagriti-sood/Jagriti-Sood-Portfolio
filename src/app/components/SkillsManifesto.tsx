@@ -40,6 +40,7 @@ export function SkillsManifesto({ isDark }: SkillsManifestoProps) {
           >
             The Approach
           </span>
+          <div className="w-6 h-px bg-[#E8699A]" />
         </div>
 
         <p
