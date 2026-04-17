@@ -3,6 +3,7 @@ import { motion, useInView } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import profilePhoto from "figma:asset/8c07fac08dfabb5a554111b06c11c12cb5296766.png";
 import { ArrowUpRight } from "lucide-react";
+import { EASE, VIEWPORT, fadeUp, fadeUpSoft, stagger } from "../lib/motion";
 
 interface AboutProps {
   isDark: boolean;
@@ -21,7 +22,7 @@ const tools = [
 
 export function About({ isDark }: AboutProps) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, VIEWPORT);
 
   return (
     <section
@@ -35,12 +36,17 @@ export function About({ isDark }: AboutProps) {
         >
           {/* Image side */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: EASE }}
             className="relative order-2 lg:order-1 lg:sticky lg:top-28"
           >
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden aspect-[4/5]">
+            <motion.div
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 1.1, ease: EASE }}
+              className="relative rounded-2xl md:rounded-3xl overflow-hidden aspect-[4/5]"
+            >
               <ImageWithFallback
                 src={profilePhoto}
                 alt="Jagriti Sood - UX Designer"
@@ -53,13 +59,13 @@ export function About({ isDark }: AboutProps) {
                   background: "linear-gradient(160deg, rgba(107,127,196,0.15) 0%, rgba(74,155,142,0.1) 60%, transparent 100%)",
                 }}
               />
-            </div>
+            </motion.div>
 
             {/* Floating availability card */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: 0.6, duration: 0.55, ease: EASE }}
               className={`absolute -bottom-4 left-4 right-4 md:left-6 md:right-6 p-4 rounded-2xl border shadow-xl ${
                 isDark ? "bg-[#111118] border-white/10" : "bg-white border-gray-100"
               }`}
@@ -94,12 +100,12 @@ export function About({ isDark }: AboutProps) {
 
           {/* Text side */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            variants={stagger(0.09, 0.1)}
+            initial="hidden"
+            animate={inView ? "show" : "hidden"}
             className="order-1 lg:order-2 pt-0 lg:pt-4"
           >
-            <div className="flex items-center gap-3 mb-6">
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
               <div className="w-6 h-px" style={{ background: "#4A9B8E" }} />
               <span
                 className="text-xs font-semibold tracking-widest uppercase"
@@ -107,9 +113,10 @@ export function About({ isDark }: AboutProps) {
               >
                 The Person Behind the Work
               </span>
-            </div>
+            </motion.div>
 
-            <h2
+            <motion.h2
+              variants={fadeUp}
               className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8 ${
                 isDark ? "text-white" : "text-gray-900"
               }`}
@@ -126,10 +133,11 @@ export function About({ isDark }: AboutProps) {
                 someone's experience
               </span>{" "}
               depends on it. Because it does.
-            </h2>
+            </motion.h2>
 
-            <div
-              className={`space-y-5 text-sm leading-relaxed mb-10 ${
+            <motion.div
+              variants={fadeUp}
+              className={`space-y-5 text-sm font-medium leading-relaxed mb-10 ${
                 isDark ? "text-white/58" : "text-gray-500"
               }`}
               style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
@@ -155,10 +163,10 @@ export function About({ isDark }: AboutProps) {
                 throw, burn time, and vessel choice is more UX than most people realise - the
                 discipline of getting an experience <em className={isDark ? "text-white/80 not-italic font-medium" : "text-gray-700 not-italic font-medium"}>exactly right</em>, every single time.
               </p>
-            </div>
+            </motion.div>
 
             {/* Tools */}
-            <div className="mb-10">
+            <motion.div variants={fadeUp} className="mb-10">
               <p
                 className={`text-[10px] font-bold tracking-widest uppercase mb-4 ${
                   isDark ? "text-white/35" : "text-gray-400"
@@ -167,10 +175,14 @@ export function About({ isDark }: AboutProps) {
               >
                 My Stack
               </p>
-              <div className="grid grid-cols-3 gap-2">
+              <motion.div
+                variants={stagger(0.045)}
+                className="grid grid-cols-3 gap-2"
+              >
                 {tools.map((tool) => (
-                  <div
+                  <motion.div
                     key={tool.name}
+                    variants={fadeUpSoft}
                     className={`flex flex-col p-3 rounded-xl border transition-all hover:border-[#E8699A]/40 ${
                       isDark
                         ? "border-white/8 bg-white/3"
@@ -189,13 +201,13 @@ export function About({ isDark }: AboutProps) {
                     >
                       {tool.name}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* CTAs */}
-            <div className="flex gap-3 flex-wrap">
+            <motion.div variants={fadeUp} className="flex gap-3 flex-wrap">
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#E8699A] to-[#C2547C] text-white text-sm font-semibold hover:opacity-90 transition-all"
@@ -216,7 +228,7 @@ export function About({ isDark }: AboutProps) {
               >
                 Download CV
               </a>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

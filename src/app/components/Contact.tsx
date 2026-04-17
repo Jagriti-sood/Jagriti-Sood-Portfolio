@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, AnimatePresence } from "motion/react";
 import { Mail, Linkedin, ArrowUpRight, CheckCircle } from "lucide-react";
+import { VIEWPORT, fadeUp, stagger, iconSwap } from "../lib/motion";
 
 interface ContactProps {
   isDark: boolean;
@@ -8,7 +9,7 @@ interface ContactProps {
 
 export function Contact({ isDark }: ContactProps) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, VIEWPORT);
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = () => {
@@ -58,11 +59,11 @@ export function Contact({ isDark }: ContactProps) {
 
       <div ref={ref} className="max-w-6xl mx-auto relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          variants={stagger(0.09)}
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-6">
             <div className="w-6 h-px bg-[#E8699A]" />
             <span
               className="text-xs font-semibold tracking-widest uppercase text-[#E8699A]"
@@ -71,9 +72,10 @@ export function Contact({ isDark }: ContactProps) {
               Open to Opportunities
             </span>
             <div className="w-6 h-px bg-[#E8699A]" />
-          </div>
+          </motion.div>
 
-          <h2
+          <motion.h2
+            variants={fadeUp}
             className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] mb-6 ${
               isDark ? "text-white" : "text-gray-900"
             }`}
@@ -91,9 +93,10 @@ export function Contact({ isDark }: ContactProps) {
               Let's talk
             </span>{" "}
             about yours.
-          </h2>
+          </motion.h2>
 
-          <p
+          <motion.p
+            variants={fadeUp}
             className={`text-base max-w-xl mx-auto leading-relaxed mb-10 ${
               isDark ? "text-white/55" : "text-gray-500"
             }`}
@@ -103,10 +106,11 @@ export function Contact({ isDark }: ContactProps) {
             <span className={`font-medium ${isDark ? "text-white/75" : "text-gray-700"}`}>
               No pitch deck. Just a conversation.
             </span>
-          </p>
+          </motion.p>
 
           {/* Email copy block */}
           <motion.button
+            variants={fadeUp}
             onClick={handleCopyEmail}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -128,7 +132,7 @@ export function Contact({ isDark }: ContactProps) {
               </span>
             </div>
             <span
-              className={`text-xs font-semibold flex-shrink-0 flex items-center gap-1.5 transition-colors ${
+              className={`text-xs font-semibold flex-shrink-0 flex items-center gap-1.5 transition-colors duration-200 ${
                 copied
                   ? "text-green-500"
                   : isDark
@@ -137,19 +141,36 @@ export function Contact({ isDark }: ContactProps) {
               }`}
               style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
             >
-              {copied ? (
-                <>
-                  <CheckCircle size={13} />
-                  Copied!
-                </>
-              ) : (
-                "Copy"
-              )}
+              <AnimatePresence mode="wait" initial={false}>
+                {copied ? (
+                  <motion.span
+                    key="copied"
+                    variants={iconSwap}
+                    initial="hidden"
+                    animate="show"
+                    exit="exit"
+                    className="flex items-center gap-1.5"
+                  >
+                    <CheckCircle size={13} />
+                    Copied!
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="copy"
+                    variants={iconSwap}
+                    initial="hidden"
+                    animate="show"
+                    exit="exit"
+                  >
+                    Copy
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </span>
           </motion.button>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
               href="mailto:jagritisood30@gmail.com"
               className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#E8699A] to-[#C2547C] text-white text-sm font-semibold hover:opacity-90 transition-all"
@@ -173,7 +194,7 @@ export function Contact({ isDark }: ContactProps) {
               <Linkedin size={15} />
               View LinkedIn Profile
             </a>
-          </div>
+          </motion.div>
 
         </motion.div>
       </div>

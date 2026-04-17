@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import avatar from "@/assets/avatar.webp";
 
 interface NavbarProps {
   isDark: boolean;
@@ -89,9 +90,16 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
             }}
             className="flex items-center gap-2 group"
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#E8699A] to-[#C2547C] flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xs font-bold">JS</span>
-            </div>
+            <img
+              src={avatar}
+              alt="Jagriti Sood"
+              className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
+              style={{
+                boxShadow: isDark
+                  ? "0 0 0 1px rgba(255,255,255,0.16), 0 4px 12px rgba(0,0,0,0.4)"
+                  : "0 0 0 1px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08)",
+              }}
+            />
             <span
               className={`text-base font-semibold tracking-tight transition-colors ${
                 isDark ? "text-white" : "text-gray-900"

@@ -4,6 +4,7 @@ import { motion, useInView } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import type { Project } from "../data/projects";
+import { EASE, VIEWPORT } from "../lib/motion";
 import nhlMockup from "figma:asset/322867aa2bd51e13f19317633a5f0373aab4f93b.png";
 
 const FIGMA_IMAGES: Record<string, string> = {
@@ -22,7 +23,7 @@ export function SharedProjectCard({
   animate?: boolean;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const inView    = useInView(scrollRef, { once: true, margin: "-60px" });
+  const inView    = useInView(scrollRef, VIEWPORT);
   const navigate  = useNavigate();
 
   const accent = "#E8699A";
@@ -36,13 +37,13 @@ export function SharedProjectCard({
   return (
     <motion.div
       ref={scrollRef}
-      initial={animate ? { opacity: 0, y: 48 } : { opacity: 1, y: 0 }}
+      initial={animate ? { opacity: 0, y: 32 } : { opacity: 1, y: 0 }}
       animate={animate ? (inView ? { opacity: 1, y: 0 } : {}) : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: EASE }}
       whileHover={{ y: -4 }}
       onClick={() => navigate(project.caseStudyUrl)}
-      className={`group relative cursor-pointer overflow-hidden rounded-3xl border transition-[border-color,box-shadow] duration-500 ${
-        isDark ? "border-white/[0.05]" : "border-black/[0.04]"
+      className={`group relative cursor-pointer overflow-hidden rounded-3xl transition-[box-shadow,border-color] duration-300 ${
+        isDark ? "border border-white/[0.05] hover:border-white/[0.1]" : "card-shadow hover:card-shadow-hover"
       }`}
       style={{ backgroundColor: cardBg }}
     >
@@ -165,7 +166,7 @@ export function SharedProjectCard({
             <ImageWithFallback
               src={FIGMA_IMAGES[project.caseStudyUrl] ?? project.image}
               alt={project.title}
-              className="w-full h-full object-cover object-center transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
             />
             {/* Subtle bottom gradient for depth */}
             <div

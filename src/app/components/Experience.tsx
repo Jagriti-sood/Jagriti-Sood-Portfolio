@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { MapPin, Calendar } from "lucide-react";
+import { EASE, VIEWPORT } from "../lib/motion";
 
 interface ExperienceProps {
   isDark: boolean;
@@ -47,7 +48,7 @@ const experiences = [
 
 export function Experience({ isDark }: ExperienceProps) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, VIEWPORT);
 
   const lineColor = isDark ? "rgba(232,105,154,0.3)" : "rgba(232,105,154,0.4)";
 
@@ -62,7 +63,7 @@ export function Experience({ isDark }: ExperienceProps) {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE }}
           className="mb-16 md:mb-20"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -121,7 +122,7 @@ export function Experience({ isDark }: ExperienceProps) {
             <motion.div
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1, delay: 0.1, ease: EASE }}
               className="absolute top-12 left-0 right-0 origin-left"
               style={{
                 height: "1px",
@@ -200,7 +201,7 @@ export function Experience({ isDark }: ExperienceProps) {
                 transition={{
                   duration: 0.55,
                   delay: 0.3 + i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE,
                 }}
                 className={`rounded-2xl p-5 border flex flex-col h-full transition-colors ${
                   isDark
@@ -298,9 +299,9 @@ export function Experience({ isDark }: ExperienceProps) {
           {experiences.map((exp, i) => (
             <motion.div
               key={exp.id}
-              initial={{ opacity: 0, x: -16 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: EASE }}
               className="relative flex gap-4"
             >
               {/* ── Left column: dot + connector line ── */}

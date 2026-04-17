@@ -1,45 +1,10 @@
 import { motion } from "motion/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { fadeUp, stagger } from "../lib/motion";
 
 interface HeroProps {
   isDark: boolean;
 }
-
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-const tools = [
-  { label: "Figma" },
-  { label: "UX Research" },
-  { label: "AI Assisted Design" },
-  { label: "Design Systems" },
-  { label: "Prototyping" },
-  { label: "Vibe Coding" },
-  { label: "User Testing" },
-  { label: "Interaction Design" },
-  { label: "Wireframing" },
-  { label: "Healthcare UX" },
-  { label: "Ad-Tech" },
-  { label: "B2B Products" },
-  { label: "Information Architecture" },
-  { label: "Product Strategy" },
-  { label: "Usability Testing" },
-];
-
-const toolsRow2 = [
-  { label: "Conversion-Led Design" },
-  { label: "Mobile UX" },
-  { label: "Accessibility" },
-  { label: "Stakeholder Alignment" },
-  { label: "Design Critique" },
-  { label: "Content Strategy" },
-  { label: "Journey Mapping" },
-  { label: "Sprint Facilitation" },
-  { label: "Service Design" },
-  { label: "Visual Design" },
-  { label: "Design Thinking" },
-  { label: "Rapid Prototyping" },
-  { label: "Cross-functional Collaboration" },
-];
 
 export function Hero({ isDark }: HeroProps) {
   return (
@@ -65,8 +30,10 @@ export function Hero({ isDark }: HeroProps) {
                  linear-gradient(90deg, rgba(232,105,154,0.13) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
             maskImage: `linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0%, transparent 12%, black 24%, black 72%, transparent 96%),
                         radial-gradient(ellipse 88% 82% at 50% 52%, transparent 28%, black 52%, transparent 90%)`,
             WebkitMaskImage: `linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
+                              linear-gradient(to bottom, transparent 0%, transparent 12%, black 24%, black 72%, transparent 96%),
                               radial-gradient(ellipse 88% 82% at 50% 52%, transparent 28%, black 52%, transparent 90%)`,
             maskComposite: "intersect",
             WebkitMaskComposite: "source-in",
@@ -75,92 +42,128 @@ export function Hero({ isDark }: HeroProps) {
       </div>
 
       {/* ── Main content ─────────────────────────────────── */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-10 pt-28 md:pt-32 pb-16 flex flex-col items-center text-center">
+      <motion.div
+        variants={stagger(0.1, 0.1)}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-10 pt-28 md:pt-20 pb-16 flex flex-col items-center text-center"
+      >
 
         {/* Available badge */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-          className="flex items-center justify-center gap-2.5 mb-8"
+          variants={fadeUp}
+          className="flex items-center justify-center mb-8"
         >
-          {/* Border wrapper */}
-          <div
-            className="inline-flex rounded-full p-[1px]"
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", duration: 0.4, bounce: 0 }}
+            className="relative inline-flex items-center rounded-full overflow-hidden cursor-default"
             style={{
-              background: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+              background: isDark ? "#0e0e15" : "#ffffff",
+              boxShadow: isDark
+                ? "0 0 0 1px rgba(255,255,255,0.08), 0 10px 30px -10px rgba(0,0,0,0.5), 0 0 24px -6px rgba(34,197,94,0.12)"
+                : "0 0 0 1px rgba(0,0,0,0.06), 0 2px 8px -2px rgba(0,0,0,0.06), 0 4px 16px -4px rgba(0,0,0,0.04), 0 0 20px -4px rgba(34,197,94,0.08)",
             }}
           >
-            <div
-              className="inline-flex items-center rounded-full overflow-hidden"
-              style={{ background: isDark ? "#0e0e15" : "#f9f9fb" }}
+            {/* Left — status */}
+            <span
+              className="inline-flex items-center gap-2 pl-3.5 pr-3 py-1.5"
+              style={{
+                borderRight: isDark
+                  ? "1px solid rgba(255,255,255,0.08)"
+                  : "1px solid rgba(0,0,0,0.07)",
+              }}
             >
-              {/* Left — status */}
-              <span
-                className="inline-flex items-center gap-2 pl-3.5 pr-3 py-1.5"
-                style={{ borderRight: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.07)" }}
-              >
-                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
-                  <span
-                    className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                    style={{ backgroundColor: "#22c55e" }}
-                  />
-                  <span
-                    className="relative inline-flex rounded-full h-1.5 w-1.5"
-                    style={{ backgroundColor: "#22c55e" }}
-                  />
-                </span>
-                <span className="text-xs font-semibold" style={{ color: isDark ? "rgba(255,255,255,0.75)" : "rgba(0,0,0,0.6)" }}>
-                  Available now
-                </span>
+              <span className="relative flex items-center justify-center h-1.5 w-1.5 flex-shrink-0">
+                {/* Soft radial halo — gently breathing */}
+                <motion.span
+                  aria-hidden
+                  animate={{ opacity: [0.55, 0.9, 0.55] }}
+                  transition={{
+                    duration: 2.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute rounded-full pointer-events-none"
+                  style={{
+                    width: "14px",
+                    height: "14px",
+                    background:
+                      "radial-gradient(circle, rgba(34,197,94,0.55) 0%, rgba(34,197,94,0) 70%)",
+                    filter: "blur(1px)",
+                  }}
+                />
+                {/* Solid dot with its own glow */}
+                <span
+                  className="relative inline-flex rounded-full h-1.5 w-1.5"
+                  style={{
+                    backgroundColor: "#22c55e",
+                    boxShadow: "0 0 6px rgba(34,197,94,0.7)",
+                  }}
+                />
               </span>
+              <span
+                className="text-xs font-semibold"
+                style={{
+                  color: isDark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.72)",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                Available now
+              </span>
+            </span>
 
-              {/* Right — descriptor */}
-              <span
-                className="pl-3 pr-3.5 py-1.5 text-xs font-medium"
-                style={{ color: isDark ? "rgba(255,255,255,0.38)" : "rgba(0,0,0,0.4)" }}
-              >
-                UX Designer&nbsp;&nbsp;·&nbsp;&nbsp;5 years
-              </span>
-            </div>
-          </div>
+            {/* Right — descriptor */}
+            <span
+              className="pl-3 pr-3.5 py-1.5 text-xs font-medium"
+              style={{
+                color: isDark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)",
+              }}
+            >
+              UX Designer&nbsp;&nbsp;·&nbsp;&nbsp;5 years
+            </span>
+          </motion.div>
         </motion.div>
 
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.08, ease: EASE }}
+        {/* Headline — two-line reveal for a touch of rhythm */}
+        <h1
           className={`text-[clamp(2.6rem,7vw,5.5rem)] font-bold leading-[1.08] tracking-tight mb-6 ${
             isDark ? "text-white" : "text-gray-900"
           }`}
         >
-          Designing experiences
-          <br />
-          that{" "}
-          <span
-            style={
-              isDark
-                ? {
-                    background: "linear-gradient(125deg, #E8699A 0%, #C2547C 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }
-                : {
-                    color: "#E8699A",
-                  }
-            }
+          <motion.span
+            variants={fadeUp}
+            className="block"
           >
-            feel right.
-          </span>
-        </motion.h1>
+            Designing experiences
+          </motion.span>
+          <motion.span
+            variants={fadeUp}
+            className="block"
+          >
+            that{" "}
+            <span
+              style={
+                isDark
+                  ? {
+                      background: "linear-gradient(125deg, #E8699A 0%, #C2547C 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }
+                  : {
+                      color: "#E8699A",
+                    }
+              }
+            >
+              feel right.
+            </span>
+          </motion.span>
+        </h1>
 
         {/* Sub-heading */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.18, ease: EASE }}
+          variants={fadeUp}
           className={`max-w-lg md:max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-10 ${
             isDark ? "text-white/52" : "text-gray-500"
           }`}
@@ -170,9 +173,7 @@ export function Hero({ isDark }: HeroProps) {
 
         {/* CTA buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.26, ease: EASE }}
+          variants={fadeUp}
           className="flex flex-wrap items-center justify-center gap-3"
         >
           <a
@@ -206,80 +207,6 @@ export function Hero({ isDark }: HeroProps) {
             <ArrowUpRight size={15} />
           </a>
         </motion.div>
-      </div>
-
-      {/* ── Skills marquee ─────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7, duration: 0.8 }}
-        className="relative z-10 w-full mt-auto"
-      >
-        {/* Edge fades */}
-        <div className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none"
-          style={{ background: `linear-gradient(to right, ${isDark ? "#0a0a0f" : "#ffffff"} 0%, transparent 100%)` }} />
-        <div className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none"
-          style={{ background: `linear-gradient(to left, ${isDark ? "#0a0a0f" : "#ffffff"} 0%, transparent 100%)` }} />
-
-        {/* Row 1 — scrolls left */}
-        <div
-          className="w-full overflow-hidden py-4 border-t"
-          style={{
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            background: isDark
-              ? "rgba(255,255,255,0.03)"
-              : "rgba(0,0,0,0.025)",
-            borderColor: isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.07)",
-          }}
-        >
-          <div className="flex animate-marquee whitespace-nowrap">
-            {[...tools, ...tools].map((tool, i) => (
-              <span
-                key={`a-${i}`}
-                className="inline-flex items-center gap-5 flex-shrink-0 px-3"
-              >
-                <span
-                  className="text-xs font-semibold tracking-[0.2em] uppercase"
-                  style={{ color: isDark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.38)" }}
-                >
-                  {tool.label}
-                </span>
-                <span style={{ color: "#E8699A", fontSize: "10px", opacity: 0.6 }}>✦</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Row 2 — scrolls right */}
-        <div
-          className="w-full overflow-hidden py-3 border-t border-b"
-          style={{
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            background: isDark
-              ? "rgba(232,105,154,0.03)"
-              : "rgba(232,105,154,0.025)",
-            borderColor: isDark ? "rgba(232,105,154,0.1)" : "rgba(232,105,154,0.12)",
-          }}
-        >
-          <div className="flex animate-marquee-reverse whitespace-nowrap">
-            {[...toolsRow2, ...toolsRow2].map((tool, i) => (
-              <span
-                key={`b-${i}`}
-                className="inline-flex items-center gap-5 flex-shrink-0 px-3"
-              >
-                <span
-                  className="text-xs font-medium tracking-[0.18em] uppercase"
-                  style={{ color: isDark ? "rgba(232,105,154,0.55)" : "rgba(194,84,124,0.55)" }}
-                >
-                  {tool.label}
-                </span>
-                <span style={{ color: isDark ? "rgba(244,160,192,0.3)" : "rgba(194,84,124,0.25)", fontSize: "8px" }}>◆</span>
-              </span>
-            ))}
-          </div>
-        </div>
       </motion.div>
     </section>
   );

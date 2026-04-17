@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { EASE, VIEWPORT, fadeUp, stagger } from "../lib/motion";
 import giftBasket from "figma:asset/48315edc9be0e96e6149d33a3fe19acd1da79c47.png";
 import wineGlasses from "figma:asset/4e0173e83ea76e48b112d6778f7273d8643cea1e.png";
 import sunflowerCandle from "figma:asset/6f6b36c40b35f0725b8fa97be9ce865514a8a837.png";
@@ -218,7 +219,7 @@ function PolaroidCard({ p, isDark }: { p: (typeof polaroids)[0]; isDark: boolean
 
 export function Creative({ isDark }: CreativeProps) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, VIEWPORT);
 
   // Duplicate for seamless loop
   const loopItems = [...polaroids, ...polaroids];
@@ -244,12 +245,12 @@ export function Creative({ isDark }: CreativeProps) {
       {/* Header — constrained */}
       <div ref={ref} className="max-w-6xl mx-auto px-6 md:px-10 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          variants={stagger(0.1)}
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
           className="mb-16"
         >
-          <div className="flex items-center gap-3 mb-6">
+          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
             <div className="w-6 h-px bg-[#E8699A]" />
             <span
               className="text-xs font-semibold tracking-widest uppercase text-[#E8699A]"
@@ -257,9 +258,10 @@ export function Creative({ isDark }: CreativeProps) {
             >
               Outside Work
             </span>
-          </div>
+          </motion.div>
 
-          <h2
+          <motion.h2
+            variants={fadeUp}
             className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${
               isDark ? "text-white" : "text-gray-900"
             }`}
@@ -276,9 +278,10 @@ export function Creative({ isDark }: CreativeProps) {
             >
               lives on a screen.
             </span>
-          </h2>
+          </motion.h2>
 
-          <p
+          <motion.p
+            variants={fadeUp}
             className={`text-sm max-w-md leading-relaxed ${
               isDark ? "text-white/45" : "text-gray-400"
             }`}
@@ -286,7 +289,7 @@ export function Creative({ isDark }: CreativeProps) {
           >
             Candles, sketches, gift baskets — the things I make just because
             they bring me joy.
-          </p>
+          </motion.p>
         </motion.div>
       </div>
 
@@ -294,11 +297,13 @@ export function Creative({ isDark }: CreativeProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
         className="relative w-full"
         style={{
-          paddingTop: "50px",
-          paddingBottom: "50px",
+          paddingTop: "90px",
+          paddingBottom: "100px",
+          marginTop: "-40px",
+          marginBottom: "-50px",
           WebkitMaskImage:
             "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.08) 3%, rgba(0,0,0,0.25) 6%, rgba(0,0,0,0.5) 10%, rgba(0,0,0,0.75) 14%, rgba(0,0,0,0.92) 18%, #000 22%, #000 78%, rgba(0,0,0,0.92) 82%, rgba(0,0,0,0.75) 86%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.25) 94%, rgba(0,0,0,0.08) 97%, transparent 100%)",
           maskImage:
@@ -333,7 +338,7 @@ export function Creative({ isDark }: CreativeProps) {
       <motion.p
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.9 }}
+        transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
         className={`text-center text-xs mt-12 px-6 ${
           isDark ? "text-white/40" : "text-gray-400"
         }`}

@@ -2,6 +2,17 @@
 @import './tailwind.css';
 @import './theme.css';
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 * {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
@@ -14,6 +25,56 @@
 /* Default readable line-height for body text — Tailwind utilities override this where needed */
 p, li, dd {
   line-height: 1.8;
+}
+
+/* ── Manifesto word-reveal (scroll-driven, Jhey) ─────────────────────── */
+.manifesto-section {
+  view-timeline-name: --manifesto-tl;
+  view-timeline-axis: block;
+}
+
+.manifesto-word {
+  display: inline-block;
+  color: var(--m-sharp);
+  filter: blur(0);
+}
+
+@supports (animation-timeline: view()) {
+  @property --reveal {
+    syntax: "<number>";
+    initial-value: 0;
+    inherits: false;
+  }
+
+  .manifesto-word {
+    --reveal: 0;
+    color: color-mix(in oklch, var(--m-dim), var(--m-sharp) calc(var(--reveal) * 100%));
+    filter: blur(calc((1 - var(--reveal)) * 6px));
+    animation: manifesto-reveal linear(0, 0.35 20%, 0.75 45%, 0.95 75%, 1) both;
+    animation-timeline: --manifesto-tl;
+    animation-range: cover calc(var(--s) * 1%) cover calc(var(--e) * 1%);
+    will-change: filter, color;
+  }
+
+  @keyframes manifesto-reveal {
+    to {
+      --reveal: 1;
+    }
+  }
+}
+
+.card-shadow {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 1px 2px -1px rgba(0, 0, 0, 0.06),
+    0 2px 8px -2px rgba(0, 0, 0, 0.04);
+}
+
+.card-shadow-hover {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 2px 4px -1px rgba(0, 0, 0, 0.07),
+    0 8px 24px -4px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes marquee {
