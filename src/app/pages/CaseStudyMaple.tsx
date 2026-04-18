@@ -120,8 +120,8 @@ export default function CaseStudyMaple() {
 
   const outcomes = [
     { value: "3×", label: "Increase in consultation requests post-launch", color: "#E8699A" },
-    { value: "64%", label: "Increase in service page engagement", color: "#C2547C" },
-    { value: "42%", label: "Reduction in homepage bounce rate", color: "#F4A0C0" },
+    { value: "64%", label: "Increase in service page engagement", color: "#E8699A" },
+    { value: "42%", label: "Reduction in homepage bounce rate", color: "#E8699A" },
     { value: "2m 48s", label: "Average session duration increased", color: "#E8699A" },
   ];
 

@@ -80,8 +80,8 @@ export default function CaseStudyNHL() {
 
   const outcomes = [
     { value: "72%", label: "Session discovery rate", color: "#E8699A" },
-    { value: "5k+", label: "Attendees at NHL Tech Showcase 2022", color: "#C2547C" },
-    { value: "46%", label: "Users explored multiple modules", color: "#F4A0C0" },
+    { value: "5k+", label: "Attendees at NHL Tech Showcase 2022", color: "#E8699A" },
+    { value: "46%", label: "Users explored multiple modules", color: "#E8699A" },
   ];
 
   return (

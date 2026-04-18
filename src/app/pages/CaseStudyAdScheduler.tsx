@@ -91,8 +91,8 @@ const meta = [
 
 const outcomes = [
   { value: "2.5x", label: "Faster campaign scheduling compared to the previous workflow", color: "#E8699A" },
-  { value: "35%", label: "Reduction in time spent on cross-team campaign coordination", color: "#C2547C" },
-  { value: "71%", label: "Of users reported improved visibility across active campaigns", color: "#F4A0C0" },
+  { value: "35%", label: "Reduction in time spent on cross-team campaign coordination", color: "#E8699A" },
+  { value: "71%", label: "Of users reported improved visibility across active campaigns", color: "#E8699A" },
 ];
 
 const problemCards = [
