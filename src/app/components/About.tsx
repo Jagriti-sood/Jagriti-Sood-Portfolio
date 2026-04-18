@@ -216,7 +216,7 @@ export function About({ isDark }: AboutProps) {
                 Let's Work Together
               </button>
               <a
-                href="https://drive.google.com/file/d/17WwC_uifj10jVcl-CwSvbHJ6hYJdGUjt/view?usp=drivesdk"
+                href="https://drive.google.com/file/d/1mfKm_SgYF3CDsRvUl2ryqh6u_Jte8Lzt/view?usp=drivesdk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold border transition-all ${
