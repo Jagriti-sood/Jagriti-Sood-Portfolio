@@ -15,7 +15,7 @@ const navLinks = [
   { label: "Experience", href: "#experience" },
   {
     label: "Resume",
-    href: "https://drive.google.com/file/d/1kth3s1_CtRzvFy-Q2SLWPEhdCr8Eakua/view?usp=drivesdk",
+    href: "https://drive.google.com/file/d/17WwC_uifj10jVcl-CwSvbHJ6hYJdGUjt/view?usp=drivesdk",
     external: true,
   },
 ];
@@ -167,7 +167,7 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
             {/* On case study pages: show Resume link */}
             {isCaseStudy && (
               <a
-                href="https://drive.google.com/file/d/1kth3s1_CtRzvFy-Q2SLWPEhdCr8Eakua/view?usp=drivesdk"
+                href="https://drive.google.com/file/d/17WwC_uifj10jVcl-CwSvbHJ6hYJdGUjt/view?usp=drivesdk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hidden md:inline-flex text-sm font-medium transition-colors px-4 py-2 rounded-full ${
@@ -242,7 +242,7 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
               {isCaseStudy ? (
                 <>
                   <a
-                    href="https://drive.google.com/file/d/1kth3s1_CtRzvFy-Q2SLWPEhdCr8Eakua/view?usp=drivesdk"
+                    href="https://drive.google.com/file/d/17WwC_uifj10jVcl-CwSvbHJ6hYJdGUjt/view?usp=drivesdk"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMenuOpen(false)}
