@@ -16,8 +16,11 @@ const tools = [
   { name: "Notion", category: "Strategy" },
   { name: "Miro", category: "Workshops" },
   { name: "Zeplin", category: "Handoff" },
-  { name: "AI Assisted Design", category: "Emerging" },
-  { name: "Vibe Coding", category: "Emerging" },
+  { name: "Figma Make", category: "Prototyping" },
+  { name: "Cursor", category: "AI Coding" },
+  { name: "Claude Code", category: "AI Coding" },
+  { name: "ChatGPT", category: "AI Assist" },
+  { name: "Gemini", category: "AI Assist" },
 ];
 
 export function About({ isDark }: AboutProps) {
@@ -216,7 +219,7 @@ export function About({ isDark }: AboutProps) {
                 Let's Work Together
               </button>
               <a
-                href="https://drive.google.com/file/d/1mfKm_SgYF3CDsRvUl2ryqh6u_Jte8Lzt/view?usp=drivesdk"
+                href="https://drive.google.com/file/d/1xTJxVZSMgNBb8rgiRyoDychhcGN5_VrA/view?usp=drivesdk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold border transition-all ${
