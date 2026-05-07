@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import fs from 'fs'
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
@@ -15,6 +16,22 @@ function figmaAssetPlugin() {
   }
 }
 
+// Copy dist/index.html → dist/404.html so GitHub Pages serves the SPA shell
+// for unknown paths (e.g. /work/sped-summit on direct hit) and React Router
+// resolves the route on the client.
+function spaFallbackPlugin() {
+  return {
+    name: 'spa-404-fallback',
+    apply: 'build' as const,
+    closeBundle() {
+      const dist = path.resolve(__dirname, 'dist')
+      const src = path.join(dist, 'index.html')
+      const dst = path.join(dist, '404.html')
+      if (fs.existsSync(src)) fs.copyFileSync(src, dst)
+    },
+  }
+}
+
 export default defineConfig({
   base: '/',  // 🔥🔥 MOST IMPORTANT
 
@@ -22,6 +39,7 @@ export default defineConfig({
     figmaAssetPlugin(),
     react(),
     tailwindcss(),
+    spaFallbackPlugin(),
   ],
 
   resolve: {
