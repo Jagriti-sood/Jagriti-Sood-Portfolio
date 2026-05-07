@@ -4,8 +4,9 @@ import { motion, useInView } from "motion/react";
 import { Lock } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { SharedProjectCard } from "../components/SharedProjectCard";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { projects } from "../data/projects";
-import spedSummitCover from "@/assets/sped-summit-cover.webp";
+import spedSummitCover from "@/assets/sped-summit-hero.webp";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -313,7 +314,7 @@ export default function CaseStudySpedSummit() {
           className="max-w-6xl mx-auto"
         >
           <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
-            <img
+            <ImageWithFallback
               src={spedSummitCover}
               alt="SPED Summit — virtual conference landing page"
               className="w-full h-full object-cover"
