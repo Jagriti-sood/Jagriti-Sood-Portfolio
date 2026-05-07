@@ -102,7 +102,7 @@ function ImageCaption({ text, isDark }: { text: string; isDark: boolean }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-const nextProject = projects[2]; // Source Digital
+const nextProject = projects[2]; // SPED Summit
 
 export default function CaseStudyMaple() {
   const { isDark } = useTheme();

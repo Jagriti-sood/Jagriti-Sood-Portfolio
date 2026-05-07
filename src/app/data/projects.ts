@@ -1,5 +1,6 @@
 import imgNHL from "figma:asset/322867aa2bd51e13f19317633a5f0373aab4f93b.png";
 import img101Healthcare from "figma:asset/aa8f4c31f60399f1e417f9b76dbab0d035506671.png";
+import imgSpedSummit from "@/assets/sped-summit-cover.webp";
 import imgAdScheduler from "figma:asset/d6a778e753650b852ad71f897e1f721f0fa1fb6a.png";
 import imgBajaj from "figma:asset/7229c5eeb01d91cda83f69a4a72af2d17576d520.png";
 
@@ -50,8 +51,23 @@ export const projects: Project[] = [
     caseStudyUrl: "/work/maplecode",
   },
   {
-    id: 4,
+    id: 6,
     number: "03",
+    title: "SPED Summit - Virtual Conference",
+    industry: "Education · Web Design · MapleCode",
+    tags: ["Landing Page", "Visual System", "Content Strategy"],
+    accent: "#F4A0C0",
+    cardBgLight: "#FDF5F8",
+    cardBgDark: "#1B1218",
+    image: imgSpedSummit,
+    description:
+      "A free virtual summit for special education professionals. Designed at MapleCode as a decision-journey landing page — relevance, credibility, then a frictionless free sign-up.",
+    impact: ["Decision-first IA", "Free sign-up surfaced throughout"],
+    caseStudyUrl: "/work/sped-summit",
+  },
+  {
+    id: 4,
+    number: "04",
     title: "Campaigns - Source Digital",
     industry: "Ad-Tech · Internal Tooling",
     tags: ["User Research", "Systems Design", "Usability Testing"],
@@ -66,7 +82,7 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    number: "04",
+    number: "05",
     title: "Bajaj Finserv Health",
     industry: "Healthcare · Mobile App (iOS & Android)",
     tags: ["Feature Design", "Flow Redesign", "Interaction Design"],

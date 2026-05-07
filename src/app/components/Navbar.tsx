@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import avatar from "@/assets/avatar.webp";
 
@@ -78,37 +78,71 @@ export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 md:h-20 flex items-center justify-between">
-          {/* Logo */}
-          <button
-            onClick={() => {
-              setMenuOpen(false);
-              if (isCaseStudy) {
-                navigate("/");
-              } else {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
-            className="flex items-center gap-2 group"
-          >
-            <img
-              src={avatar}
-              alt="Jagriti Sood"
-              className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
-              style={{
-                boxShadow: isDark
-                  ? "0 0 0 1px rgba(255,255,255,0.16), 0 4px 12px rgba(0,0,0,0.4)"
-                  : "0 0 0 1px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08)",
-              }}
-            />
-            <span
-              className={`text-base font-semibold tracking-tight transition-colors ${
-                isDark ? "text-white/75" : "text-gray-600"
-              }`}
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-            >
-              Jagriti Sood
-            </span>
-          </button>
+          {/* Logo / Back — animated swap */}
+          <AnimatePresence mode="wait" initial={false}>
+            {isCaseStudy ? (
+              <motion.button
+                key="back"
+                onClick={() => {
+                  setMenuOpen(false);
+                  navigate("/#work");
+                }}
+                initial={{ opacity: 0, x: -10, scale: 0.96 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -10, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className={`group flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors ${
+                  isDark
+                    ? "border-white/10 text-white/70 hover:text-white hover:border-white/20"
+                    : "border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-300"
+                }`}
+                aria-label="Back"
+              >
+                <ArrowLeft
+                  size={15}
+                  className="transition-transform duration-200 group-hover:-translate-x-0.5"
+                />
+                <span
+                  className="text-sm font-medium tracking-tight"
+                  style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+                >
+                  Back
+                </span>
+              </motion.button>
+            ) : (
+              <motion.button
+                key="logo"
+                onClick={() => {
+                  setMenuOpen(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                initial={{ opacity: 0, x: 10, scale: 0.96 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: 10, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-center gap-2 group"
+              >
+                <img
+                  src={avatar}
+                  alt="Jagriti Sood"
+                  className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
+                  style={{
+                    boxShadow: isDark
+                      ? "0 0 0 1px rgba(255,255,255,0.16), 0 4px 12px rgba(0,0,0,0.4)"
+                      : "0 0 0 1px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08)",
+                  }}
+                />
+                <span
+                  className={`text-base font-semibold tracking-tight transition-colors ${
+                    isDark ? "text-white/75" : "text-gray-600"
+                  }`}
+                  style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+                >
+                  Jagriti Sood
+                </span>
+              </motion.button>
+            )}
+          </AnimatePresence>
 
           {/* Desktop Center Nav — only on homepage */}
           {!isCaseStudy && (
