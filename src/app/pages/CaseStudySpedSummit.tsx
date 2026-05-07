@@ -78,8 +78,8 @@ function BulletList({ items, isDark }: { items: string[]; isDark: boolean }) {
     <ul className="space-y-2" style={{ fontFamily: "Poppins, sans-serif" }}>
       {items.map((item, i) => (
         <li key={i} className={`flex gap-2.5 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[6px]" />
-          {item}
+          <span className="w-1.5 h-1.5 rounded-full bg-[#E8699A] flex-shrink-0 mt-[10px]" />
+          <span>{item}</span>
         </li>
       ))}
     </ul>
@@ -469,14 +469,14 @@ export default function CaseStudySpedSummit() {
               </p>
               <ol className="space-y-1.5" style={{ fontFamily: "Poppins, sans-serif" }}>
                 {iaSteps.map((step, i) => (
-                  <li key={i} className={`flex gap-3 items-start text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
+                  <li key={i} className={`flex gap-3 items-baseline text-sm leading-5 ${isDark ? "text-white/55" : "text-gray-500"}`}>
                     <span
                       className="flex-shrink-0 text-[10px] font-bold tracking-widest"
-                      style={{ color: "#E8699A", fontFamily: "Poppins, sans-serif", minWidth: "1.5rem" }}
+                      style={{ color: "#E8699A", fontFamily: "Poppins, sans-serif", minWidth: "1.5rem", lineHeight: "20px" }}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    {step}
+                    <span>{step}</span>
                   </li>
                 ))}
               </ol>
