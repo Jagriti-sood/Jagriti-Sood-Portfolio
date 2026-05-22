@@ -74,7 +74,7 @@ export default function CaseStudyNHL() {
   const meta = [
     { label: "My Role", value: "Lead UX Designer" },
     { label: "Timeline", value: "16 Weeks · 2022" },
-    { label: "Tools", value: "Figma, Maze, UserZoom, Miro" },
+    { label: "Tools", value: "Figma, Maze, Procreate" },
     { label: "Deliverables", value: "Discovery, App Design, Design System, Handoff" },
   ];
 
