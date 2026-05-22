@@ -75,7 +75,7 @@ export default function CaseStudyNHL() {
     { label: "My Role", value: "Lead UX Designer" },
     { label: "Timeline", value: "16 Weeks · 2022" },
     { label: "Tools", value: "Figma, Maze, UserZoom, Miro" },
-    { label: "Deliverables", value: "Discovery, App Redesign, Design System, Handoff" },
+    { label: "Deliverables", value: "Discovery, App Design, Design System, Handoff" },
   ];
 
   const outcomes = [
@@ -113,7 +113,7 @@ export default function CaseStudyNHL() {
             className={`max-w-2xl text-base leading-relaxed mb-10 ${body}`}
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            A concept-led platform redesign that helped fans discover the live stats, player context, and interactive tools most relevant to them.
+            A concept-led platform that helped fans discover the live stats, player context, and interactive tools most relevant to them.
           </motion.p>
 
           <motion.div
@@ -397,7 +397,7 @@ const CAROUSEL_SLIDES = [
       { dot: "#C2547C", text: "Real-time power rankings" },
       { dot: "#F4A0C0", text: "LIVE broadcast badge" },
     ],
-    caption: "Live in-game view with real-time NHL Power Rankings — the centrepiece of the redesigned experience",
+    caption: "Live in-game view with real-time NHL Power Rankings — the centrepiece of the experience",
   },
   {
     image: image_209f8d105135ffb00c4bc5b63925e26ec526bbbb,

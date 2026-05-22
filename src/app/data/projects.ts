@@ -30,7 +30,7 @@ export const projects: Project[] = [
     cardBgDark: "#1B1410",
     image: imgNHL,
     description:
-      "Fan streaming redesign for the 2022 NHL Tech Showcase. Live stats, player tracking, and personalised tools — built for 5,000+ attendees.",
+      "Fan streaming concept for the 2022 NHL Tech Showcase. Live stats, player tracking, and personalised tools — built for 5,000+ attendees.",
     impact: ["72% session discovery rate", "5k+ Attendees at NHL Tech Showcase"],
     caseStudyUrl: "/work/nhl-techshow",
   },
