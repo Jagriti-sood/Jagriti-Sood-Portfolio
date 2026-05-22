@@ -102,7 +102,7 @@ function ImageCaption({ text, isDark }: { text: string; isDark: boolean }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-const nextProject = projects[2]; // SPED Summit
+const nextProject = projects[2]; // Ad Scheduler
 
 export default function CaseStudyMaple() {
   const { isDark } = useTheme();
@@ -688,14 +688,7 @@ export default function CaseStudyMaple() {
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
                 Alongside 101 Healthcare, I've led design systems work, product UX, and brand &
-                marketing collateral across several MapleCode engagements. Those are covered by
-                NDA — I'm happy to walk through the work privately.{" "}
-                <a
-                  href="mailto:jagritisood30@gmail.com"
-                  className="font-semibold text-[#E8699A] hover:underline"
-                >
-                  Request a private walkthrough →
-                </a>
+                marketing collateral across several MapleCode engagements. Those are covered by NDA.
               </p>
             </div>
           </div>
