@@ -407,13 +407,13 @@ export default function CaseStudyBajaj() {
                 <Card isDark={isDark}>
                   <CardLabel text="The approach" color="#C2547C" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    I rebuilt the pre-login flow around a feature-led carousel showing the app's four core value propositions using real UI screenshots instead of illustrations. By the time a user taps "Sign Up," they should already want what the app offers.
+                    I rebuilt the pre-login flow around a feature-led carousel — four focused slides, each tied to one of the app's core value propositions, with social proof surfaced before the sign-up gate. By the time a user taps "Sign Up," they should already want what the app offers.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
                   <CardLabel text="What changed" color="#C2547C" />
                   <Bullet isDark={isDark} items={[
-                    "Replaced generic illustrations with real in-app UI screenshots",
+                    "Reframed each slide around a single value proposition, replacing wall-of-text with focused messaging",
                     "Reduced 6 onboarding screens to 4 focused feature-highlight slides",
                     "Added social proof: doctor count and app rating visible before sign-up",
                     "Redesigned CTA hierarchy — primary action was competing with secondary options",
