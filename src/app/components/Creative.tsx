@@ -346,7 +346,7 @@ export function Creative({ isDark }: CreativeProps) {
       >
         there's more where that came from —{" "}
         <a
-          href="https://www.instagram.com/mrhavens.co?igsh=cGNiNm5jZmcxcWRq&utm_source=qr"
+          href="https://www.instagram.com/calliora.ca"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 transition-colors duration-200"
@@ -354,7 +354,7 @@ export function Creative({ isDark }: CreativeProps) {
           onMouseEnter={(e) => (e.currentTarget.style.color = "#C2547C")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "#E8699A")}
         >
-          <span style={{ fontStyle: "italic" }}>@mrhavens.co</span>
+          <span style={{ fontStyle: "italic" }}>@calliora.ca</span>
           <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
