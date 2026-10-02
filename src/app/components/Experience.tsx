@@ -16,8 +16,20 @@ const experiences = [
     company: "Royal Bank of Canada",
     location: "Toronto, Canada",
     duration: "07/2026 – Present",
-    description:
-      "Responsive marketing and product experiences for rbcroyalbank.com — built within the RBC Design System, from landing pages to promotional components.",
+    description: (
+      <>
+        Responsive marketing and product experiences for{" "}
+        <a
+          href="https://www.rbcroyalbank.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-[#E8699A]/50 underline-offset-2 hover:text-[#E8699A] transition-colors"
+        >
+          rbcroyalbank.com
+        </a>{" "}
+        — built within the RBC Design System, from landing pages to promotional components.
+      </>
+    ),
     current: true,
   },
   {
