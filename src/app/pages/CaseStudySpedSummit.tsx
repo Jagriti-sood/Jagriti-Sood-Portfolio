@@ -274,7 +274,7 @@ export default function CaseStudySpedSummit() {
             className={`max-w-2xl text-sm leading-relaxed mb-10 ${isDark ? "text-white/40" : "text-gray-400"}`}
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            MapleCode engagement · Embedded design partner · 04/2024 – Present. Most work under
+            MapleCode engagement · Embedded design partner · 04/2024 – 06/2026. Most work under
             MapleCode is covered by NDA; this is one of the projects I've been cleared to share.
           </motion.p>
 

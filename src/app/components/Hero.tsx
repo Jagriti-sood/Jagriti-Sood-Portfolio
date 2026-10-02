@@ -120,7 +120,7 @@ export function Hero({ isDark }: HeroProps) {
                 color: isDark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)",
               }}
             >
-              UX Designer&nbsp;&nbsp;·&nbsp;&nbsp;5 years
+              UX Designer&nbsp;&nbsp;·&nbsp;&nbsp;6 years
             </span>
           </motion.div>
         </motion.div>

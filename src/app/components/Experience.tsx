@@ -11,18 +11,30 @@ const experiences = [
   {
     id: 1,
     index: "01",
-    year: "2024",
-    role: "Senior UX/UI Designer",
-    company: "Maple Code Innovations",
+    year: "2026",
+    role: "Digital Product Designer",
+    company: "RBC (Royal Bank of Canada)",
     location: "ON, Canada",
-    duration: "04/2024 – Present",
+    duration: "07/2026 – Present",
     description:
-      "Embedded design partner across multiple B2B products — systems, brand, and end-to-end UX for shipping healthcare and SaaS work.",
+      "Responsive marketing and product experiences for rbcroyalbank.com — built within the RBC Design System, from landing pages to promotional components.",
     current: true,
   },
   {
     id: 2,
     index: "02",
+    year: "2024",
+    role: "Senior UX/UI Designer",
+    company: "Maple Code Innovations",
+    location: "ON, Canada",
+    duration: "04/2024 – 06/2026",
+    description:
+      "Embedded design partner across multiple B2B products — systems, brand, and end-to-end UX for shipping healthcare and SaaS work.",
+    current: false,
+  },
+  {
+    id: 3,
+    index: "03",
     year: "2021",
     role: "UX/UI Designer",
     company: "Source Digital",
@@ -33,8 +45,8 @@ const experiences = [
     current: false,
   },
   {
-    id: 3,
-    index: "03",
+    id: 4,
+    index: "04",
     year: "2020",
     role: "UX/UI Designer",
     company: "Bajaj FinServ Health Ltd",
@@ -100,7 +112,7 @@ export function Experience({ isDark }: ExperienceProps) {
               }`}
               style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
             >
-              Five years across healthcare, ad-tech, B2B SaaS, and event tech — always
+              Six years across banking, healthcare, ad-tech, B2B SaaS, and event tech — always
               designing for real people with real constraints.
             </p>
           </div>
@@ -116,7 +128,7 @@ export function Experience({ isDark }: ExperienceProps) {
         <div className="hidden lg:block">
 
           {/* ① Track grid */}
-          <div className="relative grid grid-cols-3 gap-5">
+          <div className="relative grid grid-cols-4 gap-5">
 
             {/* Dotted line — bisects the dots at top-12 */}
             <motion.div
@@ -192,7 +204,7 @@ export function Experience({ isDark }: ExperienceProps) {
           </div>
 
           {/* ② Card grid — equal heights naturally via same grid row */}
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-4 gap-5">
             {experiences.map((exp, i) => (
               <motion.div
                 key={exp.id}

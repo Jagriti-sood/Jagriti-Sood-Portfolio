@@ -152,7 +152,7 @@ export function About({ isDark }: AboutProps) {
                 <em className={isDark ? "text-white/80 not-italic font-medium" : "text-gray-700 not-italic font-medium"}>someone should fix that.</em>
               </p>
               <p>
-                I've spent the last 5 years being that someone. My work spans healthcare, ad-tech,
+                I've spent the last 6 years being that someone. My work spans banking, healthcare, ad-tech,
                 B2B platforms, and event technology - always grounded in the same belief: good design
                 isn't about aesthetics. It's about making people feel capable, confident, and seen.
               </p>
