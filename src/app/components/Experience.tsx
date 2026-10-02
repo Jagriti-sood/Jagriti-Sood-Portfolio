@@ -38,7 +38,7 @@ const experiences = [
     year: "2024",
     role: "Senior UX/UI Designer",
     company: "Maple Code Innovations",
-    location: "ON, Canada",
+    location: "Ontario, Canada",
     duration: "04/2024 – 06/2026",
     description:
       "Embedded design partner across multiple B2B products — systems, brand, and end-to-end UX for shipping healthcare and SaaS work.",
