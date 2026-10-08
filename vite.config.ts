@@ -35,6 +35,13 @@ function spaFallbackPlugin() {
 export default defineConfig({
   base: '/',  // 🔥🔥 MOST IMPORTANT
 
+  server: {
+    fs: {
+      // Keep unencrypted case studies and passwords inaccessible in local previews.
+      deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/.private/**'],
+    },
+  },
+
   plugins: [
     figmaAssetPlugin(),
     react(),

@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "protect:case-study": "node scripts/package-case-study.mjs",
+    "protect:group": "node scripts/package-protected-group.mjs",
+    "test:protection": "node --test scripts/protected-case-study.test.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",

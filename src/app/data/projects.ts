@@ -2,6 +2,9 @@ import imgNHL from "figma:asset/322867aa2bd51e13f19317633a5f0373aab4f93b.png";
 import img101Healthcare from "figma:asset/aa8f4c31f60399f1e417f9b76dbab0d035506671.png";
 import imgAdScheduler from "figma:asset/d6a778e753650b852ad71f897e1f721f0fa1fb6a.png";
 import imgBajaj from "figma:asset/7229c5eeb01d91cda83f69a4a72af2d17576d520.png";
+// Blurred in the file itself: the card signals private work without exposing the designs.
+import imgRbcPrivate from "@/assets/rbc-private-cover.webp";
+import { projectsInGroup, protectedProjects, type ProtectedGroupId } from "../lib/protected-projects";
 
 export type Project = {
   id: number;
@@ -16,6 +19,8 @@ export type Project = {
   description: string;
   impact: string[];
   caseStudyUrl: string;
+  isProtected?: boolean;
+  protectedGroup?: ProtectedGroupId;
 };
 
 export const projects: Project[] = [
@@ -78,5 +83,22 @@ export const projects: Project[] = [
       "2 new features, 2 redesigned flows  shipped to 500k+ users across India. Video consultations and gamified plan discovery, rebuilt end-to-end.",
     impact: ["4.4★ on app stores", "Shipped to 500k+ users"],
     caseStudyUrl: "/work/bajaj-health",
+  },
+  {
+    id: 6,
+    number: "05",
+    title: "RBC · Royal Bank of Canada",
+    industry: "Banking · Product Design",
+    tags: ["UX/UI Design", "Research", "Responsive Web"],
+    accent: "#E8699A",
+    cardBgLight: "#FDF5F8",
+    cardBgDark: "#1A0F13",
+    image: imgRbcPrivate,
+    description: "Product design work for RBC, from account opening to guidance for newcomers to Canada. Case studies are shared privately.",
+    // Each private case study in the group is listed by name on the card.
+    impact: projectsInGroup("rbc").map((id) => protectedProjects[id].title),
+    caseStudyUrl: "/work/rbc",
+    isProtected: true,
+    protectedGroup: "rbc",
   },
 ];

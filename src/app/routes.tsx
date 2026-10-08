@@ -18,6 +18,20 @@ export const router = createBrowserRouter([
       { path: "work/maplecode", Component: CaseStudyMaple },
       { path: "work/ad-scheduler", Component: CaseStudyAdScheduler },
       { path: "work/bajaj-health", Component: CaseStudyBajaj },
+      {
+        path: "work/rbc",
+        lazy: async () => {
+          const { default: Component } = await import("./pages/CaseStudyRBC");
+          return { Component };
+        },
+      },
+      {
+        path: "work/rbc/:study",
+        lazy: async () => {
+          const { default: Component } = await import("./pages/CaseStudyRBC");
+          return { Component };
+        },
+      },
       { path: "*", Component: NotFound },
     ],
   },

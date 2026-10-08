@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ThemeProvider, useTheme } from "../context/ThemeContext";
 import { useFavicon } from "../hooks/useFavicon";
+import { ProtectedStudyProvider } from "../context/ProtectedStudyContext";
 
 function Layout() {
   const { isDark, toggleTheme } = useTheme();
@@ -37,7 +38,9 @@ function Layout() {
 export function Root() {
   return (
     <ThemeProvider>
-      <Layout />
+      <ProtectedStudyProvider>
+        <Layout />
+      </ProtectedStudyProvider>
     </ThemeProvider>
   );
 }

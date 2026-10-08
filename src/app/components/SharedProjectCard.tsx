@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router";
 import { motion, useInView } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, LockKeyhole } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import type { Project } from "../data/projects";
 import { EASE, VIEWPORT } from "../lib/motion";
+import { useProtectedStudy } from "../context/ProtectedStudyContext";
 import nhlMockup from "figma:asset/322867aa2bd51e13f19317633a5f0373aab4f93b.png";
 
 const FIGMA_IMAGES: Record<string, string> = {
@@ -25,6 +26,11 @@ export function SharedProjectCard({
   const scrollRef = useRef<HTMLDivElement>(null);
   const inView    = useInView(scrollRef, VIEWPORT);
   const navigate  = useNavigate();
+  const protectedStudy = useProtectedStudy();
+  const openProject = () => {
+    if (project.isProtected && protectedStudy) protectedStudy.openGroup(project.protectedGroup ?? "rbc");
+    else navigate(project.caseStudyUrl);
+  };
 
   const accent = "#E8699A";
   const cardBg = isDark ? "#111118" : "#faf9f7";
@@ -41,8 +47,15 @@ export function SharedProjectCard({
       animate={animate ? (inView ? { opacity: 1, y: 0 } : {}) : { opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: EASE }}
       whileHover={{ y: -4 }}
-      onClick={() => navigate(project.caseStudyUrl)}
-      className={`group relative cursor-pointer overflow-hidden rounded-3xl transition-[box-shadow,border-color] duration-300 ${
+      onClick={openProject}
+      role={project.isProtected ? "button" : undefined}
+      tabIndex={project.isProtected ? 0 : undefined}
+      aria-label={project.isProtected ? `Unlock ${project.title} case studies` : undefined}
+      aria-haspopup={project.isProtected ? "dialog" : undefined}
+      onKeyDown={project.isProtected ? (event) => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openProject(); }
+      } : undefined}
+      className={`${project.isProtected ? "protected-project-card " : ""}group relative cursor-pointer overflow-hidden rounded-3xl transition-[box-shadow,border-color] duration-300 ${
         isDark ? "border border-white/[0.05] hover:border-white/[0.1]" : "card-shadow hover:card-shadow-hover"
       }`}
       style={{ backgroundColor: cardBg }}
@@ -151,7 +164,8 @@ export function SharedProjectCard({
               className="flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase flex-shrink-0 transition-colors"
               style={{ color: accent, fontFamily: "Plus Jakarta Sans, sans-serif" }}
             >
-              <span>Read Case Study</span>
+              {project.isProtected && <LockKeyhole size={14} aria-hidden="true" />}
+              <span>{project.isProtected ? "Unlock Case Studies" : "Read Case Study"}</span>
               <ArrowUpRight
                 size={14}
                 className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -163,11 +177,30 @@ export function SharedProjectCard({
         {/* ── Image panel ── */}
         <div className="px-5 pt-5 pb-0 md:px-9 md:pt-9 lg:py-9 lg:pl-0 lg:w-[45%] lg:flex lg:items-center flex-shrink-0">
           <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden">
-            <ImageWithFallback
+            {project.isProtected ? (
+              <>
+                <ImageWithFallback
+                  src={project.image}
+                  alt=""
+                  className="w-full h-full object-cover object-center scale-105 transition-transform duration-500 ease-out group-hover:scale-110"
+                />
+                <div className={`absolute inset-0 ${isDark ? "bg-[#0a0a0f]/35" : "bg-white/15"}`} aria-hidden="true" />
+                <div className="absolute inset-0 grid place-items-center" aria-hidden="true">
+                  <span
+                    className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold shadow-sm backdrop-blur-md ${
+                      isDark ? "bg-[#0a0a0f]/75 text-[#E8699A]" : "bg-white/85 text-[#C2547C]"
+                    }`}
+                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+                  >
+                    <LockKeyhole size={14} /> Password protected
+                  </span>
+                </div>
+              </>
+            ) : <ImageWithFallback
               src={FIGMA_IMAGES[project.caseStudyUrl] ?? project.image}
               alt={project.title}
               className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-            />
+            />}
             {/* Subtle bottom gradient for depth */}
             <div
               className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
