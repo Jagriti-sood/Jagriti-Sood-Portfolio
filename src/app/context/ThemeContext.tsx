@@ -27,6 +27,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     } else {
       document.documentElement.classList.remove("dark");
     }
+    document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+    // iOS Safari tints its status bar from theme-color and doesn't always notice an
+    // edited tag, so swap in a fresh one whenever the theme changes.
+    document.querySelectorAll('meta[name="theme-color"]').forEach((tag) => tag.remove());
+    const themeColor = document.createElement("meta");
+    themeColor.name = "theme-color";
+    themeColor.content = isDark ? "#0a0a0f" : "#ffffff";
+    document.head.appendChild(themeColor);
     try {
       localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
     } catch {}

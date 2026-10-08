@@ -4,6 +4,20 @@
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="theme-color" content="#ffffff" />
+      <script>
+        // Apply the saved theme before first paint so the page and the iOS status bar
+        // start in the right colour. ThemeContext keeps them in sync after that.
+        (function () {
+          try {
+            var stored = localStorage.getItem("jagriti-theme");
+            var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+            document.documentElement.classList.toggle("dark", dark);
+            document.documentElement.style.colorScheme = dark ? "dark" : "light";
+            document.querySelector('meta[name="theme-color"]').setAttribute("content", dark ? "#0a0a0f" : "#ffffff");
+          } catch (e) {}
+        })();
+      </script>
       <title>Jagriti Sood — UX Designer</title>
       <meta name="description" content="UX Designer with 6 years across banking, healthcare, ad-tech, and B2B SaaS. Designing experiences that feel right." />
 
