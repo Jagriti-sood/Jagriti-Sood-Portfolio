@@ -5,7 +5,7 @@ export const protectedGroups = {
 } as const;
 
 export type ProtectedGroupId = keyof typeof protectedGroups;
-export type ProtectedProjectId = "rbc-newcomer-hub" | "rbc-account-opening";
+export type ProtectedProjectId = "rbc-newcomer-hub" | "rbc-credit-cards-newcomers" | "rbc-account-opening";
 
 export const protectedProjects: Record<ProtectedProjectId, {
   group: ProtectedGroupId;
@@ -19,6 +19,12 @@ export const protectedProjects: Record<ProtectedProjectId, {
     route: "/work/rbc/newcomer-hub",
     title: "Newcomers Resource Hub",
     summary: "Guidance for life in Canada",
+  },
+  "rbc-credit-cards-newcomers": {
+    group: "rbc",
+    route: "/work/rbc/credit-cards-newcomers",
+    title: "Credit Cards for Newcomers",
+    summary: "Simplifying Canadian credit for newcomers",
   },
   "rbc-account-opening": {
     group: "rbc",

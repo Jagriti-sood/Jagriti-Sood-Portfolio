@@ -106,7 +106,11 @@ export default function CaseStudyRBC() {
               </div>}
               {section.points && <div className="protected-study-points">{section.points.map((point) => <div key={point.title}><h3>{point.title}</h3>{point.body && <p>{point.body}</p>}</div>)}</div>}
               {section.quote && <blockquote>{section.quote}</blockquote>}
-              {section.figures?.map((figure) => <Figure key={figure.asset} figure={figure} images={unlocked.images} />)}
+              {section.figures && section.figures.length > 0 && (
+                <div className={section.figuresLayout === "compare" ? "protected-study-figures-compare" : undefined}>
+                  {section.figures.map((figure) => <Figure key={figure.asset} figure={figure} images={unlocked.images} />)}
+                </div>
+              )}
               {section.links && <div className="protected-study-design-links">{section.links.filter((link) => {
                 try { return new URL(link.href).origin === "https://www.figma.com"; } catch { return false; }
               }).map((link) => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={16} aria-hidden="true" /></a>)}</div>}

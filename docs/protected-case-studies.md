@@ -79,6 +79,9 @@ The `rbc` group contains, in picker order:
 - `rbc-newcomer-hub`: the Newcomers Resource Hub, written from the owner's
   narrative, with the final desktop and mobile designs. Sources are recorded in
   `.private/rbc-newcomer-hub/sources.md`.
+- `rbc-credit-cards-newcomers`: Credit Cards for Newcomers — wireframe-to-final
+  IA redesign with side-by-side comparison in the case study. Sources in
+  `.private/rbc-credit-cards-newcomers/sources.md`.
 - `rbc-account-opening`: the chequing and savings account redesign, with a laptop
   mockup cover.
 

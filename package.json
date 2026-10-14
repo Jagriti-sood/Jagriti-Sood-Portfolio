@@ -8,6 +8,7 @@
     "dev": "vite",
     "protect:case-study": "node scripts/package-case-study.mjs",
     "protect:group": "node scripts/package-protected-group.mjs",
+    "protect:repack-rbc": "node scripts/repack-rbc-group.mjs",
     "test:protection": "node --test scripts/protected-case-study.test.mjs"
   },
   "dependencies": {

@@ -21,6 +21,8 @@ export type ProtectedCaseStudy = {
     points?: { title: string; body?: string }[];
     quote?: string;
     figures?: CaseStudyFigure[];
+    /** Side-by-side wireframe vs final (or any paired screens). */
+    figuresLayout?: "compare";
     decisions?: { observation: string; response: string }[];
     /** Column headings for `decisions`; defaults to research → design response. */
     decisionLabels?: [string, string];
