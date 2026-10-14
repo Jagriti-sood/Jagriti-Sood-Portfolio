@@ -10,6 +10,7 @@
     "protect:group": "node scripts/package-protected-group.mjs",
     "protect:repack-rbc": "node scripts/repack-rbc-group.mjs",
     "protect:thumbnails": "node scripts/generate-picker-thumbnails.mjs",
+    "protect:credit-cards-mockup": "node scripts/build-credit-cards-mockup.mjs",
     "test:protection": "node --test scripts/protected-case-study.test.mjs"
   },
   "dependencies": {
