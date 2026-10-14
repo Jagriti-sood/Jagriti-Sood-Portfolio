@@ -34,8 +34,25 @@
 .protected-study-meta dt { font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: .12em; color: var(--private-muted); margin-bottom: 5px; }
 .protected-study-meta dd { font-size: 14px; font-weight: 600; }
 .protected-study-figure { margin: 32px 0 0; }
-.protected-study-figures-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 32px; }
+.protected-study-figures-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 32px; align-items: start; }
 .protected-study-figures-compare .protected-study-figure { margin: 0; }
+.protected-study-figures-compare .protected-study-screen-image {
+  aspect-ratio: auto;
+  display: flex;
+  justify-content: center;
+  background: #2c2c2c;
+  min-height: 72vh;
+  max-height: 80vh;
+  overflow: auto;
+}
+.protected-study-figures-compare .protected-study-screen-image img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  object-position: top center;
+}
 @media (max-width: 900px) {
   .protected-study-figures-compare { grid-template-columns: 1fr; }
 }
