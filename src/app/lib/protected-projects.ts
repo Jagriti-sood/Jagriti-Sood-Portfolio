@@ -24,7 +24,7 @@ export const protectedProjects: Record<ProtectedProjectId, {
     group: "rbc",
     route: "/work/rbc/credit-cards-newcomers",
     title: "Credit Cards for Newcomers",
-    summary: "Simplifying Canadian credit for newcomers",
+    summary: "A clearer credit card page for newcomers",
   },
   "rbc-account-opening": {
     group: "rbc",
