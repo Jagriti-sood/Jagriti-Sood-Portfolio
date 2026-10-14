@@ -59,7 +59,7 @@ function InfoCard({ title, children, isDark }: { title: string; children: React.
   );
 }
 
-const nextProject = projects[1]; // 101 Healthcare
+const nextProject = projects[2]; // 101 Healthcare
 
 export default function CaseStudyNHL() {
   const { isDark } = useTheme();

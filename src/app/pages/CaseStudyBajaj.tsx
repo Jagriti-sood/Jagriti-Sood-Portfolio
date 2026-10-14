@@ -88,7 +88,7 @@ function Bullet({ items, isDark }: { items: string[]; isDark: boolean }) {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const nextProject = projects[0]; // Loop back to NHL
+const nextProject = projects[0]; // Loop back to RBC
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 

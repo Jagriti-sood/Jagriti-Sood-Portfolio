@@ -102,7 +102,7 @@ function ImageCaption({ text, isDark }: { text: string; isDark: boolean }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-const nextProject = projects[2]; // Ad Scheduler
+const nextProject = projects[3]; // Ad Scheduler
 
 export default function CaseStudyMaple() {
   const { isDark } = useTheme();

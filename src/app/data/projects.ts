@@ -25,8 +25,25 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: 2,
+    id: 6,
     number: "01",
+    title: "RBC · Royal Bank of Canada",
+    industry: "Banking · Product Design",
+    tags: ["UX/UI Design", "Research", "Responsive Web"],
+    accent: "#E8699A",
+    cardBgLight: "#FDF5F8",
+    cardBgDark: "#1A0F13",
+    image: imgRbcPrivate,
+    description: "Product design work for RBC, from account opening to guidance for newcomers to Canada. Case studies are shared privately.",
+    // Each private case study in the group is listed by name on the card.
+    impact: projectsInGroup("rbc").map((id) => protectedProjects[id].title),
+    caseStudyUrl: "/work/rbc",
+    isProtected: true,
+    protectedGroup: "rbc",
+  },
+  {
+    id: 2,
+    number: "02",
     title: "NHL Tech Showcase 2022",
     industry: "Events Tech · Mobile & Web",
     tags: ["UX Research", "Product Ownership", "Interaction Design"],
@@ -41,7 +58,7 @@ export const projects: Project[] = [
   },
   {
     id: 1,
-    number: "02",
+    number: "03",
     title: "101 Healthcare - Senior Home Care",
     industry: "Healthcare · Web Design · MapleCode",
     tags: ["UX Research", "IA & Content Strategy", "UI Design"],
@@ -56,7 +73,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    number: "03",
+    number: "04",
     title: "Campaigns - Source Digital",
     industry: "Ad-Tech · Internal Tooling",
     tags: ["User Research", "Systems Design", "Usability Testing"],
@@ -71,7 +88,7 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    number: "04",
+    number: "05",
     title: "Bajaj Finserv Health",
     industry: "Healthcare · Mobile App (iOS & Android)",
     tags: ["Feature Design", "Flow Redesign", "Interaction Design"],
@@ -83,22 +100,5 @@ export const projects: Project[] = [
       "2 new features, 2 redesigned flows  shipped to 500k+ users across India. Video consultations and gamified plan discovery, rebuilt end-to-end.",
     impact: ["4.4★ on app stores", "Shipped to 500k+ users"],
     caseStudyUrl: "/work/bajaj-health",
-  },
-  {
-    id: 6,
-    number: "05",
-    title: "RBC · Royal Bank of Canada",
-    industry: "Banking · Product Design",
-    tags: ["UX/UI Design", "Research", "Responsive Web"],
-    accent: "#E8699A",
-    cardBgLight: "#FDF5F8",
-    cardBgDark: "#1A0F13",
-    image: imgRbcPrivate,
-    description: "Product design work for RBC, from account opening to guidance for newcomers to Canada. Case studies are shared privately.",
-    // Each private case study in the group is listed by name on the card.
-    impact: projectsInGroup("rbc").map((id) => protectedProjects[id].title),
-    caseStudyUrl: "/work/rbc",
-    isProtected: true,
-    protectedGroup: "rbc",
   },
 ];
