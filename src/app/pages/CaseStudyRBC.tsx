@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../components
 import { useTheme } from "../context/ThemeContext";
 import { useProtectedStudy } from "../context/ProtectedStudyContext";
 import type { CaseStudyFigure } from "../lib/protected-case-study.mjs";
-import { groupAtRoute, projectAtRoute, projectsInGroup, protectedGroups, protectedProjects } from "../lib/protected-projects";
+import { groupAtRoute, isRbcProtectedPath, projectAtRoute, projectsInGroup, protectedGroups, protectedProjects } from "../lib/protected-projects";
 import NotFound from "./NotFound";
 
 function Figure({ figure, images, eager = false }: { figure: CaseStudyFigure; images: Record<string, string>; eager?: boolean }) {
@@ -44,7 +44,7 @@ export default function CaseStudyRBC() {
   // `/work/rbc` opens the group's picker; `/work/rbc/<study>` opens one study.
   const projectId = projectAtRoute(location.pathname);
   const groupRoute = groupAtRoute(location.pathname);
-  const isUnknownStudy = !projectId && !groupRoute;
+  const isUnknownStudy = !projectId && !groupRoute && !isRbcProtectedPath(location.pathname);
   const group = projectId ? protectedProjects[projectId].group : groupRoute ?? "rbc";
   const heading = useRef<HTMLHeadingElement>(null);
   const anyUnlocked = access?.unlocked ?? null;

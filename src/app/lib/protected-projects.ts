@@ -39,8 +39,24 @@ const projectIds = Object.keys(protectedProjects) as ProtectedProjectId[];
 export const projectsInGroup = (group: ProtectedGroupId) =>
   projectIds.filter((id) => protectedProjects[id].group === group);
 
-export const projectAtRoute = (pathname: string) =>
-  projectIds.find((id) => protectedProjects[id].route === pathname);
+const normalizePath = (pathname: string) => pathname.replace(/\/$/, "") || "/";
+
+export const projectAtRoute = (pathname: string): ProtectedProjectId | undefined => {
+  const path = normalizePath(pathname);
+  const exact = projectIds.find((id) => protectedProjects[id].route === path);
+  if (exact) return exact;
+  const match = path.match(/^\/work\/rbc\/([a-z0-9-]+)$/);
+  if (!match) return undefined;
+  const id = `rbc-${match[1]}` as ProtectedProjectId;
+  return id in protectedProjects ? id : undefined;
+};
 
 export const groupAtRoute = (pathname: string) =>
-  (Object.keys(protectedGroups) as ProtectedGroupId[]).find((id) => protectedGroups[id].route === pathname);
+  (Object.keys(protectedGroups) as ProtectedGroupId[]).find(
+    (id) => protectedGroups[id].route === normalizePath(pathname),
+  );
+
+/** Any `/work/rbc` or `/work/rbc/...` URL is handled by the protected RBC flow (not site 404). */
+export const isRbcProtectedPath = (pathname: string) =>
+  normalizePath(pathname) === protectedGroups.rbc.route ||
+  normalizePath(pathname).startsWith(`${protectedGroups.rbc.route}/`);
