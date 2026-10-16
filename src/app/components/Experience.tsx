@@ -27,7 +27,7 @@ const experiences = [
         >
           rbcroyalbank.com
         </a>
-        , built within the RBC Design System, from landing pages to promotional components.
+        {", built within the RBC Design System, from landing pages to promotional components."}
       </>
     ),
     current: true,

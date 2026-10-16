@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { ArrowUpRight, Eye, EyeOff, LoaderCircle, LockKeyhole, LockKeyholeOpen, X } from "lucide-react";
+import { AccessRequestPanel } from "../components/AccessRequestPanel";
 import { Button } from "../components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "../components/ui/drawer";
@@ -52,6 +53,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<"password" | "choose">("password");
+  const [gateView, setGateView] = useState<"unlock" | "request">("unlock");
   const [group, setGroup] = useState<ProtectedGroupId>("rbc");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -60,6 +62,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState("");
   const [unlocked, setUnlocked] = useState<UnlockedStudy | null>(null);
   const input = useRef<HTMLInputElement>(null);
+  const requestEmail = useRef<HTMLInputElement>(null);
   const chooserHeading = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
   const objectUrls = useRef<string[]>([]);
@@ -117,6 +120,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
     setError("");
     setPassword("");
     setVisible(false);
+    setGateView("unlock");
     setStep(groupKey.current?.group === nextGroup ? "choose" : "password");
     setOpen(true);
   }, []);
@@ -146,6 +150,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
     setVisible(false);
     setError("");
     setLoading(false);
+    setGateView("unlock");
     setOpeningProject(null);
     targetProject.current = null;
     if (!openingStudy.current && !projectAtRoute(location.pathname)) forgetGroup();
@@ -259,7 +264,11 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
     event.preventDefault();
     // preventScroll keeps the page behind from jumping (notably in Safari). On phones the
     // password field isn't focused automatically, so the keyboard doesn't push the sheet around.
-    const target = step === "choose" ? chooserHeading.current : isMobile ? (event.target as HTMLElement) : input.current;
+    const target = step === "choose"
+      ? chooserHeading.current
+      : gateView === "request"
+        ? requestEmail.current
+        : isMobile ? (event.target as HTMLElement) : input.current;
     target?.focus({ preventScroll: true });
   }
 
@@ -269,6 +278,9 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   }
 
   const body = step === "password" ? (
+    gateView === "request" ? (
+      <AccessRequestPanel emailRef={requestEmail} onBack={() => setGateView("unlock")} />
+    ) : (
     <>
       <Header className="gap-2 p-0 text-left">
         <Title className="flex items-center gap-2 text-lg leading-snug font-semibold text-gray-900 dark:text-white">
@@ -307,11 +319,16 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
       </form>
       <p className="text-center text-sm text-gray-500 dark:text-white/55">
         Don’t have a password?{" "}
-        <a href="mailto:jagritisood30@gmail.com?subject=Access%20to%20your%20RBC%20case%20studies" className="font-semibold text-gray-900 underline decoration-[#E8699A]/50 underline-offset-4 transition-colors hover:text-[#E8699A] dark:text-white">
+        <button
+          type="button"
+          onClick={() => { setError(""); setGateView("request"); }}
+          className="cursor-pointer font-semibold text-gray-900 underline decoration-[#E8699A]/50 underline-offset-4 transition-colors hover:text-[#E8699A] dark:text-white"
+        >
           Request access
-        </a>
+        </button>
       </p>
     </>
+    )
   ) : (
     <>
       {/* Focus lands on the heading so no card looks pre-selected; Tab reaches the cards. */}
