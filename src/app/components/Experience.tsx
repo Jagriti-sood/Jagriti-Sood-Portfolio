@@ -15,7 +15,7 @@ const experiences = [
     role: "Digital Product Designer",
     company: "Royal Bank of Canada",
     location: "Toronto, Canada",
-    duration: "07/2026 – Present",
+    duration: "07/2026 – 10/2026",
     description: (
       <>
         Responsive marketing and product experiences for{" "}
@@ -30,7 +30,7 @@ const experiences = [
         {", built within the RBC Design System, from landing pages to promotional components."}
       </>
     ),
-    current: true,
+    current: false,
   },
   {
     id: 2,
