@@ -57,7 +57,7 @@ export function AccessRequestPanel({ emailRef, onBack }: AccessRequestPanelProps
             Request submitted
           </DialogTitle>
           <DialogDescription className="text-sm text-gray-500 dark:text-white/55" role="status">
-            Thank you. I’ll review your request and email you if access is granted.
+            Thank you. I’ll review your request and follow up.
           </DialogDescription>
         </DialogHeader>
         <Button
