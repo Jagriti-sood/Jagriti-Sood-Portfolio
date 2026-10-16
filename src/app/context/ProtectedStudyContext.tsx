@@ -407,7 +407,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
       ) : (
         <Dialog open={open} onOpenChange={(next) => { if (!next) closeModal(); }}>
           <DialogContent
-            className={`${surfaceClass} max-h-[calc(100dvh-2rem)] grid-cols-1 gap-6 overflow-y-auto rounded-3xl outline-none p-7 shadow-[0_24px_60px_-20px_rgba(17,24,39,0.25)] ${step === "choose" ? "sm:max-w-[760px] sm:p-9" : "sm:max-w-[420px] sm:p-8"}`}
+            className={`${surfaceClass} max-h-[calc(100dvh-2rem)] grid-cols-1 gap-6 overflow-y-auto rounded-3xl outline-none p-7 shadow-[0_24px_60px_-20px_rgba(17,24,39,0.25)] ${step === "choose" ? "sm:max-w-[760px] sm:p-9" : gateView === "request" ? "sm:max-w-[480px] sm:p-8" : "sm:max-w-[420px] sm:p-8"}`}
             onOpenAutoFocus={focusOnOpen}
             onCloseAutoFocus={restoreFocus}
           >

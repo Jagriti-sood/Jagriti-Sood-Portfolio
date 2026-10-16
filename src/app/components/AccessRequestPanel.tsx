@@ -12,7 +12,7 @@ type AccessRequestPanelProps = {
 };
 
 const fieldClass =
-  "h-12 rounded-full border-gray-200 bg-white px-5 text-base text-gray-900 placeholder:text-gray-400 hover:border-gray-300 focus-visible:border-[#E8699A] focus-visible:ring-0 aria-invalid:border-red-400 aria-invalid:ring-0 md:text-sm dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-white/35 dark:hover:border-white/20 dark:focus-visible:border-[#E8699A]";
+  "h-12 min-w-0 rounded-full border-gray-200 bg-white px-5 text-base text-gray-900 placeholder:text-gray-400 hover:border-gray-300 focus-visible:border-[#E8699A] focus-visible:ring-0 aria-invalid:border-red-400 aria-invalid:ring-0 md:text-sm dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-white/35 dark:hover:border-white/20 dark:focus-visible:border-[#E8699A]";
 
 export function AccessRequestPanel({ nameRef, onBack }: AccessRequestPanelProps) {
   const [name, setName] = useState("");
@@ -107,40 +107,46 @@ export function AccessRequestPanel({ nameRef, onBack }: AccessRequestPanelProps)
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={submit} aria-busy={sending} className="grid gap-3">
-        <Label htmlFor="rbc-access-name" className="sr-only">Name</Label>
-        <Input
-          ref={nameRef}
-          id="rbc-access-name"
-          name="name"
-          type="text"
-          autoComplete="name"
-          value={name}
-          onChange={(event) => { setName(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
-          required
-          maxLength={80}
-          readOnly={sending}
-          aria-invalid={invalidField === "name"}
-          aria-describedby={error ? "rbc-access-error" : undefined}
-          placeholder="Name"
-          className={fieldClass}
-        />
-        <Label htmlFor="rbc-access-company" className="sr-only">Company</Label>
-        <Input
-          ref={companyRef}
-          id="rbc-access-company"
-          name="organisation"
-          type="text"
-          autoComplete="organization"
-          value={company}
-          onChange={(event) => { setCompany(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
-          required
-          maxLength={80}
-          readOnly={sending}
-          aria-invalid={invalidField === "company"}
-          aria-describedby={error ? "rbc-access-error" : undefined}
-          placeholder="Company"
-          className={fieldClass}
-        />
+        <div className="grid grid-cols-2 gap-2.5">
+          <div className="min-w-0">
+            <Label htmlFor="rbc-access-name" className="sr-only">Name</Label>
+            <Input
+              ref={nameRef}
+              id="rbc-access-name"
+              name="name"
+              type="text"
+              autoComplete="name"
+              value={name}
+              onChange={(event) => { setName(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
+              required
+              maxLength={80}
+              readOnly={sending}
+              aria-invalid={invalidField === "name"}
+              aria-describedby={error ? "rbc-access-error" : undefined}
+              placeholder="Name"
+              className={fieldClass}
+            />
+          </div>
+          <div className="min-w-0">
+            <Label htmlFor="rbc-access-company" className="sr-only">Company</Label>
+            <Input
+              ref={companyRef}
+              id="rbc-access-company"
+              name="organisation"
+              type="text"
+              autoComplete="organization"
+              value={company}
+              onChange={(event) => { setCompany(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
+              required
+              maxLength={80}
+              readOnly={sending}
+              aria-invalid={invalidField === "company"}
+              aria-describedby={error ? "rbc-access-error" : undefined}
+              placeholder="Company"
+              className={fieldClass}
+            />
+          </div>
+        </div>
         <Label htmlFor="rbc-access-email" className="sr-only">Email address</Label>
         <Input
           ref={emailRef}
