@@ -103,7 +103,7 @@ export function AccessRequestPanel({ nameRef, onBack }: AccessRequestPanelProps)
           Request access
         </DialogTitle>
         <DialogDescription className="text-sm text-gray-500 dark:text-white/55">
-          These case studies are shared privately. Please share your name, company, and email address. I’ll follow up if access is granted.
+          These case studies are shared privately. Please share your name, company, and email address and I’ll follow up.
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={submit} aria-busy={sending} className="grid gap-3">
