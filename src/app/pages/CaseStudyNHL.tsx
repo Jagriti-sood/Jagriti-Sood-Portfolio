@@ -133,7 +133,7 @@ export default function CaseStudyNHL() {
           <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
             <ImageWithFallback
               src={image_e428e10bafcb1801eb327883064f118f42b5c037}
-              alt="NHL TechShow App — Final Design"
+              alt="NHL TechShow App: Final Design"
               className="w-full h-full object-cover"
             />
           </div>
@@ -274,7 +274,7 @@ export default function CaseStudyNHL() {
               />
             </div>
             <p className={`text-center text-xs mt-1 ${isDark ? "text-white/22" : "text-gray-300"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-              Mid-fidelity prototype — session discovery flow tested with 8 attendees across 2 rounds
+              Mid-fidelity prototype: session discovery flow tested with 8 attendees across 2 rounds
             </p>
 
             <div className={`p-5 rounded-2xl border-l-2 border-[#E8699A] ${isDark ? "bg-[#E8699A]/5" : "bg-[#E8699A]/4"}`}>
@@ -391,63 +391,63 @@ export default function CaseStudyNHL() {
 const CAROUSEL_SLIDES = [
   {
     image: image_bbe9b5fca28d77707395e83c1a2a8979ea556da2,
-    alt: "NHL TechShow — Rankings Screen",
+    alt: "NHL TechShow: Rankings Screen",
     chips: [
       { dot: "#E8699A", text: "Live game score + period" },
       { dot: "#C2547C", text: "Real-time power rankings" },
       { dot: "#F4A0C0", text: "LIVE broadcast badge" },
     ],
-    caption: "Live in-game view with real-time NHL Power Rankings — the centrepiece of the experience",
+    caption: "Live in-game view with real-time NHL Power Rankings, the centrepiece of the experience",
   },
   {
     image: image_209f8d105135ffb00c4bc5b63925e26ec526bbbb,
-    alt: "NHL TechShow — Tracker Screen",
+    alt: "NHL TechShow: Tracker Screen",
     chips: [
       { dot: "#E8699A", text: "On-ice players by team" },
       { dot: "#C2547C", text: "Player watchlist star" },
       { dot: "#F4A0C0", text: "Live roster feed" },
     ],
-    caption: "Tracker module — browse on-ice players by team and add them to your personal watchlist in real time",
+    caption: "Tracker module: browse on-ice players by team and add them to your personal watchlist in real time",
   },
   {
     image: image_bd7ea60f7f634923279591217842ed2503ffee4a,
-    alt: "NHL TechShow — Bio Screen",
+    alt: "NHL TechShow: Bio Screen",
     chips: [
       { dot: "#E8699A", text: "Player profile card" },
       { dot: "#C2547C", text: "Draft & career details" },
       { dot: "#F4A0C0", text: "Favourite player badge" },
     ],
-    caption: "Bio module — full player profile with draft history, physical details, and career bio surfaced in-context",
+    caption: "Bio module: full player profile with draft history, physical details, and career bio surfaced in-context",
   },
   {
     image: image_d317d9d7b5be08f3cfeba76fedb7b92dce304723,
-    alt: "NHL TechShow — Bets Screen",
+    alt: "NHL TechShow: Bets Screen",
     chips: [
       { dot: "#E8699A", text: "Live bet slip" },
       { dot: "#C2547C", text: "Open + pending bets" },
       { dot: "#F4A0C0", text: "Quick bet placement" },
     ],
-    caption: "Bets module — live bet slip with open, pending, and closed bets surfaced in-context during the game",
+    caption: "Bets module: live bet slip with open, pending, and closed bets surfaced in-context during the game",
   },
   {
     image: image_2d21ce31719972625805c6e6824524805975e69f,
-    alt: "NHL TechShow — Stats Screen",
+    alt: "NHL TechShow: Stats Screen",
     chips: [
       { dot: "#E8699A", text: "Season stats table" },
       { dot: "#C2547C", text: "Career comparison" },
       { dot: "#F4A0C0", text: "Live player context" },
     ],
-    caption: "Stats module — season and career stats comparison for any tracked player, accessible without leaving the stream",
+    caption: "Stats module: season and career stats comparison for any tracked player, accessible without leaving the stream",
   },
   {
     image: image_23ac728deaa58f4daee1e9f741635b30bf9e761b,
-    alt: "NHL TechShow — Twitter Screen",
+    alt: "NHL TechShow: Twitter Screen",
     chips: [
       { dot: "#E8699A", text: "Live Twitter feed" },
       { dot: "#C2547C", text: "Player & team tweets" },
       { dot: "#F4A0C0", text: "Social context layer" },
     ],
-    caption: "Twitter module — curated live social feed bringing player and team tweets into the viewing experience",
+    caption: "Twitter module: curated live social feed bringing player and team tweets into the viewing experience",
   },
 ];
 

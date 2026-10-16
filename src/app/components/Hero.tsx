@@ -168,7 +168,7 @@ export function Hero({ isDark }: HeroProps) {
             isDark ? "text-white/52" : "text-gray-500"
           }`}
         >
-          I'm Jagriti — a UX Designer turning complex problems into clear, human-centred products across healthcare, ad-tech, and B2B.
+          I'm Jagriti, a UX Designer turning complex problems into clear, human-centred products across healthcare, ad-tech, and B2B.
         </motion.p>
 
         {/* CTA buttons */}

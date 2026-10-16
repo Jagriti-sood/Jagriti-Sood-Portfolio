@@ -287,7 +287,7 @@ export function Creative({ isDark }: CreativeProps) {
             }`}
             style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
           >
-            Candles, sketches, gift baskets — the things I make just because
+            Candles, sketches, gift baskets: the things I make just because
             they bring me joy.
           </motion.p>
         </motion.div>
@@ -344,7 +344,7 @@ export function Creative({ isDark }: CreativeProps) {
         }`}
         style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
       >
-        there's more where that came from —{" "}
+        there's more where that came from:{" "}
         <a
           href="https://www.instagram.com/calliora.ca"
           target="_blank"

@@ -136,7 +136,7 @@ const insights = [
 const features = [
   {
     label: "Campaign Dashboard",
-    body: "A unified campaign-level view with real-time status indicators, budget pacing, and go-live tracking — giving teams instant clarity across all active campaigns.",
+    body: "A unified campaign-level view with real-time status indicators, budget pacing, and go-live tracking, giving teams instant clarity across all active campaigns.",
   },
   {
     label: "Real-Time Scheduler",
@@ -148,7 +148,7 @@ const features = [
   },
   {
     label: "Bulk Operations",
-    body: "Set flight dates, update statuses, or reassign placements across multiple campaigns simultaneously — reducing repetitive manual work for busy campaign teams.",
+    body: "Set flight dates, update statuses, or reassign placements across multiple campaigns simultaneously, reducing repetitive manual work for busy campaign teams.",
   },
   {
     label: "Campaign Duplication",
@@ -156,7 +156,7 @@ const features = [
   },
   {
     label: "Timeline Export",
-    body: "A shareable, read-only timeline view for stakeholder presentations — keeping clients informed without exposing the internal scheduling workflow.",
+    body: "A shareable, read-only timeline view for stakeholder presentations, keeping clients informed without exposing the internal scheduling workflow.",
   },
 ];
 
@@ -167,11 +167,11 @@ const reflections = [
   },
   {
     title: "Challenges faced",
-    body: "Designing for high data density while maintaining clarity was the hardest problem to solve. Early prototypes overwhelmed users with information — multiple rounds of testing were needed to find the right balance.",
+    body: "Designing for high data density while maintaining clarity was the hardest problem to solve. Early prototypes overwhelmed users with information. Multiple rounds of testing were needed to find the right balance.",
   },
   {
     title: "Future improvements",
-    body: "A predictive scheduling assistant — one that can suggest optimal campaign windows based on historical performance data — is the natural next evolution of this platform.",
+    body: "A predictive scheduling assistant, one that can suggest optimal campaign windows based on historical performance data, is the natural next evolution of this platform.",
   },
 ];
 
@@ -279,7 +279,7 @@ export default function CaseStudyAdScheduler() {
           <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
             <img
               src={sourceDigitalCover}
-              alt="Campaigns — Source Digital Ad Scheduler"
+              alt="Campaigns: Source Digital Ad Scheduler"
               className="w-full h-full object-cover"
             />
           </div>
@@ -403,7 +403,7 @@ export default function CaseStudyAdScheduler() {
             <Card isDark={isDark}>
               <CardLabel text="Information Architecture" />
               <p className={`text-sm mb-3 ${body}`} style={{ lineHeight: "1.8" }}>
-                The platform was structured around the <span className={`font-semibold ${isDark ? "text-white/70" : "text-gray-700"}`}>campaign as the primary unit of work</span>. Each campaign contained all relevant scheduling details, status indicators, and team assignments in one place — eliminating the need to cross-reference multiple tools.
+                The platform was structured around the <span className={`font-semibold ${isDark ? "text-white/70" : "text-gray-700"}`}>campaign as the primary unit of work</span>. Each campaign contained all relevant scheduling details, status indicators, and team assignments in one place, eliminating the need to cross-reference multiple tools.
               </p>
               <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
                 This campaign-first structure directly addressed the core visibility problem, giving users an immediate sense of what was happening across all active work.
@@ -423,7 +423,7 @@ export default function CaseStudyAdScheduler() {
           <div className={`p-6 rounded-2xl border-l-2 border-[#E8699A] ${isDark ? "bg-[#E8699A]/5" : "bg-[#E8699A]/4"}`}>
             <CardLabel text="Key Design Decision" />
             <p className={`text-base ${isDark ? "text-white/70" : "text-gray-600"}`} style={{ lineHeight: "1.8" }}>
-              Early explorations used a Gantt chart as the primary scheduling view. After testing with users, it became clear that Gantt views were useful for <em>reviewing</em> timelines but too slow for <em>editing</em> them. The design pivoted to a structured list-based scheduler with an optional timeline view — making daily scheduling fast without sacrificing the visual overview teams needed for planning.
+              Early explorations used a Gantt chart as the primary scheduling view. After testing with users, it became clear that Gantt views were useful for <em>reviewing</em> timelines but too slow for <em>editing</em> them. The design pivoted to a structured list-based scheduler with an optional timeline view, making daily scheduling fast without sacrificing the visual overview teams needed for planning.
             </p>
           </div>
         </FadeSection>
@@ -462,7 +462,7 @@ export default function CaseStudyAdScheduler() {
           <SectionLabel text="06: Design System" />
           <SectionHeading isDark={isDark}>Building a Scalable Visual Foundation</SectionHeading>
           <p className={`text-base mb-6 max-w-2xl ${body}`} style={{ lineHeight: "1.8" }}>
-            A consistent visual system was developed alongside the product — ensuring that as the platform grows, every new screen and component can be built on a shared, well-documented foundation.
+            A consistent visual system was developed alongside the product, ensuring that as the platform grows, every new screen and component can be built on a shared, well-documented foundation.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -486,7 +486,7 @@ export default function CaseStudyAdScheduler() {
                 ))}
               </div>
               <p className={`text-xs mt-4 ${isDark ? "text-white/30" : "text-gray-400"}`} style={{ lineHeight: "1.7" }}>
-                Poppins was selected for the interface — optimised for legibility at small sizes and dense data environments.
+                Poppins was selected for the interface, optimised for legibility at small sizes and dense data environments.
               </p>
             </Card>
 
@@ -508,7 +508,7 @@ export default function CaseStudyAdScheduler() {
                     />
                     <div>
                       <p className={`text-xs font-semibold ${isDark ? "text-white/70" : "text-gray-700"}`}>
-                        {c.name} <span className={`font-normal ${isDark ? "text-white/28" : "text-gray-400"}`}>— {c.hex}</span>
+                        {c.name} <span className={`font-normal ${isDark ? "text-white/28" : "text-gray-400"}`}>({c.hex})</span>
                       </p>
                       <p className={`text-xs ${isDark ? "text-white/30" : "text-gray-400"}`}>
                         {c.role}
@@ -548,18 +548,18 @@ export default function CaseStudyAdScheduler() {
             <Card isDark={isDark}>
               <CardLabel text="User Testing Results" />
               <p className={`text-sm mb-4 ${body}`} style={{ lineHeight: "1.8" }}>
-                Usability testing showed that users completed core scheduling tasks 2.5x faster than with their existing workflow. 71% of participants reported that the platform gave them a significantly clearer view of campaign status — reducing the time spent chasing updates from other team members.
+                Usability testing showed that users completed core scheduling tasks 2.5x faster than with their existing workflow. 71% of participants reported that the platform gave them a significantly clearer view of campaign status, reducing the time spent chasing updates from other team members.
               </p>
               <div className={`pt-4 border-t ${isDark ? "border-white/6" : "border-gray-100"}`}>
                 <p className={`text-sm italic ${isDark ? "text-white/40" : "text-gray-400"}`} style={{ lineHeight: "1.8" }}>
-                  "This is the first time I've felt in control of my campaigns rather than constantly catching up with them." — Campaign Manager
+                  "This is the first time I've felt in control of my campaigns rather than constantly catching up with them." (Campaign Manager)
                 </p>
               </div>
             </Card>
             <Card isDark={isDark}>
               <CardLabel text="Operational Impact" />
               <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                The 35% reduction in coordination time freed teams to focus on higher-value work — strategy, optimisation, and client communication — rather than status tracking and manual updates. The platform became the single source of truth for campaign scheduling, replacing a fragmented mix of tools that had previously required constant reconciliation.
+                The 35% reduction in coordination time freed teams to focus on higher-value work (strategy, optimisation, and client communication) rather than status tracking and manual updates. The platform became the single source of truth for campaign scheduling, replacing a fragmented mix of tools that had previously required constant reconciliation.
               </p>
             </Card>
           </div>

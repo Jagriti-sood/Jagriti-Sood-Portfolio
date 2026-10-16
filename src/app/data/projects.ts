@@ -52,7 +52,7 @@ export const projects: Project[] = [
     cardBgDark: "#1B1410",
     image: imgNHL,
     description:
-      "Fan streaming concept for the 2022 NHL Tech Showcase. Live stats, player tracking, and personalised tools — built for 5,000+ attendees.",
+      "Fan streaming concept for the 2022 NHL Tech Showcase. Live stats, player tracking, and personalised tools, built for 5,000+ attendees.",
     impact: ["72% session discovery rate", "5k+ Attendees at NHL Tech Showcase"],
     caseStudyUrl: "/work/nhl-techshow",
   },
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     cardBgDark: "#1A160D",
     image: img101Healthcare,
     description:
-      "A senior home care agency in Ontario with no digital presence. Led at MapleCode — I built their first website and stayed on until consultation bookings tripled.",
+      "A senior home care agency in Ontario with no digital presence. Led at MapleCode. I built their first website and stayed on until consultation bookings tripled.",
     impact: ["3× consultation bookings", "42% drop in bounce rate"],
     caseStudyUrl: "/work/maplecode",
   },
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     cardBgDark: "#1A1810",
     image: imgAdScheduler,
     description:
-      "Three designers tried to fix this. None shipped. I embedded for four weeks before opening Figma — then built the tool that finally stuck.",
+      "Three designers tried to fix this. None shipped. I embedded for four weeks before opening Figma, then built the tool that finally stuck.",
     impact: ["6-hour workflow → 45 min", "70% fewer scheduling errors"],
     caseStudyUrl: "/work/ad-scheduler",
   },

@@ -122,7 +122,7 @@ export default function CaseStudySpedSummit() {
     },
     {
       title: "Three questions decide everything",
-      body: "Is this relevant to me? Is it credible? Is it worth my time? Every section had to answer one of these — and answer it fast.",
+      body: "Is this relevant to me? Is it credible? Is it worth my time? Every section had to answer one of these, and answer it fast.",
     },
     {
       title: "Free isn't enough on its own",
@@ -133,19 +133,19 @@ export default function CaseStudySpedSummit() {
   const features = [
     {
       label: "Clear Hero Messaging",
-      body: "The hero opens with what the event is and why it matters in one breath — a free conference for special education professionals — so visitors don't have to hunt for the value.",
+      body: "The hero opens with what the event is and why it matters in one breath (a free conference for special education professionals) so visitors don't have to hunt for the value.",
     },
     {
       label: "Event Detail Cards",
-      body: "Start date, session count, virtual format, replay availability, and free access — surfaced as scannable cards near the top so logistics never get in the way of the decision.",
+      body: "Start date, session count, virtual format, replay availability, and free access, surfaced as scannable cards near the top so logistics never get in the way of the decision.",
     },
     {
       label: "Speaker Profiles",
-      body: "Detailed bios with professional roles establish credibility. The audience trusts other practitioners — speakers carry the page's authority.",
+      body: "Detailed bios with professional roles establish credibility. The audience trusts other practitioners. Speakers carry the page's authority.",
     },
     {
       label: "Session Cards",
-      body: "Each session shows the speaker, role, title, description, and date in a consistent card. The same shape, repeated — letting visitors scan instead of parse.",
+      body: "Each session shows the speaker, role, title, description, and date in a consistent card. The same shape, repeated, letting visitors scan instead of parse.",
     },
     {
       label: "FAQ Section",
@@ -153,14 +153,14 @@ export default function CaseStudySpedSummit() {
     },
     {
       label: "Final Benefits Section",
-      body: "Near the end, the page reinforces PD certificates, giveaways, and bonus resources — the last nudge for someone hovering on the sign-up button.",
+      body: "Near the end, the page reinforces PD certificates, giveaways, and bonus resources: the last nudge for someone hovering on the sign-up button.",
     },
   ];
 
   const outcomes = [
     {
       headline: "Decision-First",
-      label: "Information architecture organised around relevance, credibility, and worth-my-time — not feature lists.",
+      label: "Information architecture organised around relevance, credibility, and worth-my-time, not feature lists.",
     },
     {
       headline: "Scannable",
@@ -172,7 +172,7 @@ export default function CaseStudySpedSummit() {
     },
     {
       headline: "Persistent CTA",
-      label: "The free sign-up surfaces in the hero, mid-page, and footer — visible at every scroll depth.",
+      label: "The free sign-up surfaces in the hero, mid-page, and footer, visible at every scroll depth.",
     },
   ];
 
@@ -263,7 +263,7 @@ export default function CaseStudySpedSummit() {
             className={`max-w-2xl text-base leading-relaxed mb-5 ${body}`}
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            Another MapleCode project — I designed the SPED Summit landing page as a decision journey for time-pressed special education professionals. Relevance first, then credibility, then a frictionless free sign-up.
+            Another MapleCode project. I designed the SPED Summit landing page as a decision journey for time-pressed special education professionals. Relevance first, then credibility, then a frictionless free sign-up.
           </motion.p>
 
           {/* MapleCode engagement note */}
@@ -316,7 +316,7 @@ export default function CaseStudySpedSummit() {
           <div className="rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/8]">
             <ImageWithFallback
               src={spedSummitCover}
-              alt="SPED Summit — virtual conference landing page"
+              alt="SPED Summit: virtual conference landing page"
               className="w-full h-full object-cover"
             />
           </div>
@@ -333,17 +333,17 @@ export default function CaseStudySpedSummit() {
             <div className="lg:col-span-3">
               <SectionHeading isDark={isDark}>A free conference. A page that had to earn 90 seconds of attention.</SectionHeading>
               <p className={`text-base leading-relaxed mb-4 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-                SPED Summit is a free virtual conference for special education professionals — teachers, SLPs, OTs, PTs, ABA professionals, and school-based service providers. The work itself is genuinely useful. Getting the right people to register was the design problem.
+                SPED Summit is a free virtual conference for special education professionals: teachers, SLPs, OTs, PTs, ABA professionals, and school-based service providers. The work itself is genuinely useful. Getting the right people to register was the design problem.
               </p>
               <p className={`text-base leading-relaxed ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-                The challenge was communicating a large amount of event information — speakers, sessions, logistics, replays, certificates — without overwhelming an audience that's already stretched thin on time and attention.
+                The challenge was communicating a large amount of event information (speakers, sessions, logistics, replays, certificates) without overwhelming an audience that's already stretched thin on time and attention.
               </p>
             </div>
             <div className="lg:col-span-2">
               <Card isDark={isDark}>
                 <CardLabel text="My Scope" />
                 <p className={`text-sm leading-relaxed mb-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-                  I owned the landing page end to end — from research and structure through visual system and final responsive build.
+                  I owned the landing page end to end, from research and structure through visual system and final responsive build.
                 </p>
                 <p className={`text-sm font-semibold mb-2 ${isDark ? "text-white/65" : "text-gray-600"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
                   Deliverables included:
@@ -390,7 +390,7 @@ export default function CaseStudySpedSummit() {
             Special education professionals work in a demanding environment. The Bureau of Labor Statistics notes that SPED teachers regularly update student records, prepare lessons, and meet with parents, students, teachers, and specialists outside instructional time.
           </p>
           <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-            That reality shaped the entire design direction: the experience had to be fast to scan, easy to understand, and clearly valuable — or it would lose the audience before the value could land.
+            That reality shaped the entire design direction: the experience had to be fast to scan, easy to understand, and clearly valuable, or it would lose the audience before the value could land.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -401,15 +401,15 @@ export default function CaseStudySpedSummit() {
                 <div className={`text-sm ${isDark ? "text-white/55" : "text-gray-500"}`}>
                   <div className="flex gap-2.5 items-start mb-3">
                     <span style={{ color: "#E8699A", fontWeight: 700 }} className="flex-shrink-0">1.</span>
-                    <span><strong className={isDark ? "text-white/80" : "text-gray-800"}>Is this relevant to me?</strong> — answered through audience-specific language and session topics.</span>
+                    <span><strong className={isDark ? "text-white/80" : "text-gray-800"}>Is this relevant to me?</strong> Answered through audience-specific language and session topics.</span>
                   </div>
                   <div className="flex gap-2.5 items-start mb-3">
                     <span style={{ color: "#E8699A", fontWeight: 700 }} className="flex-shrink-0">2.</span>
-                    <span><strong className={isDark ? "text-white/80" : "text-gray-800"}>Is this credible?</strong> — answered through speaker bios, professional roles, and sponsor proof.</span>
+                    <span><strong className={isDark ? "text-white/80" : "text-gray-800"}>Is this credible?</strong> Answered through speaker bios, professional roles, and sponsor proof.</span>
                   </div>
                   <div className="flex gap-2.5 items-start">
                     <span style={{ color: "#E8699A", fontWeight: 700 }} className="flex-shrink-0">3.</span>
-                    <span><strong className={isDark ? "text-white/80" : "text-gray-800"}>Is this worth my time?</strong> — answered with replays, PD certificates, giveaways, and concrete session takeaways.</span>
+                    <span><strong className={isDark ? "text-white/80" : "text-gray-800"}>Is this worth my time?</strong> Answered with replays, PD certificates, giveaways, and concrete session takeaways.</span>
                   </div>
                 </div>
               </div>
@@ -458,7 +458,7 @@ export default function CaseStudySpedSummit() {
           <SectionLabel text="IA & Visual Design" />
           <SectionHeading isDark={isDark}>Structured the page as a decision journey.</SectionHeading>
           <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-            Instead of organising the page around event content, I organised it around the visitor's decision flow — moving from awareness, to relevance, to credibility, to commitment, with the free sign-up surfaced at each step.
+            Instead of organising the page around event content, I organised it around the visitor's decision flow, moving from awareness, to relevance, to credibility, to commitment, with the free sign-up surfaced at each step.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -488,7 +488,7 @@ export default function CaseStudySpedSummit() {
               <div>
                 <CardLabel text="Visual Direction" />
                 <p className={`text-sm leading-relaxed mb-3 ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-                  The tone needed to feel educational and trustworthy — but also warm and community-oriented. Special educators are not corporate buyers; they're caregivers in a system that often forgets them.
+                  The tone needed to feel educational and trustworthy, but also warm and community-oriented. Special educators are not corporate buyers; they're caregivers in a system that often forgets them.
                 </p>
                 <p className={`text-sm font-semibold mb-2 ${isDark ? "text-white/65" : "text-gray-600"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
                   Design principles:
@@ -514,7 +514,7 @@ export default function CaseStudySpedSummit() {
           <SectionLabel text="Key Features" />
           <SectionHeading isDark={isDark}>The pieces that did the heavy lifting.</SectionHeading>
           <p className={`text-base leading-relaxed mb-6 max-w-2xl ${body}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-            Six recurring patterns shaped the page. Each one was designed to either lower friction or raise trust — nothing existed without a job to do.
+            Six recurring patterns shaped the page. Each one was designed to either lower friction or raise trust. Nothing existed without a job to do.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -567,7 +567,7 @@ export default function CaseStudySpedSummit() {
             className={`p-6 rounded-2xl border-l-[3px] border-[#E8699A] ${isDark ? "bg-white/[0.025]" : "bg-rose-50/40"}`}
           >
             <p className={`text-sm leading-relaxed ${isDark ? "text-white/70" : "text-gray-600"}`} style={{ fontFamily: "Poppins, sans-serif" }}>
-              The brief asked for a landing page. The output is closer to a guided tour — one that respects how little time the audience has, and uses every section to either build trust or remove a reason to bounce.
+              The brief asked for a landing page. The output is closer to a guided tour, one that respects how little time the audience has, and uses every section to either build trust or remove a reason to bounce.
             </p>
           </div>
         </FadeSection>

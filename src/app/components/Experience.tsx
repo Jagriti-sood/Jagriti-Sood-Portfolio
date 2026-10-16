@@ -26,8 +26,8 @@ const experiences = [
           className="underline decoration-[#E8699A]/50 underline-offset-2 hover:text-[#E8699A] transition-colors"
         >
           rbcroyalbank.com
-        </a>{" "}
-        — built within the RBC Design System, from landing pages to promotional components.
+        </a>
+        , built within the RBC Design System, from landing pages to promotional components.
       </>
     ),
     current: true,
@@ -41,7 +41,7 @@ const experiences = [
     location: "Ontario, Canada",
     duration: "04/2024 – 06/2026",
     description:
-      "Embedded design partner across multiple B2B products — systems, brand, and end-to-end UX for shipping healthcare and SaaS work.",
+      "Embedded design partner across multiple B2B products: systems, brand, and end-to-end UX for shipping healthcare and SaaS work.",
     current: false,
   },
   {
@@ -124,7 +124,7 @@ export function Experience({ isDark }: ExperienceProps) {
               }`}
               style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
             >
-              Six years across banking, healthcare, ad-tech, B2B SaaS, and event tech — always
+              Six years across banking, healthcare, ad-tech, B2B SaaS, and event tech, always
               designing for real people with real constraints.
             </p>
           </div>

@@ -187,7 +187,7 @@ export default function CaseStudyMaple() {
             className={`max-w-2xl text-base leading-relaxed mb-5 ${body}`}
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            One of several MapleCode projects — I designed and shipped 101 Healthcare's first website, then iterated post-launch until the numbers moved.
+            One of several MapleCode projects. I designed and shipped 101 Healthcare's first website, then iterated post-launch until the numbers moved.
           </motion.p>
 
           {/* MapleCode engagement note */}

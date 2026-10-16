@@ -8,7 +8,7 @@ interface TestimonialsProps {
 const testimonials = [
   {
     quote:
-      "In 12 years of healthcare, I've worked with many agencies. Jagriti is different. She understood our patients before she drew a single screen. The result wasn't just a website — it changed how people felt about us before they even walked through the door.",
+      "In 12 years of healthcare, I've worked with many agencies. Jagriti is different. She understood our patients before she drew a single screen. The result wasn't just a website. It changed how people felt about us before they even walked through the door.",
     name: "Vishal Sharma",
     role: "CEO, 101 Healthcare",
     initials: "VS",
@@ -91,8 +91,8 @@ export function Testimonials({ isDark }: TestimonialsProps) {
               }`}
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
-              Not polished PR quotes. Real words from the people who saw the work — and the
-              process — up close.
+              Not polished PR quotes. Real words from the people who saw the work and the
+              process up close.
             </p>
           </div>
         </motion.div>

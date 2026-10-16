@@ -143,7 +143,7 @@ export default function CaseStudyBajaj() {
             className={`max-w-2xl text-base mb-10 ${body}`}
             style={{ lineHeight: "1.8" }}
           >
-            One of India's most ambitious digital health platforms — backed by Bajaj Finserv, connecting patients with doctors, health plans, diagnostics, and pharmacy in a single app. I was brought in to design two new features and redesign two core flows for an app already serving hundreds of thousands of users.
+            One of India's most ambitious digital health platforms, backed by Bajaj Finserv, connecting patients with doctors, health plans, diagnostics, and pharmacy in a single app. I was brought in to design two new features and redesign two core flows for an app already serving hundreds of thousands of users.
           </motion.p>
 
           {/* Meta strip */}
@@ -175,7 +175,7 @@ export default function CaseStudyBajaj() {
           <div className="rounded-2xl md:rounded-3xl overflow-hidden">
             <img
               src={bajajCover}
-              alt="Bajaj Finserv Health — app screens showcasing e-consultations and doctor chat"
+              alt="Bajaj Finserv Health: app screens showcasing e-consultations and doctor chat"
               className="w-full block"
             />
           </div>
@@ -193,10 +193,10 @@ export default function CaseStudyBajaj() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
             <div>
               <p className={`text-base mb-5 ${body}`} style={{ lineHeight: "1.8" }}>
-                Bajaj Finserv Health is the digital health arm of Bajaj Finserv — a financial conglomerate better known for insurance and lending. In 2020, they entered healthcare with a bold ambition: build an all-in-one platform that made quality care accessible and affordable across India.
+                Bajaj Finserv Health is the digital health arm of Bajaj Finserv, a financial conglomerate better known for insurance and lending. In 2020, they entered healthcare with a bold ambition: build an all-in-one platform that made quality care accessible and affordable across India.
               </p>
               <p className={`text-base ${body}`} style={{ lineHeight: "1.8" }}>
-                The product was live and growing fast. The challenge wasn't building from zero — it was making a complex, multi-surface healthcare app feel intuitive for users who ranged from urban professionals booking video calls to first-time smartphone users in tier-2 cities.
+                The product was live and growing fast. The challenge wasn't building from zero. It was making a complex, multi-surface healthcare app feel intuitive for users who ranged from urban professionals booking video calls to first-time smartphone users in tier-2 cities.
               </p>
             </div>
             <div className="space-y-3">
@@ -204,7 +204,7 @@ export default function CaseStudyBajaj() {
                 <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: ACCENT }}>What made it complex</p>
                 <Bullet isDark={isDark} items={[
                   "Multiple verticals in one app: consultations, plans, pharmacy, diagnostics",
-                  "Healthcare-grade UX requirements — trust, clarity, and zero ambiguity",
+                  "Healthcare-grade UX requirements: trust, clarity, and zero ambiguity",
                   "Serving users across wide literacy levels and device types",
                   "Working within an established design system and brand guidelines",
                   "Regulatory constraints on medical advice copy and UI framing",
@@ -295,19 +295,19 @@ export default function CaseStudyBajaj() {
                 <Card isDark={isDark}>
                   <CardLabel text="What it is" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    A zero-wait video consultation that connects a patient directly to an available doctor the moment they initiate — no scheduled appointment, no waiting room queue.
+                    A zero-wait video consultation that connects a patient directly to an available doctor the moment they initiate: no scheduled appointment, no waiting room queue.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
                   <CardLabel text="Why it was needed" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    Patients with urgent queries — a sudden symptom, a dosage question, a child's fever — couldn't wait 48 hours for an appointment. This feature gave them immediate access for non-emergency situations that still needed a medical opinion.
+                    Patients with urgent queries (a sudden symptom, a dosage question, a child's fever) couldn't wait 48 hours for an appointment. This feature gave them immediate access for non-emergency situations that still needed a medical opinion.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
                   <CardLabel text="Key design decisions" />
                   <Bullet isDark={isDark} items={[
-                    "Removed the appointment calendar entirely — immediacy was the entire value proposition",
+                    "Removed the appointment calendar entirely. Immediacy was the entire value proposition",
                     "Designed explicit failure states for when no doctor was available",
                     "Three screens: initiating → in-call → post-call summary with prescription download",
                     "Trust signals before the call: doctor name, specialty, and rating visible before connecting",
@@ -318,7 +318,7 @@ export default function CaseStudyBajaj() {
               <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
                 <img
                   src={bajajVideoConsult}
-                  alt="Instant Video Consultation — home, specialist selection, consultation details, finding doctor"
+                  alt="Instant Video Consultation: home, specialist selection, consultation details, finding doctor"
                   className="w-full block"
                 />
               </div>
@@ -343,7 +343,7 @@ export default function CaseStudyBajaj() {
                 <Card isDark={isDark}>
                   <CardLabel text="What it is" color="#C2547C" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    A one-time gamification feature that rewards users with free healthcare plans and health products — activated by spinning a wheel inside the app during their first few sessions.
+                    A one-time gamification feature that rewards users with free healthcare plans and health products, activated by spinning a wheel inside the app during their first few sessions.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
@@ -355,7 +355,7 @@ export default function CaseStudyBajaj() {
                 <Card isDark={isDark}>
                   <CardLabel text="Key design decisions" color="#C2547C" />
                   <Bullet isDark={isDark} items={[
-                    "One-time mechanic only — no repeating loops that would feel predatory in a healthcare context",
+                    "One-time mechanic only: no repeating loops that would feel predatory in a healthcare context",
                     "The reward reveal was the beginning of a conversion flow, not the end",
                     "Designed the win → reward revealed → plan activated path as a single uninterrupted journey",
                     "Placed in early-session discovery, surfaced when it would have most impact",
@@ -366,7 +366,7 @@ export default function CaseStudyBajaj() {
               <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
                 <img
                   src={bajajSpinWheel}
-                  alt="Spin the Wheel — wheel, winner reveal, form, and thank you screens"
+                  alt="Spin the Wheel: wheel, winner reveal, form, and thank you screens"
                   className="w-full block"
                 />
               </div>
@@ -407,7 +407,7 @@ export default function CaseStudyBajaj() {
                 <Card isDark={isDark}>
                   <CardLabel text="The approach" color="#C2547C" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    I rebuilt the pre-login flow around a feature-led carousel — four focused slides, each tied to one of the app's core value propositions, with social proof surfaced before the sign-up gate. By the time a user taps "Sign Up," they should already want what the app offers.
+                    I rebuilt the pre-login flow around a feature-led carousel: four focused slides, each tied to one of the app's core value propositions, with social proof surfaced before the sign-up gate. By the time a user taps "Sign Up," they should already want what the app offers.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
@@ -416,7 +416,7 @@ export default function CaseStudyBajaj() {
                     "Reframed each slide around a single value proposition, replacing wall-of-text with focused messaging",
                     "Reduced 6 onboarding screens to 4 focused feature-highlight slides",
                     "Added social proof: doctor count and app rating visible before sign-up",
-                    "Redesigned CTA hierarchy — primary action was competing with secondary options",
+                    "Redesigned CTA hierarchy: primary action was competing with secondary options",
                   ]} />
                 </Card>
               </div>
@@ -424,7 +424,7 @@ export default function CaseStudyBajaj() {
               <div className={`mt-5 rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
                 <img
                   src={bajajPrelogin}
-                  alt="Pre-login Journey redesign — feature-led onboarding carousel screens"
+                  alt="Pre-login Journey redesign: feature-led onboarding carousel screens"
                   className="w-full block"
                 />
               </div>
@@ -449,23 +449,23 @@ export default function CaseStudyBajaj() {
                 <Card isDark={isDark}>
                   <CardLabel text="The problem" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    The original chat was a bare messaging interface — no document uploads, no contextual quick-replies, and no clear end state when a consultation closed. The post-consultation experience was a complete dead end.
+                    The original chat was a bare messaging interface: no document uploads, no contextual quick-replies, and no clear end state when a consultation closed. The post-consultation experience was a complete dead end.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
                   <CardLabel text="The approach" />
                   <p className={`text-sm ${body}`} style={{ lineHeight: "1.8" }}>
-                    I designed three distinct states — pre-consultation, in-consultation, and post-consultation — each with the right tools visible at that moment. The post-consultation state received the most attention: it was where the app was losing users it had already earned.
+                    I designed three distinct states (pre-consultation, in-consultation, and post-consultation), each with the right tools visible at that moment. The post-consultation state received the most attention: it was where the app was losing users it had already earned.
                   </p>
                 </Card>
                 <Card isDark={isDark}>
                   <CardLabel text="What was added" />
                   <Bullet isDark={isDark} items={[
-                    "Document attachment support — reports, prescriptions, and images in-chat",
+                    "Document attachment support: reports, prescriptions, and images in-chat",
                     "Contextual quick-reply chips for common follow-up responses",
                     "\"Book Follow-up\" floating CTA in the post-consultation state",
                     "Case-closed state with summary, prescription download, and next steps",
-                    "Typing indicators and read receipts — doctor is engaged",
+                    "Typing indicators and read receipts: doctor is engaged",
                   ]} />
                 </Card>
               </div>
@@ -477,7 +477,7 @@ export default function CaseStudyBajaj() {
           <div className={`rounded-2xl overflow-hidden border ${isDark ? "border-white/8" : "border-gray-100"}`}>
             <img
               src={bajajDoctorChat}
-              alt="Doctor Chat redesign — chat states and video call screens"
+              alt="Doctor Chat redesign: chat states and video call screens"
               className="w-full block"
             />
           </div>
@@ -490,14 +490,14 @@ export default function CaseStudyBajaj() {
           <SectionLabel text="05: Design Constraints" />
           <SectionHeading isDark={isDark}>Working within real limits.</SectionHeading>
           <p className={`text-base mb-6 max-w-2xl ${body}`} style={{ lineHeight: "1.8" }}>
-            Good design doesn't happen in a vacuum. These were the constraints I was designing within — and navigating them was a big part of the actual work.
+            Good design doesn't happen in a vacuum. These were the constraints I was designing within, and navigating them was a big part of the actual work.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               {
                 label: "Healthcare Regulations",
-                body: "UI copy had to be carefully worded — no phrasing that could be interpreted as medical advice. Every label, button, and empty state went through a medical communication lens.",
+                body: "UI copy had to be carefully worded: no phrasing that could be interpreted as medical advice. Every label, button, and empty state went through a medical communication lens.",
               },
               {
                 label: "Existing Design System",
@@ -508,8 +508,8 @@ export default function CaseStudyBajaj() {
                 body: "Users spanned tier-1 to tier-3 cities, varying literacy levels, and different device capabilities. Clarity and accessibility weren't optional.",
               },
               {
-                label: "Tooling — Adobe XD (2020)",
-                body: "This predates Figma's dominance. Adobe XD had limited component tooling and no equivalent to Figma's auto-layout — constraints that shaped how assets were structured.",
+                label: "Tooling: Adobe XD (2020)",
+                body: "This predates Figma's dominance. Adobe XD had limited component tooling and no equivalent to Figma's auto-layout, constraints that shaped how assets were structured.",
               },
               {
                 label: "Agile Speed in Enterprise",
@@ -517,7 +517,7 @@ export default function CaseStudyBajaj() {
               },
               {
                 label: "Multi-Vertical Coherence",
-                body: "Consultations, plans, diagnostics, and pharmacy — four very different user jobs in one app. New features had to feel native to the existing experience.",
+                body: "Consultations, plans, diagnostics, and pharmacy: four very different user jobs in one app. New features had to feel native to the existing experience.",
               },
             ].map((c, i) => (
               <Card key={i} isDark={isDark}>
@@ -538,7 +538,7 @@ export default function CaseStudyBajaj() {
           <div className={`rounded-2xl border-l-2 border-[#E8699A] p-5 mb-6 ${isDark ? "bg-[#E8699A]/5" : "bg-[#E8699A]/4"}`}>
             <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: ACCENT }}>A note on screens</p>
             <p className={`text-sm ${isDark ? "text-white/65" : "text-gray-600"}`} style={{ lineHeight: "1.8" }}>
-              This project was designed in <strong>Adobe XD in 2020</strong>. Adobe discontinued XD and the original source files can no longer be opened to extract screens or assets. The complete set of designs — all four deliverables, full screen flows, and interaction annotations — is preserved and documented on my Behance.
+              This project was designed in <strong>Adobe XD in 2020</strong>. Adobe discontinued XD and the original source files can no longer be opened to extract screens or assets. The complete set of designs (all four deliverables, full screen flows, and interaction annotations) is preserved and documented on my Behance.
             </p>
           </div>
 
@@ -575,7 +575,7 @@ export default function CaseStudyBajaj() {
                   View the full case study with all screens
                 </h3>
                 <p className={`text-sm mb-6 ${isDark ? "text-white/55" : "text-gray-500"}`}>
-                  All four deliverables are documented end-to-end on Behance — screen flows, interaction notes, before/after comparisons, and the complete design thinking behind each decision.
+                  All four deliverables are documented end-to-end on Behance: screen flows, interaction notes, before/after comparisons, and the complete design thinking behind each decision.
                 </p>
                 <a
                   href={BEHANCE_URL}
@@ -625,15 +625,15 @@ export default function CaseStudyBajaj() {
             {[
               {
                 label: "Healthcare UX is different",
-                body: "Every copy decision, every empty state, every loading indicator carries more weight when someone is using the product because they're worried about their health. Designing for emotional states — urgency, anxiety, relief — was the real work.",
+                body: "Every copy decision, every empty state, every loading indicator carries more weight when someone is using the product because they're worried about their health. Designing for emotional states (urgency, anxiety, relief) was the real work.",
               },
               {
                 label: "Constraints are the design",
-                body: "Working within an existing system, a regulated domain, and a limited toolset forced precision. I couldn't rethink the entire design language — I had to solve specific problems exceptionally well within defined boundaries.",
+                body: "Working within an existing system, a regulated domain, and a limited toolset forced precision. I couldn't rethink the entire design language. I had to solve specific problems exceptionally well within defined boundaries.",
               },
               {
                 label: "Post-conversion UX is undervalued",
-                body: "The Doctor Chat redesign taught me that the moment after a user takes an action is where most products give up. The post-consultation state — getting users to book a follow-up — was worth more than the entire pre-consultation flow.",
+                body: "The Doctor Chat redesign taught me that the moment after a user takes an action is where most products give up. The post-consultation state (getting users to book a follow-up) was worth more than the entire pre-consultation flow.",
               },
             ].map((r, i) => (
               <Card key={i} isDark={isDark}>
