@@ -5,7 +5,7 @@ interface SkillsManifestoProps {
 }
 
 const MANIFESTO =
-  "I design products that earn their place. Led by research. Built on systems. Shipped only when they actually work.";
+  "I design with purpose. Think in systems. Challenge assumptions. And create experiences that make sense to the people using them.";
 
 const REVEAL_START = 22;
 const REVEAL_END = 55;
