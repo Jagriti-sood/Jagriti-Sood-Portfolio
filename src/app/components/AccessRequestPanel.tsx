@@ -1,45 +1,69 @@
-import { useEffect, useState, type FormEvent, type RefObject } from "react";
+import { useEffect, useRef, useState, type FormEvent, type RefObject } from "react";
 import { CheckCircle2, Mail } from "lucide-react";
 import { DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { isAccessRequestEmail, sendAccessRequest } from "../lib/access-request";
+import { isAccessRequestEmail, isAccessRequestName, sendAccessRequest } from "../lib/access-request";
 
 type AccessRequestPanelProps = {
-  emailRef: RefObject<HTMLInputElement | null>;
+  nameRef: RefObject<HTMLInputElement | null>;
   onBack: () => void;
 };
 
-export function AccessRequestPanel({ emailRef, onBack }: AccessRequestPanelProps) {
+const fieldClass =
+  "h-12 rounded-full border-gray-200 bg-white px-5 text-base text-gray-900 placeholder:text-gray-400 hover:border-gray-300 focus-visible:border-[#E8699A] focus-visible:ring-0 aria-invalid:border-red-400 aria-invalid:ring-0 md:text-sm dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-white/35 dark:hover:border-white/20 dark:focus-visible:border-[#E8699A]";
+
+export function AccessRequestPanel({ nameRef, onBack }: AccessRequestPanelProps) {
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [honey, setHoney] = useState("");
   const [error, setError] = useState("");
+  const [invalidField, setInvalidField] = useState<"name" | "company" | "email" | "">("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const companyRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    emailRef.current?.focus({ preventScroll: true });
-  }, [emailRef]);
+    nameRef.current?.focus({ preventScroll: true });
+  }, [nameRef]);
+
+  function markError(field: "name" | "company" | "email", message: string) {
+    setInvalidField(field);
+    setError(message);
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (sending) return;
     setError("");
+    setInvalidField("");
 
     if (honey) {
       setSent(true);
       return;
     }
+    if (!isAccessRequestName(name)) {
+      markError("name", "Please enter your name.");
+      nameRef.current?.focus({ preventScroll: true });
+      return;
+    }
+    if (!isAccessRequestName(company)) {
+      markError("company", "Please enter your company.");
+      companyRef.current?.focus({ preventScroll: true });
+      return;
+    }
     if (!isAccessRequestEmail(email)) {
-      setError("Please enter a valid email address.");
+      markError("email", "Please enter a valid email address.");
       emailRef.current?.focus({ preventScroll: true });
       return;
     }
 
     setSending(true);
     try {
-      await sendAccessRequest(email);
+      await sendAccessRequest({ name, company, email });
       setSent(true);
     } catch {
       setError("The request could not be submitted. Please try again.");
@@ -79,10 +103,44 @@ export function AccessRequestPanel({ emailRef, onBack }: AccessRequestPanelProps
           Request access
         </DialogTitle>
         <DialogDescription className="text-sm text-gray-500 dark:text-white/55">
-          These case studies are shared privately. Enter your email address and I’ll follow up if access is granted.
+          These case studies are shared privately. Please share your name, company, and email address. I’ll follow up if access is granted.
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={submit} aria-busy={sending} className="grid gap-3">
+        <Label htmlFor="rbc-access-name" className="sr-only">Name</Label>
+        <Input
+          ref={nameRef}
+          id="rbc-access-name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          value={name}
+          onChange={(event) => { setName(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
+          required
+          maxLength={80}
+          readOnly={sending}
+          aria-invalid={invalidField === "name"}
+          aria-describedby={error ? "rbc-access-error" : undefined}
+          placeholder="Name"
+          className={fieldClass}
+        />
+        <Label htmlFor="rbc-access-company" className="sr-only">Company</Label>
+        <Input
+          ref={companyRef}
+          id="rbc-access-company"
+          name="organisation"
+          type="text"
+          autoComplete="organization"
+          value={company}
+          onChange={(event) => { setCompany(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
+          required
+          maxLength={80}
+          readOnly={sending}
+          aria-invalid={invalidField === "company"}
+          aria-describedby={error ? "rbc-access-error" : undefined}
+          placeholder="Company"
+          className={fieldClass}
+        />
         <Label htmlFor="rbc-access-email" className="sr-only">Email address</Label>
         <Input
           ref={emailRef}
@@ -92,17 +150,17 @@ export function AccessRequestPanel({ emailRef, onBack }: AccessRequestPanelProps
           inputMode="email"
           autoComplete="email"
           value={email}
-          onChange={(event) => { setEmail(event.target.value); if (error) setError(""); }}
+          onChange={(event) => { setEmail(event.target.value); if (error) { setError(""); setInvalidField(""); } }}
           required
           readOnly={sending}
-          aria-invalid={Boolean(error)}
-          aria-describedby={error ? "rbc-access-email-error" : undefined}
+          aria-invalid={invalidField === "email"}
+          aria-describedby={error ? "rbc-access-error" : undefined}
           placeholder="Email address"
-          className="h-12 rounded-full border-gray-200 bg-white px-5 text-base text-gray-900 placeholder:text-gray-400 hover:border-gray-300 focus-visible:border-[#E8699A] focus-visible:ring-0 aria-invalid:border-red-400 aria-invalid:ring-0 md:text-sm dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-white/35 dark:hover:border-white/20 dark:focus-visible:border-[#E8699A]"
+          className={fieldClass}
         />
         <input
           type="text"
-          name="company"
+          name="_honey"
           tabIndex={-1}
           autoComplete="off"
           hidden
@@ -110,7 +168,7 @@ export function AccessRequestPanel({ emailRef, onBack }: AccessRequestPanelProps
           onChange={(event) => setHoney(event.target.value)}
         />
         {error && (
-          <p id="rbc-access-email-error" className="px-1 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p id="rbc-access-error" className="px-1 text-sm text-red-600 dark:text-red-400" role="alert">
             {error}
           </p>
         )}

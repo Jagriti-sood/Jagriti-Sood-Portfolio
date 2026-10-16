@@ -62,7 +62,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState("");
   const [unlocked, setUnlocked] = useState<UnlockedStudy | null>(null);
   const input = useRef<HTMLInputElement>(null);
-  const requestEmail = useRef<HTMLInputElement>(null);
+  const requestName = useRef<HTMLInputElement>(null);
   const chooserHeading = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
   const objectUrls = useRef<string[]>([]);
@@ -267,7 +267,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
     const target = step === "choose"
       ? chooserHeading.current
       : gateView === "request"
-        ? requestEmail.current
+        ? requestName.current
         : isMobile ? (event.target as HTMLElement) : input.current;
     target?.focus({ preventScroll: true });
   }
@@ -279,7 +279,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
 
   const body = step === "password" ? (
     gateView === "request" ? (
-      <AccessRequestPanel emailRef={requestEmail} onBack={() => setGateView("unlock")} />
+      <AccessRequestPanel nameRef={requestName} onBack={() => setGateView("unlock")} />
     ) : (
     <>
       <Header className="gap-2 p-0 text-left">
