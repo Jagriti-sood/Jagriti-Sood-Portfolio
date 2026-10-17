@@ -212,6 +212,96 @@ function paintQuad(dest, W, H, quad, srcBuf, sw, sh, round = 0.04) {
   }
 }
 
+function isBright(data, W, x, y, t = 236) {
+  const i = (y * W + x) * 4;
+  return data[i] > t && data[i + 1] > t && data[i + 2] > t;
+}
+
+/** Perspective screen quad from the phone bezel, including the notch ears. */
+function fitPhoneQuad(data, W, H, blob) {
+  const pad = 14;
+  const minX = Math.max(0, blob.minX - pad);
+  const maxX = Math.min(W - 1, blob.maxX + pad);
+  const minY = Math.max(0, blob.minY - pad);
+  const maxY = Math.min(H - 1, blob.maxY + pad);
+  const left = [];
+  const right = [];
+  for (let y = minY; y <= maxY; y++) {
+    let a = null;
+    let b = null;
+    for (let x = minX; x <= maxX; x++) {
+      if (!isBright(data, W, x, y, 236)) continue;
+      if (a === null) a = x;
+      b = x;
+    }
+    if (a !== null && b - a > 40) {
+      left.push({ x: a, y });
+      right.push({ x: b, y });
+    }
+  }
+  if (left.length < 20) throw new Error("Phone screen edges not found");
+  const fitX = (pts) => {
+    const s = pts.slice(Math.floor(pts.length * 0.18), Math.ceil(pts.length * 0.82));
+    const n = s.length;
+    let sy = 0,
+      sx = 0,
+      syy = 0,
+      sxy = 0;
+    for (const p of s) {
+      sy += p.y;
+      sx += p.x;
+      syy += p.y * p.y;
+      sxy += p.x * p.y;
+    }
+    const m = (n * sxy - sy * sx) / (n * syy - sy * sy);
+    const c = (sx - m * sy) / n;
+    return (y) => m * y + c;
+  };
+  const xLeft = fitX(left);
+  const xRight = fitX(right);
+  const topY = left[0].y;
+  const botY = left[left.length - 1].y;
+  return [
+    [xLeft(topY), topY],
+    [xRight(topY), topY],
+    [xRight(botY), botY],
+    [xLeft(botY), botY],
+  ];
+}
+
+function sampleClamped(src, sw, sh, x, y) {
+  return sampleBilinear(src, sw, sh, Math.min(sw - 1.001, Math.max(0, x)), Math.min(sh - 1.001, Math.max(0, y)));
+}
+
+/** Paint the screenshot onto the original white screen only, so the notch and bezel stay. */
+function paintMasked(dest, mask, W, H, blob, quad, srcBuf, sw, sh) {
+  const srcQuad = [
+    [0, 0],
+    [sw - 1, 0],
+    [sw - 1, sh - 1],
+    [0, sh - 1],
+  ];
+  const Hmap = homography(quad, srcQuad);
+  const pad = 10;
+  const minX = Math.max(0, blob.minX - pad);
+  const maxX = Math.min(W - 1, blob.maxX + pad);
+  const minY = Math.max(0, blob.minY - pad);
+  const maxY = Math.min(H - 1, blob.maxY + pad);
+  for (let y = minY; y <= maxY; y++) {
+    for (let x = minX; x <= maxX; x++) {
+      const i = (y * W + x) * 4;
+      if (mask[i] <= 236 || mask[i + 1] <= 236 || mask[i + 2] <= 236) continue;
+      const [sx, sy] = applyH(Hmap, x + 0.5, y + 0.5);
+      const rgba = sampleClamped(srcBuf, sw, sh, sx, sy);
+      if (!rgba) continue;
+      dest[i] = rgba[0];
+      dest[i + 1] = rgba[1];
+      dest[i + 2] = rgba[2];
+      dest[i + 3] = 255;
+    }
+  }
+}
+
 const sceneMeta = await sharp(deskScene).metadata();
 const scaledH = Math.round((OUT_W / sceneMeta.width) * sceneMeta.height);
 const cropTop = Math.max(0, Math.round((scaledH - OUT_H) * 0.42));
@@ -226,11 +316,14 @@ const scene = await sharp(deskScene)
 const dest = scene.data;
 const W = scene.info.width;
 const H = scene.info.height;
+const screenMask = Buffer.from(dest);
 const blobs = whiteBlobs(dest, W, H);
 if (blobs.length < 2) throw new Error(`Expected laptop + phone white screens, found ${blobs.length}`);
 
 const laptopQuad = blobToQuad(dest, W, blobs[0]);
-const phoneQuad = blobToQuad(dest, W, blobs[1]);
+const phoneQuad = fitPhoneQuad(dest, W, H, blobs[1]);
+const phoneW = Math.hypot(phoneQuad[1][0] - phoneQuad[0][0], phoneQuad[1][1] - phoneQuad[0][1]);
+const phoneH = Math.hypot(phoneQuad[3][0] - phoneQuad[0][0], phoneQuad[3][1] - phoneQuad[0][1]);
 
 const deskMeta = await sharp(desktopCapture).metadata();
 const desktop = await sharp(desktopCapture)
@@ -244,10 +337,35 @@ const desktop = await sharp(desktopCapture)
   .raw()
   .toBuffer({ resolveWithObject: true });
 
-const mobile = await sharp(mobileCapture).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const mobileMeta = await sharp(mobileCapture).metadata();
+const mobileCropH = Math.min(mobileMeta.height, Math.round(mobileMeta.width * (phoneH / phoneW)));
+const mobile = await sharp(mobileCapture)
+  .extract({ left: 0, top: 0, width: mobileMeta.width, height: mobileCropH })
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+
+// Figma's refresh chip sits on the mobile capture; cover it with the page background.
+{
+  const { data: buf, info } = mobile;
+  const mW = info.width;
+  const mH = info.height;
+  const ch = info.channels;
+  const x0 = Math.floor(mW * 0.77);
+  const y0 = Math.floor(mH * 0.86);
+  for (let y = y0; y < mH; y++) {
+    for (let x = x0; x < mW; x++) {
+      const i = (y * mW + x) * ch;
+      buf[i] = 255;
+      buf[i + 1] = 255;
+      buf[i + 2] = 255;
+      if (ch === 4) buf[i + 3] = 255;
+    }
+  }
+}
 
 paintQuad(dest, W, H, laptopQuad, desktop.data, desktop.info.width, desktop.info.height, 0.03);
-paintQuad(dest, W, H, phoneQuad, mobile.data, mobile.info.width, mobile.info.height, 0.12);
+paintMasked(dest, screenMask, W, H, blobs[1], phoneQuad, mobile.data, mobile.info.width, mobile.info.height);
 
 const mockup = await sharp(dest, { raw: { width: W, height: H, channels: 4 } })
   .webp({ quality: 92 })
