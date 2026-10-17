@@ -158,11 +158,18 @@ function fitX(pts) {
   }
   const m = (n * sxy - sy * sx) / (n * syy - sy * sy);
   const c = (sx - m * sy) / n;
-  return (y) => m * y + c;
+  return { m, c, xAt: (y) => m * y + c };
+}
+
+function intersectEdgeAndSlope(edge, x0, y0, s) {
+  const den = 1 - edge.m * s;
+  const x = (edge.m * y0 - edge.m * s * x0 + edge.c) / den;
+  const y = y0 + s * (x - x0);
+  return [x, y];
 }
 
 /** Four screen corners from the glass edges, including rounded-corner extrema. */
-function fitDeviceQuad(data, W, H, blob) {
+function fitDeviceQuad(data, W, H, blob, { tilt = false } = {}) {
   const pad = 6;
   const minX = Math.max(0, blob.minX - pad);
   const maxX = Math.min(W - 1, blob.maxX + pad);
@@ -184,16 +191,25 @@ function fitDeviceQuad(data, W, H, blob) {
   const median = spans[spans.length >> 1];
   const straight = rows.filter((r) => r.span > median * 0.9 && r.span < median * 1.08);
   if (straight.length < 10) throw new Error("Straight screen edges not found");
-  const xLeft = fitX(straight.map((r) => ({ x: r.a, y: r.y })));
-  const xRight = fitX(straight.map((r) => ({ x: r.b, y: r.y })));
+  const left = fitX(straight.map((r) => ({ x: r.a, y: r.y })));
+  const right = fitX(straight.map((r) => ({ x: r.b, y: r.y })));
   const topY = rows[0].y;
   const botY = rows[rows.length - 1].y;
-  return [
-    [xLeft(topY), topY],
-    [xRight(topY), topY],
-    [xRight(botY), botY],
-    [xLeft(botY), botY],
-  ];
+  if (!tilt) {
+    return [
+      [left.xAt(topY), topY],
+      [right.xAt(topY), topY],
+      [right.xAt(botY), botY],
+      [left.xAt(botY), botY],
+    ];
+  }
+  // Top and bottom of the glass follow the phone tilt, not the laptop horizon.
+  const s = -(left.m + right.m) / 2;
+  const topLeft = [left.xAt(topY), topY];
+  const botLeft = [left.xAt(botY), botY];
+  const topRight = intersectEdgeAndSlope(right, topLeft[0], topLeft[1], s);
+  const botRight = intersectEdgeAndSlope(right, botLeft[0], botLeft[1], s);
+  return [topLeft, topRight, botRight, botLeft];
 }
 
 function quadSize(quad) {
@@ -265,7 +281,7 @@ const blobs = whiteBlobs(dest, W, H);
 if (blobs.length < 2) throw new Error(`Expected laptop + phone white screens, found ${blobs.length}`);
 
 const laptopQuad = fitDeviceQuad(dest, W, H, blobs[0]);
-const phoneQuad = fitDeviceQuad(dest, W, H, blobs[1]);
+const phoneQuad = fitDeviceQuad(dest, W, H, blobs[1], { tilt: true });
 const laptopSize = quadSize(laptopQuad);
 const phoneSize = quadSize(phoneQuad);
 
