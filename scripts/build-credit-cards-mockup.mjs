@@ -1,9 +1,9 @@
 /**
- * Place the Credit Cards desktop + mobile pages into a distinct lifestyle
- * mockup (laptop + phone) in the same photographic theme as the other RBC studies.
+ * Place the Credit Cards desktop + mobile pages into a lifestyle mockup
+ * (laptop + phone) in the same photographic theme as the other RBC studies.
  *
- * Screenshots keep their original proportions (cover-fit) and are only rotated
- * to match the device, so UI is not stretched into the camera's foreshortening.
+ * Screenshots are mapped onto the real screen corners and clipped to the
+ * glass, so they sit edge to edge without stretching past the bezel.
  */
 import sharp from "sharp";
 import path from "node:path";
@@ -19,13 +19,51 @@ const mobileCapture = path.join(imagesDir, "mobile-capture.png");
 
 const OUT_W = 2000;
 const OUT_H = 1333;
-const SCREEN_THRESH = 236;
-/** Crop the cookie banner off the desktop capture without changing the page layout. */
+const SCREEN_THRESH = 240;
 const DESKTOP_CROP_H = 770;
 
 await access(deskScene);
 await access(desktopCapture);
 await access(mobileCapture);
+
+function solve(A, b) {
+  const n = b.length;
+  const M = A.map((row, i) => [...row, b[i]]);
+  for (let col = 0; col < n; col++) {
+    let pivot = col;
+    for (let r = col + 1; r < n; r++) if (Math.abs(M[r][col]) > Math.abs(M[pivot][col])) pivot = r;
+    [M[col], M[pivot]] = [M[pivot], M[col]];
+    const div = M[col][col];
+    for (let c = col; c <= n; c++) M[col][c] /= div;
+    for (let r = 0; r < n; r++) {
+      if (r === col) continue;
+      const f = M[r][col];
+      for (let c = col; c <= n; c++) M[r][c] -= f * M[col][c];
+    }
+  }
+  return M.map((row) => row[n]);
+}
+
+function homography(destPts, srcPts) {
+  const A = [];
+  const b = [];
+  for (let i = 0; i < 4; i++) {
+    const [x, y] = destPts[i];
+    const [u, v] = srcPts[i];
+    A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]);
+    b.push(u);
+    A.push([0, 0, 0, x, y, 1, -v * x, -v * y]);
+    b.push(v);
+  }
+  const h = solve(A, b);
+  h.push(1);
+  return h;
+}
+
+function applyH(h, x, y) {
+  const w = h[6] * x + h[7] * y + h[8];
+  return [(h[0] * x + h[1] * y + h[2]) / w, (h[3] * x + h[4] * y + h[5]) / w];
+}
 
 function sampleBilinear(src, sw, sh, x, y) {
   if (x < 0 || y < 0 || x >= sw - 1 || y >= sh - 1) return null;
@@ -106,51 +144,64 @@ function whiteBlobs(data, W, H) {
   return blobs.sort((a, b) => b.n - a.n);
 }
 
-function collectScreenPixels(mask, W, H, blob) {
-  const pad = 10;
+function fitX(pts) {
+  const n = pts.length;
+  let sy = 0,
+    sx = 0,
+    syy = 0,
+    sxy = 0;
+  for (const p of pts) {
+    sy += p.y;
+    sx += p.x;
+    syy += p.y * p.y;
+    sxy += p.x * p.y;
+  }
+  const m = (n * sxy - sy * sx) / (n * syy - sy * sy);
+  const c = (sx - m * sy) / n;
+  return (y) => m * y + c;
+}
+
+/** Four screen corners from the glass edges, including rounded-corner extrema. */
+function fitDeviceQuad(data, W, H, blob) {
+  const pad = 6;
   const minX = Math.max(0, blob.minX - pad);
   const maxX = Math.min(W - 1, blob.maxX + pad);
   const minY = Math.max(0, blob.minY - pad);
   const maxY = Math.min(H - 1, blob.maxY + pad);
-  const pixels = [];
+  const rows = [];
   for (let y = minY; y <= maxY; y++) {
+    let a = null;
+    let b = null;
     for (let x = minX; x <= maxX; x++) {
-      if (!isScreenPixel(mask, W, x, y)) continue;
-      pixels.push(x, y);
+      if (!isScreenPixel(data, W, x, y)) continue;
+      if (a === null) a = x;
+      b = x;
     }
+    if (a !== null && b - a > 40) rows.push({ y, a, b, span: b - a });
   }
-  return pixels;
+  if (rows.length < 20) throw new Error("Screen edges not found");
+  const spans = rows.map((r) => r.span).sort((a, b) => a - b);
+  const median = spans[spans.length >> 1];
+  const straight = rows.filter((r) => r.span > median * 0.9 && r.span < median * 1.08);
+  if (straight.length < 10) throw new Error("Straight screen edges not found");
+  const xLeft = fitX(straight.map((r) => ({ x: r.a, y: r.y })));
+  const xRight = fitX(straight.map((r) => ({ x: r.b, y: r.y })));
+  const topY = rows[0].y;
+  const botY = rows[rows.length - 1].y;
+  return [
+    [xLeft(topY), topY],
+    [xRight(topY), topY],
+    [xRight(botY), botY],
+    [xLeft(botY), botY],
+  ];
 }
 
-/** Rotation that makes the screen's bounding box smallest, i.e. the device tilt. */
-function screenAngle(pixels, cx, cy) {
-  let best = 0;
-  let bestArea = Infinity;
-  for (let deg = -10; deg <= 10; deg += 0.25) {
-    const a = (deg * Math.PI) / 180;
-    const cos = Math.cos(a);
-    const sin = Math.sin(a);
-    let minX = Infinity,
-      maxX = -Infinity,
-      minY = Infinity,
-      maxY = -Infinity;
-    for (let i = 0; i < pixels.length; i += 8) {
-      const dx = pixels[i] - cx;
-      const dy = pixels[i + 1] - cy;
-      const lx = dx * cos + dy * sin;
-      const ly = -dx * sin + dy * cos;
-      if (lx < minX) minX = lx;
-      if (lx > maxX) maxX = lx;
-      if (ly < minY) minY = ly;
-      if (ly > maxY) maxY = ly;
-    }
-    const area = (maxX - minX) * (maxY - minY);
-    if (area < bestArea) {
-      bestArea = area;
-      best = a;
-    }
-  }
-  return best;
+function quadSize(quad) {
+  const top = Math.hypot(quad[1][0] - quad[0][0], quad[1][1] - quad[0][1]);
+  const bot = Math.hypot(quad[2][0] - quad[3][0], quad[2][1] - quad[3][1]);
+  const left = Math.hypot(quad[3][0] - quad[0][0], quad[3][1] - quad[0][1]);
+  const right = Math.hypot(quad[2][0] - quad[1][0], quad[2][1] - quad[1][1]);
+  return { w: (top + bot) / 2, h: (left + right) / 2 };
 }
 
 function hideFigmaOverlay(buf, W, H, ch) {
@@ -167,58 +218,32 @@ function hideFigmaOverlay(buf, W, H, ch) {
   }
 }
 
-/**
- * Draw the screenshot onto the device's white screen. Cover-fit keeps the
- * original aspect ratio; only rotation matches the photo.
- */
-function paintCoverOnMask(dest, mask, W, blob, srcBuf, sw, sh, { alignY = 0, rotate = true } = {}) {
-  const pixels = collectScreenPixels(mask, W, dest.length / (W * 4), blob);
-  if (pixels.length < 100) throw new Error("Screen pixels not found");
-  const cx = (blob.minX + blob.maxX) / 2;
-  const cy = (blob.minY + blob.maxY) / 2;
-  const angle = rotate ? screenAngle(pixels, cx, cy) : 0;
-  const cos = Math.cos(angle);
-  const sin = Math.sin(angle);
-
-  let minLx = Infinity,
-    maxLx = -Infinity,
-    minLy = Infinity,
-    maxLy = -Infinity;
-  const local = new Float64Array(pixels.length);
-  for (let i = 0; i < pixels.length; i += 2) {
-    const dx = pixels[i] - cx;
-    const dy = pixels[i + 1] - cy;
-    const lx = dx * cos + dy * sin;
-    const ly = -dx * sin + dy * cos;
-    local[i] = lx;
-    local[i + 1] = ly;
-    if (lx < minLx) minLx = lx;
-    if (lx > maxLx) maxLx = lx;
-    if (ly < minLy) minLy = ly;
-    if (ly > maxLy) maxLy = ly;
+function paintToGlass(dest, mask, W, H, blob, quad, srcBuf, sw, sh) {
+  const srcQuad = [
+    [0, 0],
+    [sw - 1, 0],
+    [sw - 1, sh - 1],
+    [0, sh - 1],
+  ];
+  const Hmap = homography(quad, srcQuad);
+  const pad = 8;
+  const minX = Math.max(0, Math.min(blob.minX, ...quad.map((p) => p[0])) - pad);
+  const maxX = Math.min(W - 1, Math.max(blob.maxX, ...quad.map((p) => p[0])) + pad);
+  const minY = Math.max(0, Math.min(blob.minY, ...quad.map((p) => p[1])) - pad);
+  const maxY = Math.min(H - 1, Math.max(blob.maxY, ...quad.map((p) => p[1])) + pad);
+  for (let y = Math.floor(minY); y <= Math.ceil(maxY); y++) {
+    for (let x = Math.floor(minX); x <= Math.ceil(maxX); x++) {
+      const i = (y * W + x) * 4;
+      if (mask[i] <= SCREEN_THRESH || mask[i + 1] <= SCREEN_THRESH || mask[i + 2] <= SCREEN_THRESH) continue;
+      const [sx, sy] = applyH(Hmap, x + 0.5, y + 0.5);
+      const rgba = sampleClamped(srcBuf, sw, sh, sx, sy);
+      if (!rgba) continue;
+      dest[i] = rgba[0];
+      dest[i + 1] = rgba[1];
+      dest[i + 2] = rgba[2];
+      dest[i + 3] = 255;
+    }
   }
-
-  const destW = maxLx - minLx;
-  const destH = maxLy - minLy;
-  const scale = Math.max(destW / sw, destH / sh);
-  const placedW = sw * scale;
-  const placedH = sh * scale;
-  const ox = minLx + (destW - placedW) / 2;
-  const oy = minLy + (destH - placedH) * alignY;
-
-  for (let i = 0; i < pixels.length; i += 2) {
-    const sx = (local[i] - ox) / scale;
-    const sy = (local[i + 1] - oy) / scale;
-    const rgba = sampleClamped(srcBuf, sw, sh, sx, sy);
-    if (!rgba) continue;
-    const di = (pixels[i + 1] * W + pixels[i]) * 4;
-    dest[di] = rgba[0];
-    dest[di + 1] = rgba[1];
-    dest[di + 2] = rgba[2];
-    dest[di + 3] = 255;
-  }
-
-  return { angle, destW, destH, scale };
 }
 
 const sceneMeta = await sharp(deskScene).metadata();
@@ -239,41 +264,35 @@ const screenMask = Buffer.from(dest);
 const blobs = whiteBlobs(dest, W, H);
 if (blobs.length < 2) throw new Error(`Expected laptop + phone white screens, found ${blobs.length}`);
 
+const laptopQuad = fitDeviceQuad(dest, W, H, blobs[0]);
+const phoneQuad = fitDeviceQuad(dest, W, H, blobs[1]);
+const laptopSize = quadSize(laptopQuad);
+const phoneSize = quadSize(phoneQuad);
+
 const deskMeta = await sharp(desktopCapture).metadata();
+const deskCropH = Math.min(DESKTOP_CROP_H, deskMeta.height);
+const deskCropW = Math.min(deskMeta.width, Math.round(deskCropH * (laptopSize.w / laptopSize.h)));
+const deskLeft = Math.max(0, Math.round((deskMeta.width - deskCropW) / 2));
 const desktop = await sharp(desktopCapture)
-  .extract({
-    left: 0,
-    top: 0,
-    width: deskMeta.width,
-    height: Math.min(DESKTOP_CROP_H, deskMeta.height),
-  })
+  .extract({ left: deskLeft, top: 0, width: deskCropW, height: deskCropH })
   .ensureAlpha()
   .raw()
   .toBuffer({ resolveWithObject: true });
 
-const mobile = await sharp(mobileCapture).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const mobileMeta = await sharp(mobileCapture).metadata();
+const phoneAspect = phoneSize.h / phoneSize.w;
+const mobileCropH = Math.min(mobileMeta.height, Math.round(mobileMeta.width * phoneAspect));
+const mobileCropW = Math.min(mobileMeta.width, Math.round(mobileCropH / phoneAspect));
+const mobileLeft = Math.max(0, Math.round((mobileMeta.width - mobileCropW) / 2));
+const mobile = await sharp(mobileCapture)
+  .extract({ left: mobileLeft, top: 0, width: mobileCropW, height: mobileCropH })
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
 hideFigmaOverlay(mobile.data, mobile.info.width, mobile.info.height, mobile.info.channels);
 
-const laptop = paintCoverOnMask(
-  dest,
-  screenMask,
-  W,
-  blobs[0],
-  desktop.data,
-  desktop.info.width,
-  desktop.info.height,
-  { alignY: 0, rotate: false },
-);
-const phone = paintCoverOnMask(
-  dest,
-  screenMask,
-  W,
-  blobs[1],
-  mobile.data,
-  mobile.info.width,
-  mobile.info.height,
-  { alignY: 0, rotate: true },
-);
+paintToGlass(dest, screenMask, W, H, blobs[0], laptopQuad, desktop.data, desktop.info.width, desktop.info.height);
+paintToGlass(dest, screenMask, W, H, blobs[1], phoneQuad, mobile.data, mobile.info.width, mobile.info.height);
 
 const mockup = await sharp(dest, { raw: { width: W, height: H, channels: 4 } })
   .webp({ quality: 92 })
@@ -286,6 +305,8 @@ await sharp(mockup)
   .webp({ quality: 88 })
   .toFile(path.join(studyDir, "thumbnail.webp"));
 
-console.log("Laptop", laptop);
-console.log("Phone", phone);
-console.log("Wrote cover mockup + thumbnail on the desk scene.");
+console.log("Laptop quad", laptopQuad, laptopSize);
+console.log("Phone quad", phoneQuad, phoneSize);
+console.log("Desktop crop", { left: deskLeft, width: deskCropW, height: deskCropH });
+console.log("Mobile crop", { left: mobileLeft, width: mobileCropW, height: mobileCropH });
+console.log("Wrote cover mockup + thumbnail.");
