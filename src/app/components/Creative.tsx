@@ -266,8 +266,7 @@ export function Creative({ isDark }: CreativeProps) {
               isDark ? "text-white" : "text-gray-900"
             }`}
           >
-            Not everything I make
-            <br />
+            Beyond the{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #E8699A, #C2547C)",
@@ -276,7 +275,7 @@ export function Creative({ isDark }: CreativeProps) {
                 backgroundClip: "text",
               }}
             >
-              lives on a screen.
+              9-5
             </span>
           </motion.h2>
 
