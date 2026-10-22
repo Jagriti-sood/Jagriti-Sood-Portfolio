@@ -286,8 +286,7 @@ export function Creative({ isDark }: CreativeProps) {
             }`}
             style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
           >
-            Candles, sketches, gift baskets: the things I make just because
-            they bring me joy.
+            Just a few things I enjoy doing in my free time.
           </motion.p>
         </motion.div>
       </div>
