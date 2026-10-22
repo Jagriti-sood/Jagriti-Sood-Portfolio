@@ -74,7 +74,7 @@ const polaroids = [
   {
     id: 7,
     src: mangaSketch,
-    caption: "Quick portrait, 20 mins",
+    caption: "20-Minute Portrait Sketch",
     rotate: -3.5,
     tape: true,
     tapeAngle: 2,
@@ -130,7 +130,7 @@ const polaroids = [
   {
     id: 14,
     src: tanjiroSketch,
-    caption: "Tanjiro, smiling",
+    caption: "Tanjiro Sketch",
     rotate: 2.5,
     tape: false,
     tapeAngle: 0,
