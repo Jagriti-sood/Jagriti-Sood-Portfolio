@@ -26,7 +26,7 @@ const polaroids = [
   {
     id: 1,
     src: sunflowerCandle,
-    caption: "Sunday pour session",
+    caption: "Sunflower Candle",
     rotate: -4,
     tape: true,
     tapeAngle: -2,
@@ -58,7 +58,7 @@ const polaroids = [
   {
     id: 5,
     src: candyCandle,
-    caption: "Candy shop batch",
+    caption: "Candy Shop Candles",
     rotate: -2.5,
     tape: true,
     tapeAngle: -1,
@@ -66,7 +66,7 @@ const polaroids = [
   {
     id: 6,
     src: redRoses,
-    caption: "Red & gold for her",
+    caption: "Red & Gold Candles",
     rotate: 1.5,
     tape: false,
     tapeAngle: 0,
@@ -106,7 +106,7 @@ const polaroids = [
   {
     id: 11,
     src: babyShower,
-    caption: "Baby shower batch",
+    caption: "Baby Shower Candles",
     rotate: -2,
     tape: true,
     tapeAngle: 1,
@@ -114,7 +114,7 @@ const polaroids = [
   {
     id: 12,
     src: snoopyCandle,
-    caption: "Snoopy ♡",
+    caption: "Snoopy Candle",
     rotate: 1,
     tape: false,
     tapeAngle: 0,
