@@ -115,7 +115,7 @@ function originalIa() {
 
   const callouts = `
     ${roundRect(1180, 168, 372, 196, 16, C.card, `stroke="${C.line}"`)}
-    <text x="1204" y="204" fill="${C.accent}" font-family="${FONT}" font-size="12" font-weight="700" letter-spacing="1.6">THE PATTERN</text>
+    <text x="1204" y="204" fill="${C.accent}" font-family="${FONT}" font-size="12" font-weight="700" letter-spacing="1.6">THE ISSUE</text>
     <text fill="${C.ink}" font-family="${FONT}" font-size="16" font-weight="700">${tspan(wrap("Three product grids appear before eligibility or a starting point.", 32), 1204, 236, 22)}</text>
     <text fill="${C.muted}" font-family="${FONT}" font-size="14">${tspan(wrap("Newcomers were asked to compare cards before they knew whether they could get one, or which question to ask first.", 34), 1204, 292, 20)}</text>
   `;
@@ -125,7 +125,7 @@ function originalIa() {
     860,
     "Original information architecture",
     "Audit",
-    "The marketing wireframe stacked every business goal. Products led. The answers newcomers needed sat in the middle of a long page.",
+    "How the marketing wireframe was structured. Card sections came first. Eligibility and how credit works sat further down.",
     `${rows}${callouts}`,
   );
 }
@@ -134,19 +134,19 @@ function researchMap() {
   const cards = [
     {
       q: "Can I get a card with no Canadian credit history?",
-      a: "Eligibility and reassurance have to come before a product grid.",
+      a: "Show requirements early, before asking people to compare products.",
     },
     {
       q: "Which card is actually right for me?",
-      a: "Fewer relevant cards, compared in one place, beat several competing sections.",
+      a: "Show fewer cards, and put fees, rewards, and benefits in one comparison.",
     },
     {
       q: "How does credit work in Canada?",
-      a: "Short education belongs next to the apply decision, not as a separate article.",
+      a: "Keep this short, and put it next to what you need to apply.",
     },
     {
       q: "What happens after I apply?",
-      a: "Tools, rewards, and support should feel like the next chapter, not extra ads.",
+      a: "Show mobile tools and rewards after the decision, and keep a way to talk to someone.",
     },
   ];
   const body = cards.map((card, i) => {
@@ -168,7 +168,7 @@ function researchMap() {
     640,
     "What people need before they compare cards",
     "Research",
-    "No direct customer access. Secondary research, a close read of the wireframe, and the questions a newcomer typically asks.",
+    "I did not have customer interviews on this project. I used secondary research, the wireframe, and the questions newcomers usually ask.",
     body,
   );
 }
@@ -199,9 +199,9 @@ function decisionFlow() {
   return frame(
     1600,
     520,
-    "The page follows the decision, not the brief",
+    "How I structured the page",
     "Approach",
-    "Each block answers one question. Someone can move forward without reading the entire page.",
+    "Five steps, in the order someone would actually think through them.",
     `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="${C.accent}" /></marker></defs>${body}`,
   );
 }
@@ -252,10 +252,10 @@ function iaCompare() {
   return frame(
     1600,
     760,
-    "Same content. A different order.",
+    "Original structure and the structure I proposed",
     "Structure",
-    "I kept marketing’s products, education, and apply paths. I changed when each one appears.",
-    `${col(left, 48, "Marketing wireframe", "BEFORE", false)}${col(right, 860, "Approved page flow", "AFTER", true)}
+    "I kept the products, education, and apply paths from the brief. I changed when they show up.",
+    `${col(left, 48, "Marketing wireframe", "ORIGINAL", false)}${col(right, 860, "Proposed page flow", "REDESIGN", true)}
      <text x="800" y="470" text-anchor="middle" fill="${C.accent}" font-family="${FONT}" font-size="28" font-weight="700">→</text>`,
   );
 }
@@ -306,7 +306,7 @@ function pageOrder() {
     640,
     "Where the answers sit on the page",
     "Page order",
-    "Not analytics — a map of when each answer appeared in the wireframe versus the approved flow.",
+    "A simple map of where each answer sat in the wireframe, and where it sits in the redesign.",
     `${header}${body}${legend}`,
   );
 }
