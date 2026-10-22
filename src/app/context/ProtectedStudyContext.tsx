@@ -32,10 +32,17 @@ async function fetchEnvelope(id: string, signal: AbortSignal) {
   const response = await fetch(`${import.meta.env.BASE_URL}protected/${id}.json`, {
     signal, cache: "no-cache", credentials: "omit",
   });
-  if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) {
+  const type = response.headers.get("content-type") ?? "";
+  // GitHub Pages usually sends application/json; some previews send octet-stream or omit the header.
+  // HTML means the SPA fallback ran, so the envelope is not there.
+  if (!response.ok || type.includes("text/html")) {
     throw new Error("The case study is unavailable right now. Please try again later or request access below.");
   }
-  return response.json();
+  try {
+    return await response.json();
+  } catch {
+    throw new Error("The case study is unavailable right now. Please try again later or request access below.");
+  }
 }
 
 function isWrongKey(cause: unknown) {
@@ -53,6 +60,10 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<"password" | "choose">("password");
+  // Freeze the overlay for the whole open session. Switching Dialog → Drawer when
+  // the password succeeds unmounts the dialog, Radix fires onOpenChange(false), and
+  // the picker closes before a study can open.
+  const [asSheet, setAsSheet] = useState(false);
   const [gateView, setGateView] = useState<"unlock" | "request">("unlock");
   const [group, setGroup] = useState<ProtectedGroupId>("rbc");
   const [password, setPassword] = useState("");
@@ -94,8 +105,16 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   }, [releaseImages, forgetGroup]);
 
   useEffect(() => {
-    // Only clear on a committed route change. Unlocking can render while a
-    // lazy case-study route is still loading and the homepage is still active.
+    // Stay put while React Router commits the study URL. Clearing here sent
+    // visitors back to the password dialog and the case study never appeared.
+    if (openingStudy.current) {
+      if (location.pathname === unlockedRoute.current) {
+        openingStudy.current = false;
+        return;
+      }
+      if (location.pathname === "/") return;
+      openingStudy.current = false;
+    }
     if (unlockedRoute.current && location.pathname !== unlockedRoute.current) {
       unlockedRoute.current = null;
       setUnlocked(null);
@@ -121,9 +140,11 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
     setPassword("");
     setVisible(false);
     setGateView("unlock");
-    setStep(groupKey.current?.group === nextGroup ? "choose" : "password");
+    const startOnChoose = groupKey.current?.group === nextGroup;
+    setAsSheet(Boolean(isMobile && startOnChoose));
+    setStep(startOnChoose ? "choose" : "password");
     setOpen(true);
-  }, []);
+  }, [isMobile]);
 
   const openStudy = useCallback((projectId: ProtectedProjectId) => {
     openGroup(protectedProjects[projectId].group, projectId);
@@ -135,6 +156,7 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   const resuming = useRef<ProtectedProjectId | null>(null);
   const resumeStudy = useCallback((projectId: ProtectedProjectId) => {
     if (groupKey.current?.group !== protectedProjects[projectId].group) return false;
+    if (unlockedRoute.current === protectedProjects[projectId].route) return true;
     if (resuming.current !== projectId) {
       resuming.current = projectId;
       void openProjectRef.current(projectId).finally(() => { resuming.current = null; });
@@ -251,9 +273,8 @@ export function ProtectedStudyProvider({ children }: { children: ReactNode }) {
   const thumbnails = groupKey.current?.thumbnails ?? {};
   const openingTitle = openingProject ? protectedProjects[openingProject].title : "";
 
-  // On phones the case-study picker opens as a bottom sheet; the password step stays a centred dialog. Colours follow the
-  // site: Tailwind grays for text, #E8699A accents, and the #E8699A → #C2547C CTA gradient.
-  const asSheet = isMobile && step === "choose";
+  // On phones the picker can open as a bottom sheet when the group is already unlocked.
+  // The password step stays a centred dialog, and we do not swap overlays after unlock.
   const Header = asSheet ? DrawerHeader : DialogHeader;
   const Title = asSheet ? DrawerTitle : DialogTitle;
   const Description = asSheet ? DrawerDescription : DialogDescription;
